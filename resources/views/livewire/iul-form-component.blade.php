@@ -67,7 +67,7 @@
                     <div class="basis-full">
                         <x-input id="file-add" class="w-full mt-1" type="file"
                             accept=".pdf, .doc, .docx, .xls, .xlsx, .odt, .ods, .xml" name="file-add" :value="old('file-add')"
-                            required autofocus autocomplete="file-add" />
+                            autofocus autocomplete="file-add" />
                     </div>
                 </div>
 

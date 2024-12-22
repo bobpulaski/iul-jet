@@ -2,11 +2,11 @@
 
 
     <!-- Modal toggle -->
-    <button wire:click="openModal" data-modal-target="static-modal" data-modal-toggle="static-modal"
+    {{-- <button wire:click="openModal" data-modal-target="static-modal" data-modal-toggle="static-modal"
         class="dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 block rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
         type="button">
         Toggle modal
-    </button>
+    </button> --}}
 
     @if ($isOpen)
         <div id="static-modal" wire:model="isOpen" data-modal-backdrop="static" tabindex="-1" aria-hidden="true"
