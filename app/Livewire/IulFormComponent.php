@@ -5,6 +5,7 @@ namespace App\Livewire;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\Attributes\Validate;
+use App\Helpers\FileChecksum;
 
 class IulFormComponent extends Component
 {
@@ -12,8 +13,6 @@ class IulFormComponent extends Component
 
     #[Validate('file|max:81920')] // 80MB Max
     public $inputFile;
-
-
 
 
     public function start()
@@ -35,10 +34,10 @@ class IulFormComponent extends Component
 
         $filePath = storage_path('app/private/uploads/' . $fileName);
 
-        // Получаем CRC32B хэш загруженного файла
-        $hash = hash_file('crc32b', $filePath);
+        $fileChecksum = new FileChecksum();
+        $hashCrc32 = $fileChecksum->getChecksumCrc32($filePath);
 
-        dd($hash); // Вывод хеша для проверки
+        dd($hashCrc32); // Вывод хеша для проверки
     }
 
 
