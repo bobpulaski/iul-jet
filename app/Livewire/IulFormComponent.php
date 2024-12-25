@@ -11,12 +11,30 @@ class IulFormComponent extends Component
 {
     use WithFileUploads;
 
-    #[Validate('file|max:81920')] // 80MB Max
+    public $name = '';
     public $inputFile;
-
+    public $orderNumber;
+    public $documentDesignation = '';
+    public $documentName = '';
+    public $versionNumber;
 
     public function start()
     {
+        $this->validate([
+            'name' => 'required|min:3|max:255',
+            'orderNumber' => 'required',
+            'documentDesignation' => 'required|min:3|max:255',
+            'documentName' => 'required|min:3|max:255',
+            'versionNumber' => 'required',
+            'inputFile' => 'required|file|max:81920',
+
+        ], [
+            'name.required' => 'Поле обязательно для заполнения',
+            'name.min' => 'Поле должно содержать не менее 3 символов',
+            'inputFile.required' => 'Пожалуйста, загрузите файл',
+            'inputFile.file' => 'Загрузите корректный файл',
+            'inputFile.max' => 'Размер файла не должен превышать 80 MB',
+        ]);
         // $this->dispatch(event: 'create-iul-started');
 
         // Обработка загрузки файла, если он был загружен
@@ -29,6 +47,7 @@ class IulFormComponent extends Component
     {
         $fileName = $this->inputFile->getClientOriginalName(); // Получение имени файла
         $this->inputFile->storeAs(path: 'uploads', name: $fileName); // Сохранение файла в папку 'uploads'
+
 
         // Находим путь к загруженному файлу
 
