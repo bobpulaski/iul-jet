@@ -5,7 +5,8 @@ namespace App\Livewire;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\Attributes\Validate;
-use App\Helpers\FileChecksum;
+use App\Helpers\FileInfo;
+use Illuminate\Support\Facades\Storage;
 
 class IulFormComponent extends Component
 {
@@ -18,26 +19,37 @@ class IulFormComponent extends Component
     public $documentName = '';
     public $versionNumber;
 
+    public $responsiblePersons = [];
+
+    public $currentAlgorithm = 'crc32';
+
     public function start()
     {
-        $this->validate([
-            'name' => 'required|min:3|max:255',
-            'orderNumber' => 'required',
-            'documentDesignation' => 'required|min:3|max:255',
-            'documentName' => 'required|min:3|max:255',
-            'versionNumber' => 'required',
-            'inputFile' => 'required|file|max:81920',
+        // dd($this->currentAlgorithm);
 
-        ], [
-            'name.required' => 'Поле обязательно для заполнения',
-            'name.min' => 'Поле должно содержать не менее 3 символов',
-            'inputFile.required' => 'Пожалуйста, загрузите файл',
-            'inputFile.file' => 'Загрузите корректный файл',
-            'inputFile.max' => 'Размер файла не должен превышать 80 MB',
-        ]);
+        $this->validate(
+            [
+                'name' => 'required|min:3|max:255',
+                'orderNumber' => 'required',
+                'documentDesignation' => 'required|min:3|max:255',
+                'documentName' => 'required|min:3|max:255',
+                'versionNumber' => 'required',
+                'currentAlgorithm' => 'required',
+
+                'inputFile' => 'required|file|max:81920',
+            ],
+            [
+                'name.required' => 'Поле обязательно для заполнения',
+                'name.min' => 'Поле должно содержать не менее 3 символов',
+                'inputFile.required' => 'Пожалуйста, загрузите файл',
+                'inputFile.file' => 'Загрузите корректный файл',
+                'inputFile.max' => 'Размер файла не должен превышать 80 MB',
+            ],
+        );
         // $this->dispatch(event: 'create-iul-started');
 
         // Обработка загрузки файла, если он был загружен
+
         if ($this->inputFile) {
             $this->uploadFile();
         }
@@ -45,20 +57,41 @@ class IulFormComponent extends Component
 
     public function uploadFile()
     {
-        $fileName = $this->inputFile->getClientOriginalName(); // Получение имени файла
-        $this->inputFile->storeAs(path: 'uploads', name: $fileName); // Сохранение файла в папку 'uploads'
+        // $fileName = $this->inputFile->getClientOriginalName();
 
+        // Получение оригинальной даты изменения перед загрузкой
+        $originalFilePath = $this->inputFile->getRealPath(); // Путь к оригинальному файлу до загрузки
+        $originalModifiedTime = filemtime($originalFilePath); // Получаем оригинальную дату изменения
+        $fileModifiedDateTime = date('d-m-Y H:i:s', $originalModifiedTime); // Форматируем метку времени в читаемый вид
+        dd($fileModifiedDateTime);
+
+
+        $fileInfo = new FileInfo();
+        $fileName = $fileInfo->getFileName($this->inputFile);
+        $fileSize = $fileInfo->getFileSize($this->inputFile);
+
+        // Сохранение файла в папку 'uploads'
+        $this->inputFile->storeAs('uploads', $fileName, 'local');
 
         // Находим путь к загруженному файлу
+        $filePath = storage_path('/app/private/uploads/' . $fileName);
 
-        $filePath = storage_path('app/private/uploads/' . $fileName);
+        // Получаем дату и время последнего изменения файла
+        // $fileModifiedTime = Storage::lastModified($filePath); // Это вернет метку времени
+        // $fileModifiedTime = Storage::disk('local')->lastModified('uploads/' . $fileName);
+        // $fileModifiedTime = $fileInfo->getFileModifiedDateTime($filePath);
+        // $fileModifiedDateTime = date('d-m-Y H:i:s', $fileModifiedTime); // Форматируем метку времени в читаемый вид
 
-        $fileChecksum = new FileChecksum();
-        $hashCrc32 = $fileChecksum->getChecksumCrc32($filePath);
+        $hashCrc32 = $fileInfo->getChecksumCrc32($filePath);
 
-        dd($hashCrc32); // Вывод хеша для проверки
+        // Выводим информацию о файле
+        dd([
+            '$fileName' => $fileName,
+            'fileSize' => $fileSize, // Размер файла
+            'fileModifiedDateTime' => $fileModifiedDateTime, // Дата и время изменения
+            'fileChecksum' => $hashCrc32, // Хэш для проверки
+        ]);
     }
-
 
     public function render()
     {
