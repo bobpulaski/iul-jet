@@ -5,6 +5,7 @@ namespace App\Livewire;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use App\Helpers\FileInfo;
+use Livewire\Attributes\On;
 use Illuminate\Support\Facades\Storage;
 
 class IulFormComponent extends Component
@@ -15,7 +16,6 @@ class IulFormComponent extends Component
 
     public $inputFile;
     public $modifiedDate;
-    protected $listeners = ['fileModifiedDate'];
 
     public $orderNumber;
     public $documentDesignation = '';
@@ -58,11 +58,14 @@ class IulFormComponent extends Component
         }
     }
 
-    public function fileModifiedDate($date)
+    #[On('file-selected')]
+    public function fileModifiedDate()
     {
-        $this->modifiedDate = $date; // Store the modified date
-        dd(vars: $this->modifiedDate);
+        // Выводим значение с помощью dd
+        dd('$formattedDate');
+        // Логика после dd не будет выполнена, так что dd остановит выполнение.
     }
+
     public function uploadFile()
     {
         // $fileName = $this->inputFile->getClientOriginalName();

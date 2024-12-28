@@ -136,11 +136,10 @@
                     x-on:livewire-upload-progress="progress = $event.detail.progress">
 
                     <div class="mt-4 flex flex-row gap-4">
-                        <div class="basis-3/4">
-                            <input id="inputFile" onchange="fileInfo()" class="mt-1 block w-full" type="file"
-                                wire:model="inputFile" accept=".pdf, .doc, .docx, .xls, .xlsx, .odt, .ods, .xml"
-                                name="inputFile" autofocus />
-                        </div>
+
+
+
+
 
                         <div>
                             @error('inputFile')
@@ -173,6 +172,13 @@
         </div>
 
     </form>
+
+    <div class="basis-3/4">
+        <input id="inputFile" onchange="fileInfo()" class="mt-1 block w-full" type="file" wire:model="inputFile"
+            accept=".pdf, .doc, .docx, .xls, .xlsx, .odt, .ods, .xml" name="inputFile" autofocus />
+    </div>
+
+
     @livewire('progress-modal-component')
 
     <script>
@@ -182,16 +188,20 @@
                 var fileName = fileInput.name;
                 var fileSize = fileInput.size;
                 var fileType = fileInput.type;
-                var fileModifiedDate = new Date(fileInput.lastModified); // Create a Date object from lastModified
+                var fileModifiedDate = new Date(fileInput
+                    .lastModified); // Create a Date object from lastModified
                 var formattedDate = fileModifiedDate.toLocaleString(); // Format the date for better readability
-                var file_info = fileName + "\n" + fileSize + " bytes\n" + fileType + "\nLast Modified: " + formattedDate;
-                alert(file_info);
+                var file_info = fileName + "\n" + fileSize + " bytes\n" + fileType + "\nLast Modified: " +
+                    formattedDate;
+
+                console.log(file_info);
+                Livewire.dispatch('file-selected');
+                // Livewire.on('fileModifiedDate', formattedDate);
             } else {
                 alert("No file selected.");
             }
         }
     </script>
-
 
 
     {{-- <script>
