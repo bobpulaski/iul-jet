@@ -16,15 +16,27 @@ class FileInfo
         return $fileSize;
     }
 
-    public function getFileModifiedDateTime($filePath)
-    {
-        $fileModifiedTime = filemtime($filePath);
-        return $fileModifiedTime;
-    }
+    // public function getFileModifiedDateTime($filePath)
+    // {
+    //     $fileModifiedTime = filemtime($filePath);
+    //     return $fileModifiedTime;
+    // }
 
     public function getChecksumCrc32($filePath)
     {
         $hash = hash_file('crc32b', $filePath);
+        return $hash;
+    }
+
+    public function getChecksumMd5($filePath)
+    {
+        $hash = md5_file($filePath, false);
+        return $hash;
+    }
+
+    public function getChecksumSha1($filePath)
+    {
+        $hash = sha1_file($filePath);
         return $hash;
     }
 

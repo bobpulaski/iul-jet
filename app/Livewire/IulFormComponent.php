@@ -6,52 +6,51 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use App\Helpers\FileInfo;
 use Livewire\Attributes\On;
-use Illuminate\Support\Facades\Storage;
 
 class IulFormComponent extends Component
 {
     use WithFileUploads;
 
+    // Состояние компонента
     public $name = '';
-
     public $inputFile;
-    public $modifiedDate;
-
+    public $formattedDate;
     public $orderNumber;
     public $documentDesignation = '';
     public $documentName = '';
     public $versionNumber;
-
     public $responsiblePersons = [];
-
     public $currentAlgorithm = 'crc32';
+
+    // Правила валидации
+    protected function rules()
+    {
+        return [
+            'name' => 'required|min:3|max:255',
+            'orderNumber' => 'required',
+            'documentDesignation' => 'required|min:3|max:255',
+            'documentName' => 'required|min:3|max:255',
+            'versionNumber' => 'required',
+            'currentAlgorithm' => 'required',
+            'inputFile' => 'required|file|max:81920',
+        ];
+    }
+
+    // Сообщения об ошибках
+    protected function messages()
+    {
+        return [
+            'name.required' => 'Поле обязательно для заполнения',
+            'name.min' => 'Поле должно содержать не менее 3 символов',
+            'inputFile.required' => 'Пожалуйста, загрузите файл',
+            'inputFile.file' => 'Загрузите корректный файл',
+            'inputFile.max' => 'Размер файла не должен превышать 80 MB',
+        ];
+    }
 
     public function start()
     {
-        // dd($this->currentAlgorithm);
-
-        $this->validate(
-            [
-                'name' => 'required|min:3|max:255',
-                'orderNumber' => 'required',
-                'documentDesignation' => 'required|min:3|max:255',
-                'documentName' => 'required|min:3|max:255',
-                'versionNumber' => 'required',
-                'currentAlgorithm' => 'required',
-
-                'inputFile' => 'required|file|max:81920',
-            ],
-            [
-                'name.required' => 'Поле обязательно для заполнения',
-                'name.min' => 'Поле должно содержать не менее 3 символов',
-                'inputFile.required' => 'Пожалуйста, загрузите файл',
-                'inputFile.file' => 'Загрузите корректный файл',
-                'inputFile.max' => 'Размер файла не должен превышать 80 MB',
-            ],
-        );
-        // $this->dispatch(event: 'create-iul-started');
-
-        // Обработка загрузки файла, если он был загружен
+        $this->validate($this->rules(), $this->messages());
 
         if ($this->inputFile) {
             $this->uploadFile();
@@ -59,47 +58,56 @@ class IulFormComponent extends Component
     }
 
     #[On('file-selected')]
-    public function fileModifiedDate()
+    public function fileModifiedDate($formattedDate)
     {
-        // Выводим значение с помощью dd
-        dd('$formattedDate');
-        // Логика после dd не будет выполнена, так что dd остановит выполнение.
+        $this->formattedDate = $formattedDate;
     }
 
     public function uploadFile()
     {
-        // $fileName = $this->inputFile->getClientOriginalName();
-
-        // Получение оригинальной даты изменения перед загрузкой
-        // $originalFilePath = $this->inputFile->getRealPath(); // Путь к оригинальному файлу до загрузки
-        // $originalModifiedTime = filemtime($originalFilePath); // Получаем оригинальную дату изменения
-        // $fileModifiedDateTime = date('d-m-Y H:i:s', $originalModifiedTime); // Форматируем метку времени в читаемый вид
-        // dd($fileModifiedDateTime);
-
+        // dd($this->responsiblePersons);
 
         $fileInfo = new FileInfo();
+
+        // Получаем информацию о файле
         $fileName = $fileInfo->getFileName($this->inputFile);
         $fileSize = $fileInfo->getFileSize($this->inputFile);
 
-        // Сохранение файла в папку 'uploads'
-        $this->inputFile->storeAs('uploads', $fileName, 'local');
-
-        // Находим путь к загруженному файлу
-        $filePath = storage_path('/app/private/uploads/' . $fileName);
-
-        // Получаем дату и время последнего изменения файла
-        // $fileModifiedTime = Storage::lastModified($filePath); // Это вернет метку времени
-        // $fileModifiedTime = Storage::disk('local')->lastModified('uploads/' . $fileName);
-        // $fileModifiedTime = $fileInfo->getFileModifiedDateTime($filePath);
-        // $fileModifiedDateTime = date('d-m-Y H:i:s', $fileModifiedTime); // Форматируем метку времени в читаемый вид
+        // Сохраняем файл и вычисляем его хэш
+        $this->saveFile($fileName);
+        $filePath = storage_path('app/private/uploads/' . $fileName);
 
         $hashCrc32 = $fileInfo->getChecksumCrc32($filePath);
+        $hashMd5 = $fileInfo->getChecksumMd5($filePath);
+        $hashSha1 = $fileInfo->getChecksumSha1($filePath);
 
         // Выводим информацию о файле
+        $this->outputFileInfo($fileName, $fileSize, $hashCrc32, $hashMd5, $hashSha1);
+    }
+
+    protected function saveFile($fileName)
+    {
+        $this->inputFile->storeAs('uploads', $fileName, 'local');
+    }
+
+    protected function outputFileInfo($fileName, $fileSize, $hashCrc32, $hashMd5, $hashSha1)
+    {
         dd([
-            '$fileName' => $fileName,
-            'fileSize' => $fileSize, // Размер файла
-            'fileChecksum' => $hashCrc32, // Хэш для проверки
+            'name' => $this->name,
+            'orderNumber' => $this->orderNumber,
+            'documentDesignation' => $this->documentDesignation,
+            'documentName' => $this->documentName,
+            'versionNumber' => $this->versionNumber,
+            'responsiblePersons' => $this->responsiblePersons,
+            'currentAlgorithm' => $this->currentAlgorithm,
+
+
+            'fileName' => $fileName,
+            'fileSize' => $fileSize,
+            'fileModifiedDate' => $this->formattedDate,
+            'fileChecksumCrc32' => $hashCrc32,
+            'fileChecksumMd5' => $hashMd5,
+            'fileChecksumSha1' => $hashSha1,
         ]);
     }
 

@@ -51,28 +51,35 @@
             <div class="p-8">
                 <h3 class="mb-4">Подписи ответственных лиц</h3>
                 <div class="mt-4">
+
                     <div x-data="{
                         rows: [{ kind: '', surname: '' }],
                         addRow() {
                             this.rows.push({ kind: '', surname: '' });
-                            @this.set('responsiblePersons', this.rows);
+                            this.updateLivewireArray();
                         },
                         deleteRow(index) {
                             this.rows.splice(index, 1);
+                            this.updateLivewireArray();
+                        },
+                        updateLivewireArray() {
+                            @this.set('responsiblePersons', this.rows);
                         }
                     }">
+
+                    {{-- TODO: @input="updateLivewireArray()" надо переделать, а то на каждое нажатие в поле ввода реагирует.            Сделал так, потому-что первая строка подписей не попадает в массив, пока не добавишь новую строку --}}
 
                         <template x-for="(row, index) in rows" :key="index">
                             <div class="mt-4 grid grid-cols-8 gap-4">
 
                                 <div class="col-span-3">
                                     <x-input x-model="row.kind" type="text" class="block w-full"
-                                        placeholder="Характер работы" />
+                                        placeholder="Характер работы" @input="updateLivewireArray()" />
                                 </div>
 
                                 <div class="col-span-4">
                                     <x-input x-model="row.surname" type="text" class="block w-full"
-                                        placeholder="Фамилия" />
+                                        placeholder="Фамилия" @input="updateLivewireArray()" />
                                 </div>
 
                                 <div class="col-span-1">
@@ -101,82 +108,82 @@
                             <x-info-button @click="addRow()">{{ __('Добавить') }}</x-info-button>
                         </div>
                     </div>
-                </div>
-
-            </div>
-        </div>
-
-        {{-- Файл и расчёт контрольной суммы --}}
-        <div class="mt-6 w-9/12 overflow-hidden bg-white shadow-md sm:rounded-lg dark:bg-gray-800">
-            <div class="p-8">
-                <h3 class="mb-4">{{ __('Алгоритм расчёта контрольной суммы*') }}</h3>
-                <div class="mt-4 flex flex-row gap-4">
-                    <input id="algorithm-radio-crc32" wire:model="currentAlgorithm" type="radio" value="crc32"
-                        name="algorithm-radio"
-                        class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600">
-                    <label for="algorithm-radio-crc32"
-                        class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">CRC32</label>
-
-                    <input id="algorithm-radio-md5" wire:model="currentAlgorithm" type="radio" value="md5"
-                        name="algorithm-radio"
-                        class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600">
-                    <label for="algorithm-radio-md5"
-                        class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">MD5</label>
-
-                    <input id="algorithm-radio-sha1" wire:model="currentAlgorithm" type="radio" value="sha1"
-                        name="algorithm-radio"
-                        class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600">
-                    <label for="algorithm-radio-sha1"
-                        class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">SHA1</label>
-                </div>
-
-                <div x-data="{ uploading: false, progress: 0 }" x-on:livewire-upload-start="uploading = true"
-                    x-on:livewire-upload-finish="uploading = false" x-on:livewire-upload-cancel="uploading = false"
-                    x-on:livewire-upload-error="uploading = false"
-                    x-on:livewire-upload-progress="progress = $event.detail.progress">
-
-                    <div class="mt-4 flex flex-row gap-4">
 
 
+                    {{-- Файл и расчёт контрольной суммы --}}
+                    <div class="mt-6 w-9/12 overflow-hidden bg-white shadow-md sm:rounded-lg dark:bg-gray-800">
+                        <div class="p-8">
+                            <h3 class="mb-4">{{ __('Алгоритм расчёта контрольной суммы*') }}</h3>
+                            <div class="mt-4 flex flex-row gap-4">
+                                <input id="algorithm-radio-crc32" wire:model="currentAlgorithm" type="radio"
+                                    value="crc32" name="algorithm-radio"
+                                    class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600">
+                                <label for="algorithm-radio-crc32"
+                                    class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">CRC32</label>
+
+                                <input id="algorithm-radio-md5" wire:model="currentAlgorithm" type="radio"
+                                    value="md5" name="algorithm-radio"
+                                    class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600">
+                                <label for="algorithm-radio-md5"
+                                    class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">MD5</label>
+
+                                <input id="algorithm-radio-sha1" wire:model="currentAlgorithm" type="radio"
+                                    value="sha1" name="algorithm-radio"
+                                    class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600">
+                                <label for="algorithm-radio-sha1"
+                                    class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">SHA1</label>
+                            </div>
+
+                            <div x-data="{ uploading: false, progress: 0 }" x-on:livewire-upload-start="uploading = true"
+                                x-on:livewire-upload-finish="uploading = false"
+                                x-on:livewire-upload-cancel="uploading = false"
+                                x-on:livewire-upload-error="uploading = false"
+                                x-on:livewire-upload-progress="progress = $event.detail.progress">
+
+                                <div class="mt-4 flex flex-row gap-4">
 
 
+                                    <div class="basis-3/4">
+                                        <input id="inputFile" onchange="fileInfo()" class="mt-1 block w-full"
+                                            type="file" wire:model="inputFile"
+                                            accept=".pdf, .doc, .docx, .xls, .xlsx, .odt, .ods, .xml" name="inputFile"
+                                            autofocus />
+                                    </div>
 
-                        <div>
-                            @error('inputFile')
-                                <span class="error">{{ $message }}</span>
-                            @enderror
+
+                                    <div>
+                                        @error('inputFile')
+                                            <span class="error">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="mt-1 basis-1/4 text-right">
+                                        <x-button type="button"
+                                            wire:click="$cancelUpload('inputFile')">{{ __('Отменить загрузку') }}
+                                        </x-button>
+                                    </div>
+
+                                </div>
+
+                                <div x-show="uploading" class="mt-2">
+                                    <progress max="100" x-bind:value="progress"></progress>
+                                </div>
+
+                            </div>
                         </div>
-
-                        <div class="mt-1 basis-1/4 text-right">
-                            <x-button type="button"
-                                wire:click="$cancelUpload('inputFile')">{{ __('Отменить загрузку') }}
-                            </x-button>
-                        </div>
-
                     </div>
 
-                    <div x-show="uploading" class="mt-2">
-                        <progress max="100" x-bind:value="progress"></progress>
+                    <div class="mt-6 w-9/12 overflow-hidden">
+                        <div class="py-6">
+                            <div class="mt-4 flex items-center justify-end">
+                                <x-button>Сформировать</x-button>
+                            </div>
+                        </div>
                     </div>
-
-                </div>
-            </div>
-        </div>
-
-        <div class="mt-6 w-9/12 overflow-hidden">
-            <div class="py-6">
-                <div class="mt-4 flex items-center justify-end">
-                    <x-button>Сформировать</x-button>
-                </div>
-            </div>
-        </div>
 
     </form>
 
-    <div class="basis-3/4">
-        <input id="inputFile" onchange="fileInfo()" class="mt-1 block w-full" type="file" wire:model="inputFile"
-            accept=".pdf, .doc, .docx, .xls, .xlsx, .odt, .ods, .xml" name="inputFile" autofocus />
-    </div>
+
 
 
     @livewire('progress-modal-component')
@@ -188,15 +195,16 @@
                 var fileName = fileInput.name;
                 var fileSize = fileInput.size;
                 var fileType = fileInput.type;
-                var fileModifiedDate = new Date(fileInput
-                    .lastModified); // Create a Date object from lastModified
+                var fileModifiedDate = new Date(fileInput.lastModified); // Create a Date object from lastModified
                 var formattedDate = fileModifiedDate.toLocaleString(); // Format the date for better readability
                 var file_info = fileName + "\n" + fileSize + " bytes\n" + fileType + "\nLast Modified: " +
                     formattedDate;
 
-                console.log(file_info);
-                Livewire.dispatch('file-selected');
-                // Livewire.on('fileModifiedDate', formattedDate);
+                console.log(formattedDate);
+
+                Livewire.dispatch('file-selected', {
+                    formattedDate: formattedDate
+                });
             } else {
                 alert("No file selected.");
             }
