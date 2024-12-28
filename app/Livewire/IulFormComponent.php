@@ -4,7 +4,6 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Livewire\Attributes\Validate;
 use App\Helpers\FileInfo;
 use Illuminate\Support\Facades\Storage;
 
@@ -13,7 +12,11 @@ class IulFormComponent extends Component
     use WithFileUploads;
 
     public $name = '';
+
     public $inputFile;
+    public $modifiedDate;
+    protected $listeners = ['fileModifiedDate'];
+
     public $orderNumber;
     public $documentDesignation = '';
     public $documentName = '';
@@ -55,15 +58,20 @@ class IulFormComponent extends Component
         }
     }
 
+    public function fileModifiedDate($date)
+    {
+        $this->modifiedDate = $date; // Store the modified date
+        dd(vars: $this->modifiedDate);
+    }
     public function uploadFile()
     {
         // $fileName = $this->inputFile->getClientOriginalName();
 
         // Получение оригинальной даты изменения перед загрузкой
-        $originalFilePath = $this->inputFile->getRealPath(); // Путь к оригинальному файлу до загрузки
-        $originalModifiedTime = filemtime($originalFilePath); // Получаем оригинальную дату изменения
-        $fileModifiedDateTime = date('d-m-Y H:i:s', $originalModifiedTime); // Форматируем метку времени в читаемый вид
-        dd($fileModifiedDateTime);
+        // $originalFilePath = $this->inputFile->getRealPath(); // Путь к оригинальному файлу до загрузки
+        // $originalModifiedTime = filemtime($originalFilePath); // Получаем оригинальную дату изменения
+        // $fileModifiedDateTime = date('d-m-Y H:i:s', $originalModifiedTime); // Форматируем метку времени в читаемый вид
+        // dd($fileModifiedDateTime);
 
 
         $fileInfo = new FileInfo();
@@ -88,7 +96,6 @@ class IulFormComponent extends Component
         dd([
             '$fileName' => $fileName,
             'fileSize' => $fileSize, // Размер файла
-            'fileModifiedDateTime' => $fileModifiedDateTime, // Дата и время изменения
             'fileChecksum' => $hashCrc32, // Хэш для проверки
         ]);
     }
