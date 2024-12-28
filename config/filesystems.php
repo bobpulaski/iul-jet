@@ -72,7 +72,7 @@ return [
 
     'links' => [
         // public_path('storage') => storage_path('app/public'),
-        public_path('iul.codeocean.ru') => storage_path('app/public'),
+        public_path('domains/iul.codeocean.ru') => ('app/public'),
     ],
 
 ];
