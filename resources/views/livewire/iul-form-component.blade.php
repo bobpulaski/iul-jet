@@ -1,36 +1,49 @@
 <div>
     <form wire:submit="start">
         @csrf
+
         {{-- Основная информация --}}
-        <div class="w-9/12 overflow-hidden bg-white shadow-md sm:rounded-lg dark:bg-gray-800">
-            <div class="p-8">
+        <div class="overflow-hidden bg-white shadow-md sm:rounded-lg dark:bg-gray-800">
 
-                <h3 class="mb-4">Основная информация</h3>
+            <div class="flex flex-col p-8">
 
-                <div>
+                <x-ui.h3>Основная информация</x-ui.h3>
+
+                {{-- 1# Наименование объекта --}}
+                <div class="flex flex-col">
                     <x-label for="name" value="{{ __('Наименование объекта*') }}" />
                     <x-input id="name" wire:model="name" class="mt-1 block w-full" type="text" name="name"
                         required autofocus autocomplete="name" />
-                    <div class="text-red-400">
-                        @error('name')
-                            <span>{{ $message }}</span>
-                        @enderror
-                    </div>
+                    @error('name')
+                        <x-ui.form-validation-error-message :message="$message" />
+                    @enderror
                 </div>
 
+                {{-- 2# Порядковый номер и обозначение --}}
                 <div class="mt-4 flex flex-row gap-4">
-                    <div class="basis-1/4">
+                    <div class="flex basis-1/4 flex-col">
                         <x-label for="orderNumber" value="{{ __('№ п/п*') }}" />
                         <x-input id="orderNumber" wire:model="orderNumber" class="mt-1 block w-full" type="number"
                             min="0" name="orderNumber" required autocomplete="orderNumber" />
+                        <div class="text-red-400">
+                            @error('orderNumber')
+                                <x-ui.form-validation-error-message :message="$message" />
+                            @enderror
+                        </div>
                     </div>
                     <div class="basis-full">
                         <x-label for="documentDesignation" value="{{ __('Обозначение документа*') }}" />
                         <x-input id="documentDesignation" wire:model="documentDesignation" class="mt-1 block w-full"
                             type="text" name="documentDesignation" required autocomplete="documentDesignation" />
+                        <div class="text-red-400">
+                            @error('documentDesignation')
+                                <x-ui.form-validation-error-message :message="$message" />
+                            @enderror
+                        </div>
                     </div>
                 </div>
 
+                {{-- 3# Наименование документа и версия --}}
                 <div class="mt-4 flex flex-row gap-4">
                     <div class="basis-full">
                         <x-label for="documentName" value="{{ __('Наименование документа*') }}" />
@@ -43,15 +56,18 @@
                             name="versionNumber" required autocomplete="versionNumber" />
                     </div>
                 </div>
+
             </div>
         </div>
 
         {{-- Подписи ответственных лиц --}}
-        <div class="mt-6 w-9/12 overflow-hidden bg-white shadow-md sm:rounded-lg dark:bg-gray-800">
-            <div class="p-8">
-                <h3 class="mb-4">Подписи ответственных лиц</h3>
-                <div class="mt-4">
+        <div class="mt-6 overflow-hidden bg-white shadow-md sm:rounded-lg dark:bg-gray-800">
 
+            <div class="flex flex-col p-8">
+
+                <x-ui.h3>Подписи ответственных лиц</x-ui.h3>
+
+                <div>
                     <div x-data="{
                         rows: [{ kind: '', surname: '' }],
                         addRow() {
@@ -67,45 +83,50 @@
                         }
                     }">
 
-                    {{-- TODO: @input="updateLivewireArray()" надо переделать, а то на каждое нажатие в поле ввода реагирует.            Сделал так, потому-что первая строка подписей не попадает в массив, пока не добавишь новую строку --}}
+                        {{-- TODO: @input="updateLivewireArray()" надо переделать, а то на каждое нажатие в поле ввода реагирует.
+                        Сделал так, потому-что первая строка подписей не попадает в массив, пока не добавишь новую строку --}}
 
                         <template x-for="(row, index) in rows" :key="index">
-                            <div class="mt-4 grid grid-cols-8 gap-4">
 
-                                <div class="col-span-3">
-                                    <x-input x-model="row.kind" type="text" class="block w-full"
-                                        placeholder="Характер работы" @input="updateLivewireArray()" />
-                                </div>
+                            {{-- <div class="mt-4 grid grid-cols-8 gap-4"> --}}
+                            <div class="flex flex-col">
+                                <div class="mb-2 mt-2 flex flex-col gap-4 rounded-md bg-indigo-100 p-4 md:flex-row">
 
-                                <div class="col-span-4">
-                                    <x-input x-model="row.surname" type="text" class="block w-full"
-                                        placeholder="Фамилия" @input="updateLivewireArray()" />
-                                </div>
+                                    <div class="md:full basis-5/12">
+                                        <x-input x-model="row.kind" type="text" class="block w-full"
+                                            placeholder="Характер работы" @input="updateLivewireArray()" />
+                                    </div>
 
-                                <div class="col-span-1">
-                                    <button x-show="index > 0" class="mt-1 rounded-md p-2 hover:bg-slate-100"
-                                        @click="deleteRow(index)">
-                                        <svg width="24px" height="24px" viewBox="0 0 24.00 24.00" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg" stroke="#000000" transform="rotate(0)">
-                                            <g id="SVGRepo_bgCarrier" stroke-width="0"
-                                                transform="translate(0,0), scale(1)">
-                                            </g>
-                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"
-                                                stroke="#CCCCCC" stroke-width="0.624"></g>
-                                            <g id="SVGRepo_iconCarrier">
-                                                <path
-                                                    d="M18 6V18C18 19.1046 17.1046 20 16 20H8C6.89543 20 6 19.1046 6 18V6M15 6V5C15 3.89543 14.1046 3 13 3H11C9.89543 3 9 3.89543 9 5V6M4 6H20"
-                                                    stroke="#393939" stroke-width="1.5" stroke-linecap="round"
-                                                    stroke-linejoin="round"></path>
-                                            </g>
-                                        </svg>
-                                    </button>
+                                    <div class="md:full basis-6/12">
+                                        <x-input x-model="row.surname" type="text" class="block w-full"
+                                            placeholder="Фамилия" @input="updateLivewireArray()" />
+                                    </div>
+                                    <div class="md:full basis-1/12">
+                                        <x-danger-button x-show="index > 0" @click="deleteRow(index)">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor" class="size-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M15 12H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                            </svg>
+                                        </x-danger-button>
+
+                                        <div class="tooltip">Hover over me
+                                            <span class="tooltiptext">Добавить подпись</span>
+                                        </div>
+
+                                    </div>
                                 </div>
                             </div>
+
                         </template>
 
                         <div class="mt-4">
-                            <x-info-button @click="addRow()">{{ __('Добавить') }}</x-info-button>
+                            <x-info-button @click="addRow()"><svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                </svg>
+                            </x-info-button>
                         </div>
                     </div>
 
@@ -237,6 +258,43 @@
 
         input[type=file]::file-selector-button:hover {
             background: #374151;
+        }
+
+
+
+        /* Tooltip container */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted black;
+            z-index: 999;
+            /* If you want dots under the hoverable text */
+        }
+
+        /* Tooltip text */
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: black;
+            color: #fff;
+            text-align: center;
+            padding: 5px 0;
+            border-radius: 6px;
+
+            width: 120px;
+            bottom: 100%;
+            left: 50%;
+            margin-left: -60px;
+            /* Use half of the width (120/2 = 60), to center the tooltip */
+
+            /* Position the tooltip text - see examples below! */
+            position: absolute;
+            z-index: 1;
+        }
+
+        /* Show the tooltip text when you mouse over the tooltip container */
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
         }
     </style>
 

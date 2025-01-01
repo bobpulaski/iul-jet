@@ -12,15 +12,15 @@ class IulFormComponent extends Component
     use WithFileUploads;
 
     // Состояние компонента
-    public $name = '';
+    public string $name = '';
     public $inputFile;
     public $formattedDate;
-    public $orderNumber;
-    public $documentDesignation = '';
-    public $documentName = '';
-    public $versionNumber;
+    public int $orderNumber;
+    public string $documentDesignation = '';
+    public string $documentName = '';
+    public int $versionNumber;
     public $responsiblePersons = [];
-    public $currentAlgorithm = 'crc32';
+    public string $currentAlgorithm = 'crc32';
 
     // Правила валидации
     protected function rules()
@@ -40,8 +40,18 @@ class IulFormComponent extends Component
     protected function messages()
     {
         return [
-            'name.required' => 'Поле обязательно для заполнения',
-            'name.min' => 'Поле должно содержать не менее 3 символов',
+            'name.required' => 'Поле обязательно для заполнения.',
+            'name.min' => 'Поле должно содержать не менее 3 символов.',
+            'name.max' => 'Поле не должно содержать более 255 символов.',
+
+            'orderNumber.required' => 'Поле обязательно для заполнения.',
+
+            'documentDesignation.required' => 'Поле обязательно для заполнения.',
+            'documentDesignation.min' => 'Поле должно содержать не менее 3 символов.',
+            'documentDesignation.max' => 'Поле не должно содержать более 255 символов.',
+
+            'versionNumber.required' => 'Поле обязательно для заполнения.',
+
             'inputFile.required' => 'Пожалуйста, загрузите файл',
             'inputFile.file' => 'Загрузите корректный файл',
             'inputFile.max' => 'Размер файла не должен превышать 80 MB',
