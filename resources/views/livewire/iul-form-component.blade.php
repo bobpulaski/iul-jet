@@ -110,9 +110,9 @@
                                             </svg>
                                         </x-danger-button>
 
-                                        <div class="tooltip">Hover over me
+                                        <!-- <div class="tooltip">Hover over me
                                             <span class="tooltiptext">Добавить подпись</span>
-                                        </div>
+                                        </div> -->
 
                                     </div>
                                 </div>
