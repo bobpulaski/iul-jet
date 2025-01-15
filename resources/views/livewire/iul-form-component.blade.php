@@ -1,4 +1,7 @@
 <div>
+
+    <button type="button" wire:click="phpinfo">PHPINFO</button>
+
     <form wire:submit="start">
         @csrf
 

@@ -59,6 +59,32 @@ class IulFormComponent extends Component
         ];
     }
 
+    public function phpinfo()
+    {
+        $phpWord = new \PhpOffice\PhpWord\PhpWord();
+        $section = $phpWord->addSection();
+        $text = $section->addText('emp_name');
+
+        $fileName = 'Appdividend.docx';
+
+        // Сохраняем файл в публичную директорию
+        $filePath = public_path($fileName);
+        $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+        $objWriter->save($filePath);
+
+        // Вернем ответ с загрузкой
+        $response = response()->download($filePath);
+
+        // Используем событие "terminating", чтобы удалить файл после ответа
+        app()->terminating(function () use ($filePath) {
+            if (file_exists($filePath)) {
+                unlink($filePath); // Удаляем файл
+            }
+        });
+
+        return $response;
+    }
+
     public function start()
     {
         $this->validate($this->rules(), $this->messages());
@@ -110,7 +136,6 @@ class IulFormComponent extends Component
             'responsiblePersons' => $this->responsiblePersons,
             'currentAlgorithm' => $this->currentAlgorithm,
             'rememberResponsiblePersons' => $this->rememberResponsiblePersons,
-
 
             'fileName' => $fileName,
             'fileSize' => $fileSize,
