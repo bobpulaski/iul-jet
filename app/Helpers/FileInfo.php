@@ -16,11 +16,6 @@ class FileInfo
         return $fileSize;
     }
 
-    // public function getFileModifiedDateTime($filePath)
-    // {
-    //     $fileModifiedTime = filemtime($filePath);
-    //     return $fileModifiedTime;
-    // }
 
     public function getChecksumCrc32($filePath)
     {

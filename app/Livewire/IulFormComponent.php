@@ -21,6 +21,7 @@ class IulFormComponent extends Component
     public int $versionNumber;
     public $responsiblePersons = [];
     public string $currentAlgorithm = 'crc32';
+    public bool $rememberResponsiblePersons = false;
 
     // Правила валидации
     protected function rules()
@@ -75,8 +76,6 @@ class IulFormComponent extends Component
 
     public function uploadFile()
     {
-        // dd($this->responsiblePersons);
-
         $fileInfo = new FileInfo();
 
         // Получаем информацию о файле
@@ -110,6 +109,7 @@ class IulFormComponent extends Component
             'versionNumber' => $this->versionNumber,
             'responsiblePersons' => $this->responsiblePersons,
             'currentAlgorithm' => $this->currentAlgorithm,
+            'rememberResponsiblePersons' => $this->rememberResponsiblePersons,
 
 
             'fileName' => $fileName,
