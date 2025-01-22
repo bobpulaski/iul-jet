@@ -1,5 +1,9 @@
 <div>
 
+    @if(Auth::check() && Auth::user()->hasRole('unpaid')) <!-- Предположим, есть метод hasRole в вашей модели User -->
+        <button>Скрытая кнопка для администраторов</button>
+    @endif
+
     <button type="button" wire:click="phpinfo">PHPINFO</button>
 
     <form wire:submit="start">
@@ -15,7 +19,7 @@
                 {{-- 1# Наименование объекта --}}
                 <div class="flex flex-col">
                     <x-label for="name" value="{{ __('Наименование объекта*') }}" />
-                    <x-input id="name" wire:model="name" class="mt-1 block w-full" type="text" name="name"
+                    <x-input id="name" wire:model="name" class="block w-full mt-1" type="text" name="name"
                         required autofocus autocomplete="name" />
                     @error('name')
                         <x-ui.form-validation-error-message :message="$message" />
@@ -23,10 +27,10 @@
                 </div>
 
                 {{-- 2# Порядковый номер и обозначение --}}
-                <div class="mt-4 flex flex-row gap-4">
-                    <div class="flex basis-1/4 flex-col">
+                <div class="flex flex-row gap-4 mt-4">
+                    <div class="flex flex-col basis-1/4">
                         <x-label for="orderNumber" value="{{ __('№ п/п*') }}" />
-                        <x-input id="orderNumber" wire:model="orderNumber" class="mt-1 block w-full" type="number"
+                        <x-input id="orderNumber" wire:model="orderNumber" class="block w-full mt-1" type="number"
                             min="0" name="orderNumber" required autocomplete="orderNumber" />
                         <div class="text-red-400">
                             @error('orderNumber')
@@ -36,7 +40,7 @@
                     </div>
                     <div class="basis-full">
                         <x-label for="documentDesignation" value="{{ __('Обозначение документа*') }}" />
-                        <x-input id="documentDesignation" wire:model="documentDesignation" class="mt-1 block w-full"
+                        <x-input id="documentDesignation" wire:model="documentDesignation" class="block w-full mt-1"
                             type="text" name="documentDesignation" required autocomplete="documentDesignation" />
                         <div class="text-red-400">
                             @error('documentDesignation')
@@ -47,15 +51,15 @@
                 </div>
 
                 {{-- 3# Наименование документа и версия --}}
-                <div class="mt-4 flex flex-row gap-4">
+                <div class="flex flex-row gap-4 mt-4">
                     <div class="basis-10/12">
                         <x-label for="documentName" value="{{ __('Наименование документа*') }}" />
-                        <x-input id="documentName" wire:model="documentName" class="mt-1 block w-full" type="text"
+                        <x-input id="documentName" wire:model="documentName" class="block w-full mt-1" type="text"
                             name="documentName" required autocomplete="documentName" />
                     </div>
                     <div class="basis-2/12">
                         <x-label for="versionNumber" value="{{ __('№ версии*') }}" />
-                        <x-input id="versionNumber" min="0" wire:model="versionNumber" class="mt-1 block w-full"
+                        <x-input id="versionNumber" min="0" wire:model="versionNumber" class="block w-full mt-1"
                             type="number" name="versionNumber" required autocomplete="versionNumber" />
                     </div>
                 </div>
@@ -69,24 +73,24 @@
         <div class="mt-6 overflow-hidden bg-white shadow-md sm:rounded-lg dark:bg-gray-800">
             <div class="flex flex-col p-8">
                 <x-ui.h3>{{ __('Файл и алгоритм расчета контрольной суммы') }}</x-ui.h3>
-                <div class="mt-4 flex flex-row gap-4">
+                <div class="flex flex-row gap-4 mt-4">
                     <input id="algorithm-radio-crc32" wire:model="currentAlgorithm" type="radio" value="crc32"
                         name="algorithm-radio"
-                        class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600">
+                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600">
                     <label for="algorithm-radio-crc32"
-                        class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">CRC32</label>
+                        class="text-sm font-medium text-gray-900 ms-2 dark:text-gray-300">CRC32</label>
 
                     <input id="algorithm-radio-md5" wire:model="currentAlgorithm" type="radio" value="md5"
                         name="algorithm-radio"
-                        class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600">
+                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600">
                     <label for="algorithm-radio-md5"
-                        class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">MD5</label>
+                        class="text-sm font-medium text-gray-900 ms-2 dark:text-gray-300">MD5</label>
 
                     <input id="algorithm-radio-sha1" wire:model="currentAlgorithm" type="radio" value="sha1"
                         name="algorithm-radio"
-                        class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600">
+                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600">
                     <label for="algorithm-radio-sha1"
-                        class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">SHA1</label>
+                        class="text-sm font-medium text-gray-900 ms-2 dark:text-gray-300">SHA1</label>
                 </div>
 
                 <div x-data="{ uploading: false, progress: 0 }" x-on:livewire-upload-start="uploading = true"
@@ -94,12 +98,12 @@
                     x-on:livewire-upload-error="uploading = false"
                     x-on:livewire-upload-progress="progress = $event.detail.progress">
 
-                    <div class="mt-4 flex flex-row gap-4">
+                    <div class="flex flex-row gap-4 mt-4">
 
 
                         <div class="basis-3/4">
                             <input id="inputFile" onchange="fileInfo()"
-                                class="mt-1 block w-full text-sm text-indigo-700" type="file" wire:model="inputFile"
+                                class="block w-full mt-1 text-sm text-indigo-700" type="file" wire:model="inputFile"
                                 accept=".pdf, .doc, .docx, .xls, .xlsx, .odt, .ods, .xml" name="inputFile" required
                                 autofocus />
                         </div>
@@ -111,7 +115,7 @@
                             @enderror
                         </div>
 
-                        <div class="mt-1 basis-1/4 text-right">
+                        <div class="mt-1 text-right basis-1/4">
                             <x-button type="button"
                                 wire:click="$cancelUpload('inputFile')">{{ __('Отменить загрузку') }}
                             </x-button>
@@ -119,11 +123,11 @@
 
                     </div>
 
-                    <div x-show="uploading" class="mt-4 relative">
+                    <div x-show="uploading" class="relative mt-4">
                         <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
                             <div x-bind:style="'width: ' + progress + '%'"
-                                class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-3 leading-none rounded-full">
-                                <span class="absolute inset-0 flex items-center justify-center text-white text-sm"
+                                class="p-3 text-xs font-medium leading-none text-center text-blue-100 bg-blue-600 rounded-full">
+                                <span class="absolute inset-0 flex items-center justify-center text-sm text-white"
                                     x-text="progress + '%'"></span>
                             </div>
                         </div>
@@ -139,7 +143,7 @@
         <div class="mt-6 overflow-hidden bg-white shadow-md sm:rounded-lg dark:bg-gray-800">
             <div class="flex flex-col p-8">
 
-                <div class="flex flex-row justify-between items-center">
+                <div class="flex flex-row items-center justify-between">
                     <x-ui.h3>{{ __('Подписи ответственных лиц') }}</x-ui.h3>
                     {{-- <x-ui.toggle :data="$rememberResponsiblePersons" wire:model="rememberResponsiblePersons">
                         {{ __('Запомнить') }}
@@ -151,7 +155,7 @@
                         <div
                             class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
                         </div>
-                        <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Запомнить</span>
+                        <span class="text-sm font-medium text-gray-900 ms-3 dark:text-gray-300">Запомнить</span>
                     </label>
 
                 </div>
@@ -178,9 +182,9 @@
 
                         <template x-for="(row, index) in rows" :key="index">
 
-                            {{-- <div class="mt-4 grid grid-cols-8 gap-4"> --}}
+                            {{-- <div class="grid grid-cols-8 gap-4 mt-4"> --}}
                             <div class="flex flex-col">
-                                <div class="mb-2 mt-2 flex flex-col gap-4 rounded-md bg-indigo-100 p-4 md:flex-row">
+                                <div class="flex flex-col gap-4 p-4 mt-2 mb-2 bg-indigo-100 rounded-md md:flex-row">
 
                                     <div class="md:full basis-5/12">
                                         <x-input x-model="row.kind" type="text" class="block w-full"
@@ -225,8 +229,9 @@
             </div>
         </div>
 
-        <div class="flex flex-row justify-self-end mt-6">
-            <x-button x-show="!uploading">Сформировать</x-button>
+        <div class="flex flex-row mt-6 justify-self-end">
+            {{-- <x-button x-show="!uploading">Сформировать</x-button> --}}
+            <x-button>Сформировать</x-button>
             {{-- <template x-if="!uploading">
                 <x-button>Сформировать</x-button>
             </template> --}}
