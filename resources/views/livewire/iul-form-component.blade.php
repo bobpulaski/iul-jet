@@ -249,7 +249,11 @@
 
     @livewire('progress-modal-component')
 
-    <script>
+    <script type="module">
+        import md5File from "md5-File";
+        const hash = md5File('Hello, world!');
+        console.log(hash);
+
         function crc32(buffer) {
             let crcTable = new Uint32Array(256);
             for (let i = 0; i < 256; i++) {

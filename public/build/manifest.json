@@ -1,6 +1,6 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-DsDpLrvR.css",
+    "file": "assets/app-DVI0ydpG.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
@@ -8,6 +8,12 @@
     "file": "assets/app-Xaw6OIO1.js",
     "name": "app",
     "src": "resources/js/app.js",
+    "isEntry": true
+  },
+  "resources/js/md5-file/index.js": {
+    "file": "assets/index-MXyucOT-.js",
+    "name": "index",
+    "src": "resources/js/md5-file/index.js",
     "isEntry": true
   }
 }
