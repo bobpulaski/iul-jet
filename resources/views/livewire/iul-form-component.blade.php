@@ -1,6 +1,7 @@
 <div>
 
-    @if(Auth::check() && Auth::user()->hasRole('unpaid')) <!-- Предположим, есть метод hasRole в вашей модели User -->
+    @if (Auth::check() && Auth::user()->hasRole('unpaid'))
+        <!-- Предположим, есть метод hasRole в вашей модели User -->
         <button>Скрытая кнопка для администраторов</button>
     @endif
 
@@ -19,7 +20,7 @@
                 {{-- 1# Наименование объекта --}}
                 <div class="flex flex-col">
                     <x-label for="name" value="{{ __('Наименование объекта*') }}" />
-                    <x-input id="name" wire:model="name" class="block w-full mt-1" type="text" name="name"
+                    <x-input id="name" wire:model="name" class="mt-1 block w-full" type="text" name="name"
                         required autofocus autocomplete="name" />
                     @error('name')
                         <x-ui.form-validation-error-message :message="$message" />
@@ -27,10 +28,10 @@
                 </div>
 
                 {{-- 2# Порядковый номер и обозначение --}}
-                <div class="flex flex-row gap-4 mt-4">
-                    <div class="flex flex-col basis-1/4">
+                <div class="mt-4 flex flex-row gap-4">
+                    <div class="flex basis-1/4 flex-col">
                         <x-label for="orderNumber" value="{{ __('№ п/п*') }}" />
-                        <x-input id="orderNumber" wire:model="orderNumber" class="block w-full mt-1" type="number"
+                        <x-input id="orderNumber" wire:model="orderNumber" class="mt-1 block w-full" type="number"
                             min="0" name="orderNumber" required autocomplete="orderNumber" />
                         <div class="text-red-400">
                             @error('orderNumber')
@@ -40,7 +41,7 @@
                     </div>
                     <div class="basis-full">
                         <x-label for="documentDesignation" value="{{ __('Обозначение документа*') }}" />
-                        <x-input id="documentDesignation" wire:model="documentDesignation" class="block w-full mt-1"
+                        <x-input id="documentDesignation" wire:model="documentDesignation" class="mt-1 block w-full"
                             type="text" name="documentDesignation" required autocomplete="documentDesignation" />
                         <div class="text-red-400">
                             @error('documentDesignation')
@@ -51,15 +52,15 @@
                 </div>
 
                 {{-- 3# Наименование документа и версия --}}
-                <div class="flex flex-row gap-4 mt-4">
+                <div class="mt-4 flex flex-row gap-4">
                     <div class="basis-10/12">
                         <x-label for="documentName" value="{{ __('Наименование документа*') }}" />
-                        <x-input id="documentName" wire:model="documentName" class="block w-full mt-1" type="text"
+                        <x-input id="documentName" wire:model="documentName" class="mt-1 block w-full" type="text"
                             name="documentName" required autocomplete="documentName" />
                     </div>
                     <div class="basis-2/12">
                         <x-label for="versionNumber" value="{{ __('№ версии*') }}" />
-                        <x-input id="versionNumber" min="0" wire:model="versionNumber" class="block w-full mt-1"
+                        <x-input id="versionNumber" min="0" wire:model="versionNumber" class="mt-1 block w-full"
                             type="number" name="versionNumber" required autocomplete="versionNumber" />
                     </div>
                 </div>
@@ -73,24 +74,24 @@
         <div class="mt-6 overflow-hidden bg-white shadow-md sm:rounded-lg dark:bg-gray-800">
             <div class="flex flex-col p-8">
                 <x-ui.h3>{{ __('Файл и алгоритм расчета контрольной суммы') }}</x-ui.h3>
-                <div class="flex flex-row gap-4 mt-4">
+                <div class="mt-4 flex flex-row gap-4">
                     <input id="algorithm-radio-crc32" wire:model="currentAlgorithm" type="radio" value="crc32"
                         name="algorithm-radio"
-                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600">
+                        class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600">
                     <label for="algorithm-radio-crc32"
-                        class="text-sm font-medium text-gray-900 ms-2 dark:text-gray-300">CRC32</label>
+                        class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">CRC32</label>
 
                     <input id="algorithm-radio-md5" wire:model="currentAlgorithm" type="radio" value="md5"
                         name="algorithm-radio"
-                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600">
+                        class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600">
                     <label for="algorithm-radio-md5"
-                        class="text-sm font-medium text-gray-900 ms-2 dark:text-gray-300">MD5</label>
+                        class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">MD5</label>
 
                     <input id="algorithm-radio-sha1" wire:model="currentAlgorithm" type="radio" value="sha1"
                         name="algorithm-radio"
-                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600">
+                        class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600">
                     <label for="algorithm-radio-sha1"
-                        class="text-sm font-medium text-gray-900 ms-2 dark:text-gray-300">SHA1</label>
+                        class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">SHA1</label>
                 </div>
 
                 <div x-data="{ uploading: false, progress: 0 }" x-on:livewire-upload-start="uploading = true"
@@ -98,14 +99,18 @@
                     x-on:livewire-upload-error="uploading = false"
                     x-on:livewire-upload-progress="progress = $event.detail.progress">
 
-                    <div class="flex flex-row gap-4 mt-4">
+                    <div class="mt-4 flex flex-row gap-4">
 
 
                         <div class="basis-3/4">
-                            <input id="inputFile" onchange="fileInfo()"
+                            {{-- <input id="inputFile" onchange="fileInfo()"
                                 class="block w-full mt-1 text-sm text-indigo-700" type="file" wire:model="inputFile"
                                 accept=".pdf, .doc, .docx, .xls, .xlsx, .odt, .ods, .xml" name="inputFile" required
-                                autofocus />
+                                autofocus /> --}}
+
+                            <input id="inputFile" class="mt-1 block w-full text-sm text-indigo-700" type="file"
+                                wire:model="inputFile" accept=".pdf, .doc, .docx, .xls, .xlsx, .odt, .ods, .xml"
+                                name="inputFile" required autofocus />
                         </div>
 
 
@@ -115,23 +120,23 @@
                             @enderror
                         </div>
 
-                        <div class="mt-1 text-right basis-1/4">
+                        {{-- <div class="mt-1 basis-1/4 text-right">
                             <x-button type="button"
                                 wire:click="$cancelUpload('inputFile')">{{ __('Отменить загрузку') }}
                             </x-button>
-                        </div>
+                        </div> --}}
 
                     </div>
 
-                    <div x-show="uploading" class="relative mt-4">
-                        <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
+                    {{-- <div x-show="uploading" class="relative mt-4">
+                        <div class="w-full rounded-full bg-gray-200 dark:bg-gray-700">
                             <div x-bind:style="'width: ' + progress + '%'"
-                                class="p-3 text-xs font-medium leading-none text-center text-blue-100 bg-blue-600 rounded-full">
+                                class="rounded-full bg-blue-600 p-3 text-center text-xs font-medium leading-none text-blue-100">
                                 <span class="absolute inset-0 flex items-center justify-center text-sm text-white"
                                     x-text="progress + '%'"></span>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
                 </div>
 
@@ -150,12 +155,12 @@
                     </x-ui.toggle> --}}
 
 
-                    <label class="inline-flex items-center cursor-pointer">
-                        <input wire:model="rememberResponsiblePersons" type="checkbox" class="sr-only peer">
+                    <label class="inline-flex cursor-pointer items-center">
+                        <input disabled wire:model="rememberResponsiblePersons" type="checkbox" class="peer sr-only">
                         <div
-                            class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                            class="peer relative h-6 w-11 rounded-full bg-gray-200 after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rtl:peer-checked:after:-translate-x-full dark:border-gray-600 dark:bg-gray-700 dark:peer-focus:ring-blue-800">
                         </div>
-                        <span class="text-sm font-medium text-gray-900 ms-3 dark:text-gray-300">Запомнить</span>
+                        <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Запомнить</span>
                     </label>
 
                 </div>
@@ -184,7 +189,7 @@
 
                             {{-- <div class="grid grid-cols-8 gap-4 mt-4"> --}}
                             <div class="flex flex-col">
-                                <div class="flex flex-col gap-4 p-4 mt-2 mb-2 bg-indigo-100 rounded-md md:flex-row">
+                                <div class="mb-2 mt-2 flex flex-col gap-4 rounded-md bg-indigo-100 p-4 md:flex-row">
 
                                     <div class="md:full basis-5/12">
                                         <x-input x-model="row.kind" type="text" class="block w-full"
@@ -229,9 +234,9 @@
             </div>
         </div>
 
-        <div class="flex flex-row mt-6 justify-self-end">
+        <div class="mt-6 flex flex-row justify-self-end">
             {{-- <x-button x-show="!uploading">Сформировать</x-button> --}}
-            <x-button>Сформировать</x-button>
+            <x-button id="loadButton">Сформировать</x-button>
             {{-- <template x-if="!uploading">
                 <x-button>Сформировать</x-button>
             </template> --}}
@@ -245,26 +250,76 @@
     @livewire('progress-modal-component')
 
     <script>
-        function fileInfo() {
-            var fileInput = document.getElementById('inputFile').files[0];
-            if (fileInput) {
-                var fileName = fileInput.name;
-                var fileSize = fileInput.size;
-                var fileType = fileInput.type;
-                var fileModifiedDate = new Date(fileInput.lastModified); // Create a Date object from lastModified
-                var formattedDate = fileModifiedDate.toLocaleString(); // Format the date for better readability
-                var file_info = fileName + "\n" + fileSize + " bytes\n" + fileType + "\nLast Modified: " +
-                    formattedDate;
-
-                console.log(formattedDate);
-
-                Livewire.dispatch('file-selected', {
-                    formattedDate: formattedDate
-                });
-            } else {
-                alert("No file selected.");
+        function crc32(buffer) {
+            let crcTable = new Uint32Array(256);
+            for (let i = 0; i < 256; i++) {
+                let c = i;
+                for (let j = 0; j < 8; j++) {
+                    c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1);
+                }
+                crcTable[i] = c >>> 0; // Ensure unsigned
             }
+
+            let crc = 0xFFFFFFFF;
+            for (let byte of buffer) {
+                crc = (crc >>> 8) ^ crcTable[(crc ^ byte) & 0xFF];
+            }
+            return (crc ^ 0xFFFFFFFF) >>> 0; // Ensure unsigned
         }
+
+        // Обработка выбора файла и вычисление CRC32
+        document.getElementById('inputFile').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const button = document.getElementById('loadButton');
+            button.textContent = 'Загрузка...'; // Изменяем текст кнопки
+
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const arrayBuffer = e.target.result;
+                const bytes = new Uint8Array(arrayBuffer);
+                const checksum = crc32(bytes); // Вычисляем CRC32 для массива байтов
+
+                button.textContent = 'Сформировать'; // Возвращаем текст кнопки после завершения
+
+                console.log(
+                    `${file.name} - CRC32: ${checksum.toString(16)}`
+                ); // Выводим результат в шестнадцатеричном формате
+
+                console.log(
+                    `${file.size} - size`
+                );
+            };
+
+
+
+            reader.readAsArrayBuffer(file);
+        });
+
+
+
+        // function fileInfo() {
+        //     var fileInput = document.getElementById('inputFile').files[0];
+        //     if (fileInput) {
+        //         var fileName = fileInput.name;
+        //         var fileSize = fileInput.size;
+        //         var fileType = fileInput.type;
+        //         var fileModifiedDate = new Date(fileInput.lastModified); // Create a Date object from lastModified
+        //         var formattedDate = fileModifiedDate.toLocaleString(); // Format the date for better readability
+        //         var file_info = fileName + "\n" + fileSize + " bytes\n" + fileType + "\nLast Modified: " +
+        //             formattedDate;
+
+        //         console.log(formattedDate);
+
+        //         Livewire.dispatch('file-selected', {
+        //             formattedDate: formattedDate
+        //         });
+        //     } else {
+        //         alert("No file selected.");
+        //     }
+        // }
     </script>
 
 

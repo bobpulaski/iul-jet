@@ -2,9 +2,14 @@
 
 namespace App\Livewire;
 
+use App\Helpers\ReportStandart;
+use App\Helpers\FileInfo;
+use App\Helpers\FileRemover;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+
+
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use App\Helpers\FileInfo;
 use Livewire\Attributes\On;
 
 class IulFormComponent extends Component
@@ -59,28 +64,15 @@ class IulFormComponent extends Component
         ];
     }
 
-    public function phpinfo()
+    public function phpinfo(): BinaryFileResponse
     {
-        $phpWord = new \PhpOffice\PhpWord\PhpWord();
-        $section = $phpWord->addSection();
-        $text = $section->addText('emp_name');
+        $reportStandart = new ReportStandart();
+        $filePath = $reportStandart->reportGenerate('suka');
 
-        $fileName = 'Appdividend.docx';
-
-        // Сохраняем файл в публичную директорию
-        $filePath = public_path($fileName);
-        $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
-        $objWriter->save($filePath);
-
-        // Вернем ответ с загрузкой
         $response = response()->download($filePath);
 
-        // Используем событие "terminating", чтобы удалить файл после ответа
-        app()->terminating(function () use ($filePath) {
-            if (file_exists($filePath)) {
-                unlink($filePath); // Удаляем файл
-            }
-        });
+        $fileRemover = new FileRemover();
+        $fileRemover->fileRemove($filePath);
 
         return $response;
     }
