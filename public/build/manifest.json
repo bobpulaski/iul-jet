@@ -10,10 +10,10 @@
     "src": "resources/js/app.js",
     "isEntry": true
   },
-  "resources/js/md5-file/index.js": {
-    "file": "assets/index-MXyucOT-.js",
-    "name": "index",
-    "src": "resources/js/md5-file/index.js",
+  "resources/js/my.js": {
+    "file": "assets/my-l0sNRNKZ.js",
+    "name": "my",
+    "src": "resources/js/my.js",
     "isEntry": true
   }
 }

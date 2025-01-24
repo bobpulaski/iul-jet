@@ -7,7 +7,7 @@ export default defineConfig({
             input: [
                 "resources/css/app.css",
                 "resources/js/app.js",
-                "resources/js/md5-file/index.js",
+                // "resources/js/md5-file/index.js",
             ],
             refresh: true,
         }),

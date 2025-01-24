@@ -14,6 +14,9 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <!-- load all algortihms into the global `hashwasm` variable -->
+    <script src="https://cdn.jsdelivr.net/npm/hash-wasm@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hash-wasm@4/dist/md5.umd.min.js"></script>
 
     <!-- Styles -->
     @livewireStyles
@@ -28,7 +31,7 @@
         <!-- Page Heading -->
         @if (isset($header))
             <header class="bg-white shadow dark:bg-gray-800">
-                <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
+                <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
                     {{ $header }}
                 </div>
             </header>

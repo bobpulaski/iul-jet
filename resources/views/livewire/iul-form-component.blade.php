@@ -249,60 +249,120 @@
 
     @livewire('progress-modal-component')
 
-    <script type="module">
-        import md5File from "md5-File";
-        const hash = md5File('Hello, world!');
-        console.log(hash);
+    <script>
+        const chunkSize = 64 * 1024 * 1024;
+        const fileReader = new FileReader();
+        let hasher = null;
 
-        function crc32(buffer) {
-            let crcTable = new Uint32Array(256);
-            for (let i = 0; i < 256; i++) {
-                let c = i;
-                for (let j = 0; j < 8; j++) {
-                    c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1);
-                }
-                crcTable[i] = c >>> 0; // Ensure unsigned
-            }
+        function hashChunk(chunk) {
+            return new Promise((resolve, reject) => {
+                fileReader.onload = async (e) => {
+                    const view = new Uint8Array(e.target.result);
+                    hasher.update(view);
+                    resolve();
+                };
 
-            let crc = 0xFFFFFFFF;
-            for (let byte of buffer) {
-                crc = (crc >>> 8) ^ crcTable[(crc ^ byte) & 0xFF];
-            }
-            return (crc ^ 0xFFFFFFFF) >>> 0; // Ensure unsigned
+                fileReader.readAsArrayBuffer(chunk);
+            });
         }
 
-        // Обработка выбора файла и вычисление CRC32
-        document.getElementById('inputFile').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (!file) return;
+        const readFile = async (file) => {
+            if (hasher) {
+                hasher.init();
+            } else {
+                hasher = await hashwasm.createMD5();
+            }
 
-            const button = document.getElementById('loadButton');
-            button.textContent = 'Загрузка...'; // Изменяем текст кнопки
+            const chunkNumber = Math.floor(file.size / chunkSize);
 
-
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const arrayBuffer = e.target.result;
-                const bytes = new Uint8Array(arrayBuffer);
-                const checksum = crc32(bytes); // Вычисляем CRC32 для массива байтов
-
-                button.textContent = 'Сформировать'; // Возвращаем текст кнопки после завершения
-
-                console.log(
-                    `${file.name} - CRC32: ${checksum.toString(16)}`
-                ); // Выводим результат в шестнадцатеричном формате
-
-                console.log(
-                    `${file.size} - size`
+            for (let i = 0; i <= chunkNumber; i++) {
+                const chunk = file.slice(
+                    chunkSize * i,
+                    Math.min(chunkSize * (i + 1), file.size)
                 );
-            };
+                await hashChunk(chunk);
+            }
 
+            const hash = hasher.digest();
+            return Promise.resolve(hash);
+        };
 
+        const fileSelector = document.getElementById("inputFile");
+        const resultElement = document.getElementById("loadButton");
 
-            reader.readAsArrayBuffer(file);
+        fileSelector.addEventListener("change", async (event) => {
+
+            const file = event.target.files[0];
+
+            resultElement.innerHTML = "Loading...";
+            const start = Date.now();
+            const hash = await readFile(file);
+            const end = Date.now();
+            const duration = end - start;
+            const fileSizeMB = file.size / 1024 / 1024;
+            const throughput = fileSizeMB / (duration / 1000);
+            console.log(`
+                Hash: ${hash}<br>
+                Duration: ${duration} ms<br>
+                Throughput: ${throughput.toFixed(2)} MB/s
+            `);
+            resultElement.innerHTML = "Сформировать";
         });
 
 
+        // function crc32(buffer) {
+        //     let crcTable = new Uint32Array(256);
+        //     for (let i = 0; i < 256; i++) {
+        //         let c = i;
+        //         for (let j = 0; j < 8; j++) {
+        //             c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1);
+        //         }
+        //         crcTable[i] = c >>> 0; // Ensure unsigned
+        //     }
+
+        //     let crc = 0xFFFFFFFF;
+        //     for (let byte of buffer) {
+        //         crc = (crc >>> 8) ^ crcTable[(crc ^ byte) & 0xFF];
+        //     }
+        //     return (crc ^ 0xFFFFFFFF) >>> 0; // Ensure unsigned
+        // }
+
+        // // Обработка выбора файла и вычисление CRC32
+        // document.getElementById('inputFile').addEventListener('change', function(event) {
+        //     const file = event.target.files[0];
+        //     if (!file) return;
+
+        //     // md5File(file).then((hash) => {
+        //     //     console.log(`The MD5 sum of LICENSE.md is: ${hash}`)
+        //     // })
+
+        //     const button = document.getElementById('loadButton');
+        //     button.textContent = 'Загрузка...'; // Изменяем текст кнопки
+
+
+        //     const reader = new FileReader();
+        //     reader.onload = function(e) {
+        //         const arrayBuffer = e.target.result;
+        //         const bytes = new Uint8Array(arrayBuffer);
+        //         const checksum = crc32(bytes); // Вычисляем CRC32 для массива байтов
+
+        //         button.textContent = 'Сформировать'; // Возвращаем текст кнопки после завершения
+
+        //         console.log(
+        //             `${file.name} - CRC32: ${checksum.toString(16)}`
+        //         ); // Выводим результат в шестнадцатеричном формате
+
+        //         console.log(
+        //             `${file.size} - size`
+        //         );
+        //     };
+
+
+
+        //     reader.readAsArrayBuffer(file);
+        // });
+
+        /*****/
 
         // function fileInfo() {
         //     var fileInput = document.getElementById('inputFile').files[0];
