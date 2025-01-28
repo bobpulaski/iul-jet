@@ -75,11 +75,6 @@
             <div class="flex flex-col p-8">
                 <x-ui.h3>{{ __('Файл и алгоритм расчета контрольной суммы') }}</x-ui.h3>
                 <div class="mt-4 flex flex-row gap-4">
-                    <input id="algorithm-radio-crc32" wire:model="currentAlgorithm" type="radio" value="crc32"
-                        name="algorithm-radio"
-                        class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600">
-                    <label for="algorithm-radio-crc32"
-                        class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">CRC32</label>
 
                     <input id="algorithm-radio-md5" wire:model="currentAlgorithm" type="radio" value="md5"
                         name="algorithm-radio"
@@ -87,9 +82,15 @@
                     <label for="algorithm-radio-md5"
                         class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">MD5</label>
 
-                    <input id="algorithm-radio-sha1" wire:model="currentAlgorithm" type="radio" value="sha1"
+                    <input id="algorithm-radio-crc32" wire:model="currentAlgorithm" type="radio" value="crc32"
                         name="algorithm-radio"
                         class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600">
+                    <label for="algorithm-radio-crc32"
+                        class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">CRC32</label>
+
+                    <input id="algorithm-radio-sha1" wire:model="currentAlgorithm" type="radio" value="sha1"
+                        name="algorithm-radio"
+                        class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600" />
                     <label for="algorithm-radio-sha1"
                         class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">SHA1</label>
                 </div>
@@ -249,64 +250,77 @@
 
     @livewire('progress-modal-component')
 
-    <script>
-        const chunkSize = 64 * 1024 * 1024;
-        const fileReader = new FileReader();
-        let hasher = null;
-
-        function hashChunk(chunk) {
-            return new Promise((resolve, reject) => {
-                fileReader.onload = async (e) => {
-                    const view = new Uint8Array(e.target.result);
-                    hasher.update(view);
-                    resolve();
-                };
-
-                fileReader.readAsArrayBuffer(chunk);
-            });
-        }
-
-        const readFile = async (file) => {
-            if (hasher) {
-                hasher.init();
-            } else {
-                hasher = await hashwasm.createMD5();
-            }
-
-            const chunkNumber = Math.floor(file.size / chunkSize);
-
-            for (let i = 0; i <= chunkNumber; i++) {
-                const chunk = file.slice(
-                    chunkSize * i,
-                    Math.min(chunkSize * (i + 1), file.size)
-                );
-                await hashChunk(chunk);
-            }
-
-            const hash = hasher.digest();
-            return Promise.resolve(hash);
-        };
+    <script type="module">
+        let currentAlgorithm = '{{ $currentAlgorithm }}'; // Получаю значение по умолчанию
 
         const fileSelector = document.getElementById("inputFile");
         const resultElement = document.getElementById("loadButton");
+        const algorithmRadios = document.querySelectorAll('input[name="algorithm-radio"]');
+
+        // Переменная для хранения текущего алгоритма
+        // let hasher = null; // Объявляем переменную hasher
+
+        // Обработчик изменения радиокнопок
+        algorithmRadios.forEach((radio) => {
+            radio.addEventListener('change', (event) => {
+                currentAlgorithm = event.target.value; // Обновляем текущий алгоритм
+                // hasher = null; // Сбрасываем хешер при смене алгоритма
+            });
+        });
 
         fileSelector.addEventListener("change", async (event) => {
-
             const file = event.target.files[0];
 
             resultElement.innerHTML = "Loading...";
             const start = Date.now();
-            const hash = await readFile(file);
+
+            const hash = await readFile(file, currentAlgorithm); // Передаем текущий алгоритм
             const end = Date.now();
+
             const duration = end - start;
             const fileSizeMB = file.size / 1024 / 1024;
             const throughput = fileSizeMB / (duration / 1000);
+            const fileSize = file.size;
+            const fileName = file.name;
+            const fileType = file.type;
+            const fileModifiedDate = new Date(file.lastModified); // Создаем объект Date из lastModified
+            const options = {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: 'numeric',
+                minute: 'numeric',
+                second: 'numeric',
+                hour12: false // Установите false, если хотите 24-часовой формат
+            };
+
+            const formattedDate = fileModifiedDate.toLocaleString('ru-RU',
+                options); // Форматируем дату для лучшей читаемости
+
             console.log(`
-                Hash: ${hash}<br>
-                Duration: ${duration} ms<br>
+                Hash: ${currentAlgorithm} - ${hash}
+                FileName: ${fileName}
+                fileSize: ${fileSize}
+                fileType: ${fileType}
+                formattedDate: ${formattedDate}
                 Throughput: ${throughput.toFixed(2)} MB/s
+                Duration: ${duration} ms
             `);
+
             resultElement.innerHTML = "Сформировать";
+
+            let fileData = {
+                name: fileName,
+                size: fileSize,
+                hash: hash
+
+            };
+
+            Livewire.dispatch('compose', {
+                fileData: fileData
+            });
+
+
         });
 
 

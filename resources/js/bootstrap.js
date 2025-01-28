@@ -1,7 +1,9 @@
 import axios from "axios";
-// import md5File from "md5-file";
+import { sayHello } from "./my.js";
+import { readFile } from './filehasher.js';
 
 window.axios = axios;
-// window.md5File = md5File;
+window.sayHello = sayHello;
+window.readFile = readFile;
 
 window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";

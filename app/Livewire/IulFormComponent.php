@@ -17,6 +17,9 @@ class IulFormComponent extends Component
     use WithFileUploads;
 
     // Состояние компонента
+
+    public array $fileData = [];
+
     public string $name = '';
     public $inputFile;
     public $formattedDate;
@@ -25,7 +28,7 @@ class IulFormComponent extends Component
     public string $documentName = '';
     public int $versionNumber;
     public $responsiblePersons = [];
-    public string $currentAlgorithm = 'crc32';
+    public string $currentAlgorithm = 'md5';
     public bool $rememberResponsiblePersons = false;
 
     // Правила валидации
@@ -66,6 +69,7 @@ class IulFormComponent extends Component
 
     public function phpinfo(): BinaryFileResponse
     {
+
         $reportStandart = new ReportStandart();
         $filePath = $reportStandart->reportGenerate('suka');
 
@@ -79,6 +83,10 @@ class IulFormComponent extends Component
 
     public function start()
     {
+
+        dd($this->fileData);
+
+
         $this->validate($this->rules(), $this->messages());
 
         if ($this->inputFile) {
@@ -86,10 +94,10 @@ class IulFormComponent extends Component
         }
     }
 
-    #[On('file-selected')]
-    public function fileModifiedDate($formattedDate)
+    #[On('compose')]
+    public function fileModifiedDate($fileData)
     {
-        $this->formattedDate = $formattedDate;
+        $this->fileData[] = $fileData;
     }
 
     public function uploadFile()
