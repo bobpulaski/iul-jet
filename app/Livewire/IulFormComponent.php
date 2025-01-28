@@ -21,7 +21,7 @@ class IulFormComponent extends Component
     public array $fileData = [];
 
     public string $name = '';
-    public $inputFile;
+    // public $inputFile;
     public $formattedDate;
     public int $orderNumber;
     public string $documentDesignation = '';
@@ -41,7 +41,7 @@ class IulFormComponent extends Component
             'documentName' => 'required|min:3|max:255',
             'versionNumber' => 'required',
             'currentAlgorithm' => 'required',
-            'inputFile' => 'required|file|max:81920',
+            // 'inputFile' => 'required|file|max:1181920',
         ];
     }
 
@@ -84,20 +84,19 @@ class IulFormComponent extends Component
     public function start()
     {
 
-        dd($this->fileData);
-
-
         $this->validate($this->rules(), $this->messages());
 
-        if ($this->inputFile) {
-            $this->uploadFile();
-        }
+        // if ($this->inputFile) {
+        //     $this->uploadFile();
+        // }
+
+        dd($this->fileData);
     }
 
     #[On('compose')]
     public function fileModifiedDate($fileData)
     {
-        $this->fileData[] = $fileData;
+        $this->fileData = [$fileData];
     }
 
     public function uploadFile()

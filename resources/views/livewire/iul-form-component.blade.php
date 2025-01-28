@@ -20,8 +20,8 @@
                 {{-- 1# Наименование объекта --}}
                 <div class="flex flex-col">
                     <x-label for="name" value="{{ __('Наименование объекта*') }}" />
-                    <x-input id="name" wire:model="name" class="mt-1 block w-full" type="text" name="name"
-                        required autofocus autocomplete="name" />
+                    <x-input id="name" wire:model="name" class="mt-1 block w-full" type="text" name="name" required
+                        autofocus autocomplete="name" />
                     @error('name')
                         <x-ui.form-validation-error-message :message="$message" />
                     @enderror
@@ -109,9 +109,12 @@
                                 accept=".pdf, .doc, .docx, .xls, .xlsx, .odt, .ods, .xml" name="inputFile" required
                                 autofocus /> --}}
 
+                            <!-- <input id="inputFile" class="mt-1 block w-full text-sm text-indigo-700" type="file"
+                                wire:model="inputFile" accept=".pdf, .doc, .docx, .xls, .xlsx, .odt, .ods, .xml, *.png"
+                                name="inputFile" required autofocus /> -->
+
                             <input id="inputFile" class="mt-1 block w-full text-sm text-indigo-700" type="file"
-                                wire:model="inputFile" accept=".pdf, .doc, .docx, .xls, .xlsx, .odt, .ods, .xml"
-                                name="inputFile" required autofocus />
+                                accept="" name="inputFile" required autofocus />
                         </div>
 
 
@@ -122,8 +125,8 @@
                         </div>
 
                         {{-- <div class="mt-1 basis-1/4 text-right">
-                            <x-button type="button"
-                                wire:click="$cancelUpload('inputFile')">{{ __('Отменить загрузку') }}
+                            <x-button type="button" wire:click="$cancelUpload('inputFile')">{{ __('Отменить загрузку')
+                                }}
                             </x-button>
                         </div> --}}
 
@@ -183,41 +186,42 @@
                         }
                     }">
 
-                        {{-- TODO: @input="updateLivewireArray()" надо переделать, а то на каждое нажатие в поле ввода реагирует.
-                                Сделал так, потому-что первая строка подписей не попадает в массив, пока не добавишь новую строку --}}
+                        {{-- TODO: @input="updateLivewireArray()" надо переделать, а то на каждое нажатие в поле ввода
+                        реагирует.
+                        Сделал так, потому-что первая строка подписей не попадает в массив, пока не добавишь новую
+                        строку --}}
 
                         <template x-for="(row, index) in rows" :key="index">
 
                             {{-- <div class="grid grid-cols-8 gap-4 mt-4"> --}}
-                            <div class="flex flex-col">
-                                <div class="mb-2 mt-2 flex flex-col gap-4 rounded-md bg-indigo-100 p-4 md:flex-row">
+                                <div class="flex flex-col">
+                                    <div class="mb-2 mt-2 flex flex-col gap-4 rounded-md bg-indigo-100 p-4 md:flex-row">
 
-                                    <div class="md:full basis-5/12">
-                                        <x-input x-model="row.kind" type="text" class="block w-full"
-                                            placeholder="Характер работы" @input="updateLivewireArray()" />
-                                    </div>
+                                        <div class="md:full basis-5/12">
+                                            <x-input x-model="row.kind" type="text" class="block w-full"
+                                                placeholder="Характер работы" @input="updateLivewireArray()" />
+                                        </div>
 
-                                    <div class="md:full basis-6/12">
-                                        <x-input x-model="row.surname" type="text" class="block w-full"
-                                            placeholder="Фамилия" @input="updateLivewireArray()" />
-                                    </div>
-                                    <div class="md:full basis-1/12">
-                                        <x-danger-button x-show="index > 0" @click="deleteRow(index)">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                                class="size-6">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M15 12H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                            </svg>
-                                        </x-danger-button>
+                                        <div class="md:full basis-6/12">
+                                            <x-input x-model="row.surname" type="text" class="block w-full"
+                                                placeholder="Фамилия" @input="updateLivewireArray()" />
+                                        </div>
+                                        <div class="md:full basis-1/12">
+                                            <x-danger-button x-show="index > 0" @click="deleteRow(index)">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                    stroke-width="1.5" stroke="currentColor" class="size-6">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M15 12H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                </svg>
+                                            </x-danger-button>
 
-                                        <!-- <div class="tooltip">Hover over me
+                                            <!-- <div class="tooltip">Hover over me
                                                     <span class="tooltiptext">Добавить подпись</span>
                                                 </div> -->
 
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
                         </template>
 
@@ -270,6 +274,7 @@
 
         fileSelector.addEventListener("change", async (event) => {
             const file = event.target.files[0];
+            let fileData = null;
 
             resultElement.innerHTML = "Loading...";
             const start = Date.now();
@@ -309,12 +314,14 @@
 
             resultElement.innerHTML = "Сформировать";
 
-            let fileData = {
+            fileData = {
                 name: fileName,
                 size: fileSize,
                 hash: hash
 
             };
+
+            console.log(fileData);
 
             Livewire.dispatch('compose', {
                 fileData: fileData
@@ -401,12 +408,13 @@
     </script>
 
 
-    {{-- <script>
-                document.getElementById('inputFile').addEventListener('change', function() {
-                    var filename = this.files[0].name;
-                    document.getElementById('file-label').innerText = filename;
-                });
-            </script> --}}
+    {{--
+    <script>
+        document.getElementById('inputFile').addEventListener('change', function () {
+            var filename = this.files[0].name;
+            document.getElementById('file-label').innerText = filename;
+        });
+    </script> --}}
 
     <style>
         input {
