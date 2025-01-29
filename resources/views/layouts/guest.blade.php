@@ -6,7 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    @if (request()->routeIs('login'))
+        <title>Войти в Quatrus</title>
+    @elseif (request()->routeIs('register'))
+        <title>Регистрация в Quatrus пароля</title>
+    @elseif (request()->routeIs('forgot-password'))
+        <title>Восстановление пароля</title>
+    @else
+        <title>{{ config('app.name', 'Laravel') }}</title>
+    @endif
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
