@@ -5,8 +5,6 @@
         <button>Скрытая кнопка для администраторов</button>
     @endif
 
-    <button type="button" wire:click="phpinfo">PHPINFO</button>
-
     <form wire:submit="start">
         @csrf
 
@@ -20,8 +18,8 @@
                 {{-- 1# Наименование объекта --}}
                 <div class="flex flex-col">
                     <x-label for="name" value="{{ __('Наименование объекта*') }}" />
-                    <x-input id="name" wire:model="name" class="mt-1 block w-full" type="text" name="name" required
-                        autofocus autocomplete="name" />
+                    <x-input id="name" wire:model="name" class="mt-1 block w-full" type="text" name="name"
+                        required autofocus autocomplete="name" />
                     @error('name')
                         <x-ui.form-validation-error-message :message="$message" />
                     @enderror
@@ -70,82 +68,7 @@
 
 
 
-        {{-- Файл и расчёт контрольной суммы --}}
-        <div class="mt-6 overflow-hidden bg-white shadow-md sm:rounded-lg dark:bg-gray-800">
-            <div class="flex flex-col p-8">
-                <x-ui.h3>{{ __('Файл и алгоритм расчета контрольной суммы') }}</x-ui.h3>
-                <div class="mt-4 flex flex-row gap-4">
 
-                    <input id="algorithm-radio-md5" wire:model="currentAlgorithm" type="radio" value="md5"
-                        name="algorithm-radio"
-                        class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600">
-                    <label for="algorithm-radio-md5"
-                        class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">MD5</label>
-
-                    <input id="algorithm-radio-crc32" wire:model="currentAlgorithm" type="radio" value="crc32"
-                        name="algorithm-radio"
-                        class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600">
-                    <label for="algorithm-radio-crc32"
-                        class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">CRC32</label>
-
-                    <input id="algorithm-radio-sha1" wire:model="currentAlgorithm" type="radio" value="sha1"
-                        name="algorithm-radio"
-                        class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600" />
-                    <label for="algorithm-radio-sha1"
-                        class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">SHA1</label>
-                </div>
-
-                <div x-data="{ uploading: false, progress: 0 }" x-on:livewire-upload-start="uploading = true"
-                    x-on:livewire-upload-finish="uploading = false" x-on:livewire-upload-cancel="uploading = false"
-                    x-on:livewire-upload-error="uploading = false"
-                    x-on:livewire-upload-progress="progress = $event.detail.progress">
-
-                    <div class="mt-4 flex flex-row gap-4">
-
-
-                        <div class="basis-3/4">
-                            {{-- <input id="inputFile" onchange="fileInfo()"
-                                class="block w-full mt-1 text-sm text-indigo-700" type="file" wire:model="inputFile"
-                                accept=".pdf, .doc, .docx, .xls, .xlsx, .odt, .ods, .xml" name="inputFile" required
-                                autofocus /> --}}
-
-                            <!-- <input id="inputFile" class="mt-1 block w-full text-sm text-indigo-700" type="file"
-                                wire:model="inputFile" accept=".pdf, .doc, .docx, .xls, .xlsx, .odt, .ods, .xml, *.png"
-                                name="inputFile" required autofocus /> -->
-
-                            <input id="inputFile" class="mt-1 block w-full text-sm text-indigo-700" type="file"
-                                accept="" name="inputFile" required autofocus />
-                        </div>
-
-
-                        <div>
-                            @error('inputFile')
-                                <span class="error">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        {{-- <div class="mt-1 basis-1/4 text-right">
-                            <x-button type="button" wire:click="$cancelUpload('inputFile')">{{ __('Отменить загрузку')
-                                }}
-                            </x-button>
-                        </div> --}}
-
-                    </div>
-
-                    {{-- <div x-show="uploading" class="relative mt-4">
-                        <div class="w-full rounded-full bg-gray-200 dark:bg-gray-700">
-                            <div x-bind:style="'width: ' + progress + '%'"
-                                class="rounded-full bg-blue-600 p-3 text-center text-xs font-medium leading-none text-blue-100">
-                                <span class="absolute inset-0 flex items-center justify-center text-sm text-white"
-                                    x-text="progress + '%'"></span>
-                            </div>
-                        </div>
-                    </div> --}}
-
-                </div>
-
-            </div>
-        </div>
 
 
         {{-- Подписи ответственных лиц --}}
@@ -194,34 +117,34 @@
                         <template x-for="(row, index) in rows" :key="index">
 
                             {{-- <div class="grid grid-cols-8 gap-4 mt-4"> --}}
-                                <div class="flex flex-col">
-                                    <div class="mb-2 mt-2 flex flex-col gap-4 rounded-md bg-indigo-100 p-4 md:flex-row">
+                            <div class="flex flex-col">
+                                <div class="mb-2 mt-2 flex flex-col gap-4 rounded-md bg-indigo-100 p-4 md:flex-row">
 
-                                        <div class="md:full basis-5/12">
-                                            <x-input x-model="row.kind" type="text" class="block w-full"
-                                                placeholder="Характер работы" @input="updateLivewireArray()" />
-                                        </div>
+                                    <div class="md:full basis-5/12">
+                                        <x-input x-model="row.kind" type="text" class="block w-full"
+                                            placeholder="Характер работы" @input="updateLivewireArray()" />
+                                    </div>
 
-                                        <div class="md:full basis-6/12">
-                                            <x-input x-model="row.surname" type="text" class="block w-full"
-                                                placeholder="Фамилия" @input="updateLivewireArray()" />
-                                        </div>
-                                        <div class="md:full basis-1/12">
-                                            <x-danger-button x-show="index > 0" @click="deleteRow(index)">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                    stroke-width="1.5" stroke="currentColor" class="size-6">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        d="M15 12H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                                </svg>
-                                            </x-danger-button>
+                                    <div class="md:full basis-6/12">
+                                        <x-input x-model="row.surname" type="text" class="block w-full"
+                                            placeholder="Фамилия" @input="updateLivewireArray()" />
+                                    </div>
+                                    <div class="md:full basis-1/12">
+                                        <x-danger-button x-show="index > 0" @click="deleteRow(index)">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor" class="size-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M15 12H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                            </svg>
+                                        </x-danger-button>
 
-                                            <!-- <div class="tooltip">Hover over me
+                                        <!-- <div class="tooltip">Hover over me
                                                     <span class="tooltiptext">Добавить подпись</span>
                                                 </div> -->
 
-                                        </div>
                                     </div>
                                 </div>
+                            </div>
 
                         </template>
 
@@ -239,9 +162,98 @@
             </div>
         </div>
 
-        <div class="mt-6 flex flex-row justify-self-end">
+        {{-- Файл + Алгоритм --}}
+        <div class="flex flex-row gap-4">
+
+            {{-- Файл --}}
+            <div class="mt-6 w-1/2 overflow-hidden bg-white shadow-md sm:rounded-lg dark:bg-gray-800">
+                <div class="flex flex-col p-8">
+                    <x-ui.h3>{{ __('Файл') }}</x-ui.h3>
+                    <input id="inputFile" class="block w-full text-sm text-indigo-700" type="file" accept=""
+                        name="inputFile" required autofocus />
+                    <div>
+                        @error('inputFile')
+                            <span class="error">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+            </div>
+
+            {{-- Алгоритм --}}
+            <div class="mt-6 w-1/2 overflow-hidden bg-white shadow-md sm:rounded-lg dark:bg-gray-800">
+                <div class="flex flex-col p-8">
+                    <x-ui.h3>{{ __('Алгоритм расчета контрольной суммы') }}</x-ui.h3>
+                    <div class="mt-4 flex flex-row gap-4">
+                        <input id="algorithm-radio-md5" wire:model="currentAlgorithm" type="radio" value="md5"
+                            name="algorithm-radio"
+                            class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600">
+                        <label for="algorithm-radio-md5"
+                            class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">MD5</label>
+
+                        <input id="algorithm-radio-crc32" wire:model="currentAlgorithm" type="radio"
+                            value="crc32" name="algorithm-radio"
+                            class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600">
+                        <label for="algorithm-radio-crc32"
+                            class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">CRC32</label>
+
+                        <input id="algorithm-radio-sha1" wire:model="currentAlgorithm" type="radio" value="sha1"
+                            name="algorithm-radio"
+                            class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600" />
+                        <label for="algorithm-radio-sha1"
+                            class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">SHA1</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        {{-- Настройки --}}
+        <div class="mt-6 overflow-hidden bg-white shadow-md sm:rounded-lg dark:bg-gray-800">
+            <div class="flex flex-row p-8">
+                <div>
+                    <x-label for="file-type">Формат файла</x-label>
+                    <select id="file-type"
+                        class="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-indigo-600 dark:focus:ring-indigo-600">
+                        <option selected>DOCX</option>
+                        <option value="US">ODT</option>
+                        <option value="CA">HTML</option>
+                    </select>
+                </div>
+                <div>
+                    <x-ui.h3>{{ __('Алгоритм расчета контрольной суммы') }}</x-ui.h3>
+                    {{-- <div class="mt-4 flex flex-row gap-4">
+
+                        <input id="algorithm-radio-md5" wire:model="currentAlgorithm" type="radio" value="md5"
+                            name="algorithm-radio"
+                            class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600">
+                        <label for="algorithm-radio-md5"
+                            class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">MD5</label>
+
+                        <input id="algorithm-radio-crc32" wire:model="currentAlgorithm" type="radio"
+                            value="crc32" name="algorithm-radio"
+                            class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600">
+                        <label for="algorithm-radio-crc32"
+                            class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">CRC32</label>
+
+                        <input id="algorithm-radio-sha1" wire:model="currentAlgorithm" type="radio" value="sha1"
+                            name="algorithm-radio"
+                            class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600" />
+                        <label for="algorithm-radio-sha1"
+                            class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">SHA1</label>
+                    </div> --}}
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="align-items-center mt-6 flex flex-row justify-end">
             {{-- <x-button x-show="!uploading">Сформировать</x-button> --}}
             <x-button id="loadButton">Сформировать</x-button>
+
+
+
             {{-- <template x-if="!uploading">
                 <x-button>Сформировать</x-button>
             </template> --}}
@@ -261,24 +273,30 @@
         const resultElement = document.getElementById("loadButton");
         const algorithmRadios = document.querySelectorAll('input[name="algorithm-radio"]');
 
-        // Переменная для хранения текущего алгоритма
-        // let hasher = null; // Объявляем переменную hasher
-
         // Обработчик изменения радиокнопок
         algorithmRadios.forEach((radio) => {
             radio.addEventListener('change', (event) => {
                 currentAlgorithm = event.target.value; // Обновляем текущий алгоритм
-                // hasher = null; // Сбрасываем хешер при смене алгоритма
+                const file = fileSelector.files[0]; // Получаем выбранный файл
+                update(file);
             });
         });
 
+        // Обработчик изменения выбора файла
         fileSelector.addEventListener("change", async (event) => {
-            const file = event.target.files[0];
-            let fileData = null;
+            const file = event.target.files[0]; // Получаем выбранный файл
+            await update(file);
+        });
+
+        async function update(file) {
+            if (!file) {
+                resultElement.innerHTML = "Сначала выберите файл!";
+                return;
+            }
 
             resultElement.innerHTML = "Loading...";
-            const start = Date.now();
 
+            const start = Date.now();
             const hash = await readFile(file, currentAlgorithm); // Передаем текущий алгоритм
             const end = Date.now();
 
@@ -313,12 +331,11 @@
             `);
 
             resultElement.innerHTML = "Сформировать";
-
-            fileData = {
-                name: fileName,
-                size: fileSize,
-                hash: hash
-
+            const fileData = {
+                hash: hash,
+                fileName: fileName,
+                formattedDate: formattedDate,
+                fileSize: fileSize,
             };
 
             console.log(fileData);
@@ -326,84 +343,80 @@
             Livewire.dispatch('compose', {
                 fileData: fileData
             });
+        }
 
 
-        });
+        // let currentAlgorithm = '{{ $currentAlgorithm }}'; // Получаю значение по умолчанию
 
+        // const fileSelector = document.getElementById("inputFile");
+        // const resultElement = document.getElementById("loadButton");
+        // const algorithmRadios = document.querySelectorAll('input[name="algorithm-radio"]');
 
-        // function crc32(buffer) {
-        //     let crcTable = new Uint32Array(256);
-        //     for (let i = 0; i < 256; i++) {
-        //         let c = i;
-        //         for (let j = 0; j < 8; j++) {
-        //             c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1);
-        //         }
-        //         crcTable[i] = c >>> 0; // Ensure unsigned
-        //     }
-
-        //     let crc = 0xFFFFFFFF;
-        //     for (let byte of buffer) {
-        //         crc = (crc >>> 8) ^ crcTable[(crc ^ byte) & 0xFF];
-        //     }
-        //     return (crc ^ 0xFFFFFFFF) >>> 0; // Ensure unsigned
-        // }
-
-        // // Обработка выбора файла и вычисление CRC32
-        // document.getElementById('inputFile').addEventListener('change', function(event) {
-        //     const file = event.target.files[0];
-        //     if (!file) return;
-
-        //     // md5File(file).then((hash) => {
-        //     //     console.log(`The MD5 sum of LICENSE.md is: ${hash}`)
-        //     // })
-
-        //     const button = document.getElementById('loadButton');
-        //     button.textContent = 'Загрузка...'; // Изменяем текст кнопки
-
-
-        //     const reader = new FileReader();
-        //     reader.onload = function(e) {
-        //         const arrayBuffer = e.target.result;
-        //         const bytes = new Uint8Array(arrayBuffer);
-        //         const checksum = crc32(bytes); // Вычисляем CRC32 для массива байтов
-
-        //         button.textContent = 'Сформировать'; // Возвращаем текст кнопки после завершения
-
-        //         console.log(
-        //             `${file.name} - CRC32: ${checksum.toString(16)}`
-        //         ); // Выводим результат в шестнадцатеричном формате
-
-        //         console.log(
-        //             `${file.size} - size`
-        //         );
-        //     };
-
-
-
-        //     reader.readAsArrayBuffer(file);
+        // // Обработчик изменения радиокнопок
+        // algorithmRadios.forEach((radio) => {
+        //     radio.addEventListener('change', (event) => {
+        //         currentAlgorithm = event.target.value; // Обновляем текущий алгоритм
+        //         update();
+        //     });
         // });
 
-        /*****/
+        // fileSelector.addEventListener("change", async (event) => {
+        //     await update();
+        // });
 
-        // function fileInfo() {
-        //     var fileInput = document.getElementById('inputFile').files[0];
-        //     if (fileInput) {
-        //         var fileName = fileInput.name;
-        //         var fileSize = fileInput.size;
-        //         var fileType = fileInput.type;
-        //         var fileModifiedDate = new Date(fileInput.lastModified); // Create a Date object from lastModified
-        //         var formattedDate = fileModifiedDate.toLocaleString(); // Format the date for better readability
-        //         var file_info = fileName + "\n" + fileSize + " bytes\n" + fileType + "\nLast Modified: " +
-        //             formattedDate;
+        // async function update() {
+        //     const file = event.target.files[0];
+        //     let fileData = null;
 
-        //         console.log(formattedDate);
+        //     resultElement.innerHTML = "Loading...";
+        //     const start = Date.now();
 
-        //         Livewire.dispatch('file-selected', {
-        //             formattedDate: formattedDate
-        //         });
-        //     } else {
-        //         alert("No file selected.");
-        //     }
+        //     const hash = await readFile(file, currentAlgorithm); // Передаем текущий алгоритм
+        //     const end = Date.now();
+
+        //     const duration = end - start;
+        //     const fileSizeMB = file.size / 1024 / 1024;
+        //     const throughput = fileSizeMB / (duration / 1000);
+        //     const fileSize = file.size;
+        //     const fileName = file.name;
+        //     const fileType = file.type;
+        //     const fileModifiedDate = new Date(file.lastModified); // Создаем объект Date из lastModified
+        //     const options = {
+        //         year: 'numeric',
+        //         month: 'long',
+        //         day: 'numeric',
+        //         hour: 'numeric',
+        //         minute: 'numeric',
+        //         second: 'numeric',
+        //         hour12: false // Установите false, если хотите 24-часовой формат
+        //     };
+
+        //     const formattedDate = fileModifiedDate.toLocaleString('ru-RU',
+        //         options); // Форматируем дату для лучшей читаемости
+
+        //     console.log(`
+    //         Hash: ${currentAlgorithm} - ${hash}
+    //         FileName: ${fileName}
+    //         fileSize: ${fileSize}
+    //         fileType: ${fileType}
+    //         formattedDate: ${formattedDate}
+    //         Throughput: ${throughput.toFixed(2)} MB/s
+    //         Duration: ${duration} ms
+    //     `);
+
+        //     resultElement.innerHTML = "Сформировать";
+
+        //     fileData = {
+        //         fileName: fileName,
+        //         fileSize: fileSize,
+        //         hash: hash
+        //     };
+
+        //     console.log(fileData);
+
+        //     Livewire.dispatch('compose', {
+        //         fileData: fileData
+        //     });
         // }
     </script>
 

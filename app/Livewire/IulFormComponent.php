@@ -16,20 +16,17 @@ class IulFormComponent extends Component
 {
     use WithFileUploads;
 
-    // Состояние компонента
+    public string $name = ''; //Наименование объекта
+    public int $orderNumber; //Номер п/п 
+    public string $documentDesignation = ''; //Обозначение документа
+    public string $documentName = ''; //Наименование документа
+    public int $versionNumber; //versionNumber
+    public $responsiblePersons = []; //Характер работы; Фамилия
+    public array $fileData = []; //Данные файла, получаемые с Frontend
 
-    public array $fileData = [];
-
-    public string $name = '';
-    // public $inputFile;
-    public $formattedDate;
-    public int $orderNumber;
-    public string $documentDesignation = '';
-    public string $documentName = '';
-    public int $versionNumber;
-    public $responsiblePersons = [];
     public string $currentAlgorithm = 'md5';
     public bool $rememberResponsiblePersons = false;
+    // public $formattedDate;
 
     // Правила валидации
     protected function rules()
@@ -67,11 +64,24 @@ class IulFormComponent extends Component
         ];
     }
 
-    public function phpinfo(): BinaryFileResponse
+    //Основной алгоритм формирования очета
+    public function start()
     {
+        $this->validate($this->rules(), $this->messages());
+
+        $data = [
+            'fileData' => $this->fileData,
+            'name' => $this->name,
+            'orderNumber' => $this->orderNumber,
+            'documentDesignation' => $this->documentDesignation,
+            'documentName' => $this->documentName,
+            'versionNumber' => $this->versionNumber,
+            'currentAlgorithm' => $this->currentAlgorithm,
+            'responsiblePersons' => $this->responsiblePersons,
+        ];
 
         $reportStandart = new ReportStandart();
-        $filePath = $reportStandart->reportGenerate('suka');
+        $filePath = $reportStandart->reportGenerate($data);
 
         $response = response()->download($filePath);
 
@@ -79,70 +89,26 @@ class IulFormComponent extends Component
         $fileRemover->fileRemove($filePath);
 
         return $response;
+
+
+        // dd(
+        //     $this->fileData,
+        //     $this->name,
+        //     $this->orderNumber,
+        //     $this->documentDesignation,
+        //     $this->documentName,
+        //     $this->versionNumber,
+        //     $this->currentAlgorithm,
+        //     $this->responsiblePersons,
+        // );
     }
 
-    public function start()
-    {
 
-        $this->validate($this->rules(), $this->messages());
-
-        // if ($this->inputFile) {
-        //     $this->uploadFile();
-        // }
-
-        dd($this->fileData);
-    }
-
+    //Слушатель события получения информации о файле с Frontend
     #[On('compose')]
     public function fileModifiedDate($fileData)
     {
         $this->fileData = [$fileData];
-    }
-
-    public function uploadFile()
-    {
-        $fileInfo = new FileInfo();
-
-        // Получаем информацию о файле
-        $fileName = $fileInfo->getFileName($this->inputFile);
-        $fileSize = $fileInfo->getFileSize($this->inputFile);
-
-        // Сохраняем файл и вычисляем его хэш
-        $this->saveFile($fileName);
-        $filePath = storage_path('app/private/uploads/' . $fileName);
-
-        $hashCrc32 = $fileInfo->getChecksumCrc32($filePath);
-        $hashMd5 = $fileInfo->getChecksumMd5($filePath);
-        $hashSha1 = $fileInfo->getChecksumSha1($filePath);
-
-        // Выводим информацию о файле
-        $this->outputFileInfo($fileName, $fileSize, $hashCrc32, $hashMd5, $hashSha1);
-    }
-
-    protected function saveFile($fileName)
-    {
-        $this->inputFile->storeAs('uploads', $fileName, 'local');
-    }
-
-    protected function outputFileInfo($fileName, $fileSize, $hashCrc32, $hashMd5, $hashSha1)
-    {
-        dd([
-            'name' => $this->name,
-            'orderNumber' => $this->orderNumber,
-            'documentDesignation' => $this->documentDesignation,
-            'documentName' => $this->documentName,
-            'versionNumber' => $this->versionNumber,
-            'responsiblePersons' => $this->responsiblePersons,
-            'currentAlgorithm' => $this->currentAlgorithm,
-            'rememberResponsiblePersons' => $this->rememberResponsiblePersons,
-
-            'fileName' => $fileName,
-            'fileSize' => $fileSize,
-            'fileModifiedDate' => $this->formattedDate,
-            'fileChecksumCrc32' => $hashCrc32,
-            'fileChecksumMd5' => $hashMd5,
-            'fileChecksumSha1' => $hashSha1,
-        ]);
     }
 
     public function render()
