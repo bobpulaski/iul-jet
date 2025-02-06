@@ -48,7 +48,8 @@
     @livewireScripts
 
 
-    {{-- <script>
+    {{--
+    <script>
         document.addEventListener('DOMContentLoaded', () => {
             const themeToggleButton = document.getElementById('theme-toggle');
 
