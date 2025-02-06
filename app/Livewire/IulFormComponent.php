@@ -25,6 +25,7 @@ class IulFormComponent extends Component
     public array $fileData = []; //Данные файла, получаемые с Frontend
 
     public string $currentAlgorithm = 'md5';
+    public $fileType = 'DOCX';
     public bool $rememberResponsiblePersons = false;
     // public $formattedDate;
 
@@ -78,6 +79,7 @@ class IulFormComponent extends Component
             'versionNumber' => $this->versionNumber,
             'currentAlgorithm' => $this->currentAlgorithm,
             'responsiblePersons' => $this->responsiblePersons,
+            'fileType' => $this->fileType,
         ];
 
         $reportStandart = new ReportStandart();

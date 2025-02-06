@@ -14,6 +14,7 @@ class ReportStandart
 
     $text = $section->addText($data['documentName']);
     $text = $section->addText($data['currentAlgorithm']);
+    $text = $section->addText($data['fileType']);
 
     foreach ($data['fileData'] as $item) {
       // Проверяем, является ли элемент массивом
@@ -45,11 +46,26 @@ class ReportStandart
     //Формирование имени файла
     $randomString = Str::random(15); // Генерация случайной строки длиной 15 символов
     $timestamp = time(); // Получение текущей временной метки
-    $fileName = $randomString . '-' . $timestamp . '.docx'; // Формирование имени файла
+
+
+    $fileName = $randomString . '-' . $timestamp . '.' . $data['fileType']; // Формирование имени файла
 
     // Сохраняем файл в публичную директорию
     $filePath = public_path($fileName);
-    $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+
+    switch ($data['fileType']) {
+      case 'docx':
+        $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+        break;
+      case 'odt':
+        $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'ODText');
+        break;
+      case 'html':
+        $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'HTML');
+        break;
+    }
+
+
     $objWriter->save($filePath);
 
     return $filePath;

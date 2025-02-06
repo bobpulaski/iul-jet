@@ -67,10 +67,6 @@
         </div>
 
 
-
-
-
-
         {{-- Подписи ответственных лиц --}}
         <div class="mt-6 overflow-hidden bg-white shadow-md sm:rounded-lg dark:bg-gray-800">
             <div class="flex flex-col p-8">
@@ -162,49 +158,46 @@
             </div>
         </div>
 
-        {{-- Файл + Алгоритм --}}
-        <div class="flex flex-row gap-4">
-
-            {{-- Файл --}}
-            <div class="mt-6 w-1/2 overflow-hidden bg-white shadow-md sm:rounded-lg dark:bg-gray-800">
-                <div class="flex flex-col p-8">
-                    <x-ui.h3>{{ __('Файл') }}</x-ui.h3>
-                    <input id="inputFile" class="block w-full text-sm text-indigo-700" type="file" accept=""
-                        name="inputFile" required autofocus />
-                    <div>
-                        @error('inputFile')
-                            <span class="error">{{ $message }}</span>
-                        @enderror
-                    </div>
-                </div>
-            </div>
-
-            {{-- Алгоритм --}}
-            <div class="mt-6 w-1/2 overflow-hidden bg-white shadow-md sm:rounded-lg dark:bg-gray-800">
-                <div class="flex flex-col p-8">
-                    <x-ui.h3>{{ __('Алгоритм расчета контрольной суммы') }}</x-ui.h3>
-                    <div class="mt-4 flex flex-row gap-4">
-                        <input id="algorithm-radio-md5" wire:model="currentAlgorithm" type="radio" value="md5"
-                            name="algorithm-radio"
-                            class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600">
-                        <label for="algorithm-radio-md5"
-                            class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">MD5</label>
-
-                        <input id="algorithm-radio-crc32" wire:model="currentAlgorithm" type="radio"
-                            value="crc32" name="algorithm-radio"
-                            class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600">
-                        <label for="algorithm-radio-crc32"
-                            class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">CRC32</label>
-
-                        <input id="algorithm-radio-sha1" wire:model="currentAlgorithm" type="radio" value="sha1"
-                            name="algorithm-radio"
-                            class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600" />
-                        <label for="algorithm-radio-sha1"
-                            class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">SHA1</label>
-                    </div>
+        {{-- Файл --}}
+        <div class="mt-6 overflow-hidden bg-white shadow-md sm:rounded-lg dark:bg-gray-800">
+            <div class="flex flex-col p-8">
+                <x-ui.h3>{{ __('Файл') }}</x-ui.h3>
+                <input id="inputFile" class="block w-full text-sm text-indigo-700" type="file" accept=""
+                    name="inputFile" required autofocus />
+                <div>
+                    @error('inputFile')
+                        <span class="error">{{ $message }}</span>
+                    @enderror
                 </div>
             </div>
         </div>
+
+        {{-- Алгоритм --}}
+        <div class="mt-6 overflow-hidden bg-white shadow-md sm:rounded-lg dark:bg-gray-800">
+            <div class="flex flex-col p-8">
+                <x-ui.h3>{{ __('Алгоритм расчета контрольной суммы') }}</x-ui.h3>
+                <div class="mt-4 flex flex-row gap-4">
+                    <input id="algorithm-radio-md5" wire:model="currentAlgorithm" type="radio" value="md5"
+                        name="algorithm-radio"
+                        class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600">
+                    <label for="algorithm-radio-md5"
+                        class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">MD5</label>
+
+                    <input id="algorithm-radio-crc32" wire:model="currentAlgorithm" type="radio" value="crc32"
+                        name="algorithm-radio"
+                        class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600">
+                    <label for="algorithm-radio-crc32"
+                        class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">CRC32</label>
+
+                    <input id="algorithm-radio-sha1" wire:model="currentAlgorithm" type="radio" value="sha1"
+                        name="algorithm-radio"
+                        class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600" />
+                    <label for="algorithm-radio-sha1"
+                        class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">SHA1</label>
+                </div>
+            </div>
+        </div>
+
 
 
 
@@ -213,11 +206,11 @@
             <div class="flex flex-row p-8">
                 <div>
                     <x-label for="file-type">Формат файла</x-label>
-                    <select id="file-type"
+                    <select id="file-type" wire:model="fileType"
                         class="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-indigo-600 dark:focus:ring-indigo-600">
-                        <option selected>DOCX</option>
-                        <option value="US">ODT</option>
-                        <option value="CA">HTML</option>
+                        <option value="docx" selected>DOCX</option>
+                        <option value="odt">ODT</option>
+                        <option value="html">HTML</option>
                     </select>
                 </div>
                 <div>
