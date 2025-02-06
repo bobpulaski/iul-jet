@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use Str;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ReportStandart
 {
@@ -14,7 +15,6 @@ class ReportStandart
 
     $text = $section->addText($data['documentName']);
     $text = $section->addText($data['currentAlgorithm']);
-    $text = $section->addText($data['fileType']);
 
     foreach ($data['fileData'] as $item) {
       // Проверяем, является ли элемент массивом
@@ -56,18 +56,33 @@ class ReportStandart
     switch ($data['fileType']) {
       case 'docx':
         $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
-        break;
+        $objWriter->save($filePath);
+        return $filePath;
+
       case 'odt':
         $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'ODText');
-        break;
+        $objWriter->save($filePath);
+        return $filePath;
+
       case 'html':
         $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'HTML');
-        break;
+        $objWriter->save($filePath);
+        return $filePath;
+
+      case 'pdf':
+        // $htmlContent = '<h1>' . htmlspecialchars($data['documentName']) . '</h1>';
+        // Сохраняем HTML в буфер
+        ob_start(); // Начинаем каптуру выходных данных
+        $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'HTML');
+        $objWriter->save('php://output'); // Сохраняем в поток вывода
+        $htmlContent = ob_get_clean(); // Получаем содержимое буфера и очищаем его
+
+        // Теперь создаем PDF из полученного HTML
+        $pdf = Pdf::loadHTML($htmlContent);
+        $pdf->save($filePath);
+
+        return $filePath;
     }
 
-
-    $objWriter->save($filePath);
-
-    return $filePath;
   }
 }

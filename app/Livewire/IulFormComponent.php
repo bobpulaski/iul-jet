@@ -25,7 +25,7 @@ class IulFormComponent extends Component
     public array $fileData = []; //Данные файла, получаемые с Frontend
 
     public string $currentAlgorithm = 'md5';
-    public $fileType = 'DOCX';
+    public $fileType = 'docx';
     public bool $rememberResponsiblePersons = false;
     // public $formattedDate;
 
