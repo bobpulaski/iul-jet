@@ -2,7 +2,7 @@
 
 namespace App\Livewire;
 
-use App\Helpers\ReportStandart;
+use App\Helpers\ReportDocx;
 use App\Helpers\FileInfo;
 use App\Helpers\FileRemover;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -79,18 +79,24 @@ class IulFormComponent extends Component
             'versionNumber' => $this->versionNumber,
             'currentAlgorithm' => $this->currentAlgorithm,
             'responsiblePersons' => $this->responsiblePersons,
-            'fileType' => $this->fileType,
+            // 'fileType' => $this->fileType,
         ];
 
-        $reportStandart = new ReportStandart();
-        $filePath = $reportStandart->reportGenerate($data);
+        switch ($this->fileType) {
+            case 'docx':
+                $ReportDocx = new ReportDocx();
+                $filePath = $ReportDocx->reportGenerate($data);
 
-        $response = response()->download($filePath);
+                $response = response()->download($filePath);
 
-        $fileRemover = new FileRemover();
-        $fileRemover->fileRemove($filePath);
+                $fileRemover = new FileRemover();
+                $fileRemover->fileRemove($filePath);
 
-        return $response;
+                return $response;
+
+            case 'html':
+                dd('HTML');
+        }
 
 
         // dd(
