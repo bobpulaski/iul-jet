@@ -16,7 +16,8 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" /> -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
 
     <!-- Styles / Scripts -->
@@ -28,42 +29,64 @@
 
 <body class="font-sans antialiased dark:bg-black dark:text-white/50">
 
-    <div class="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50">
-        <div class="flex flex-col items-center justify-center selection:bg-[#FF2D20] selection:text-white">
-            <div class="relative w-full max-w-2xl lg:max-w-6xl">
-                <header>
-                    <nav x-data="{ open: false }"
-                        class="{{-- border-b border-gray-100 bg-white dark:border-gray-700 dark:bg-gray-800 --}}">
-                        <!-- Primary Navigation Menu -->
-                        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                            <div class="flex h-16 justify-between items-center">
-                                <div class="flex">
+    <div class="bg-slate-200 text-black/80 dark:bg-black dark:text-white/50">
 
-                                    <!-- Logo -->
-                                    <x-mainpage.logo />
 
-                                    <!-- Navigation Links -->
+        <section id="hero" class="h-screen">
 
-                                </div>
+            <header>
+                <nav x-data="{ open: false }">
 
-                                <!-- User menu -->
-                                <x-mainpage.user-menu />
+                    <!-- Primary Navigation Menu -->
+                    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                        <div class="flex h-16 justify-between items-center">
 
-                                <!-- Hamburger -->
-                                <x-mainpage.hamburger />
-                            </div>
+                            <!-- Logo -->
+                            <x-mainpage.logo />
+
+                            <!-- Navigation Links -->
+
+
+                            <!-- User menu -->
+                            <x-mainpage.user-menu />
+
+                            <!-- Hamburger -->
+                            <x-mainpage.hamburger />
                         </div>
+                    </div>
 
-                        <!-- Responsive Navigation Menu -->
+                    <!-- Responsive Navigation Menu -->
+                    <div class="p-4">
                         <x-mainpage.responsive-navigation />
+                    </div>
 
-                    </nav>
-                </header>
+                </nav>
+            </header>
+
+            <div class="mx-auto w-1/2 px-4 mt-12 sm:px-6 lg:px-8">
+                <div">
+                    <h1 class="text-8xl font-extrabold text-center">Конструктор ИУЛ<br>
+                        <div class="text-3xl bg-sky-400 text-white p-6">для
+                            проектно-сметной документации</div>
+                    </h1>
+                    <h2></h2>
+            </div>
+    </div>
+
+    </section>
+
+
+    <div class="flex flex-col items-center justify-center selection:bg-[#FF2D20] selection:text-white">
+        <div class="relative w-full max-w-2xl lg:max-w-6xl">
 
 
 
 
-                <main class="mt-6">
+
+
+
+
+            {{-- <main class="mt-6">
                     <div class="relative w-full max-w-2xl px-6 lg:max-w-7xl">
                         <h1 class="text-4xl">Конструктор ИУЛ для проектно-сметной документации</h1>
                         <ol>
@@ -80,14 +103,16 @@
                             <li>Гибкая настройка формы листа</li>
                         </ol>
                     </div>
-                </main>
+                </main> --}}
 
-                <footer class="py-16 text-center text-sm text-black dark:text-white/70">
-                    {{-- Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }}) --}}
-                    © 2025 Quatros
-                </footer>
-            </div>
+            <footer class="py-16 text-center text-sm text-black dark:text-white/70">
+                {{-- Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }}) --}}
+                © 2025 Quatros
+            </footer>
+
         </div>
+    </div>
+
     </div>
 
     @stack('modals')

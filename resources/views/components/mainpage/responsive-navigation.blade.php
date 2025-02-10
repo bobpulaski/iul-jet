@@ -1,5 +1,5 @@
 <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
-                            {{-- <div class="space-y-1 pb-3 pt-2">
+    {{-- <div class="space-y-1 pb-3 pt-2">
                                 <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                                     {{ __('Документация') }}
                                 </x-responsive-nav-link>
@@ -9,32 +9,32 @@
                                 <x-responsive-nav-link href="{{ route('register') }}" :active="request()->routeIs('register')">
                                     {{ __('Регистрация') }}
                                 </x-responsive-nav-link> --}}
-                            @if (Route::has('login'))
-                                <nav class="-mx-3 flex flex-1 justify-end">
-                                    @auth
-                                        <a href="{{ url('/dashboard') }}"
-                                            class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
-                                            Личный кабинет
-                                        </a>
-                                    @else
-                                        <a href="{{ route('login') }}"
-                                            class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
-                                            Войти
-                                        </a>
+    @if (Route::has('login'))
+        <nav class="-mx-3 flex flex-1 justify-end">
+            @auth
+                <a href="{{ url('/dashboard') }}"
+                    class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
+                    Личный кабинет
+                </a>
+            @else
+                <a href="{{ route('login') }}"
+                    class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
+                    Войти
+                </a>
 
-                                        @if (Route::has('register'))
-                                            <a href="{{ route('register') }}"
-                                                class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
-                                                Регистрация
-                                            </a>
-                                        @endif
-                                    @endauth
-                                </nav>
-                            @endif
-                        </div>
+                @if (Route::has('register'))
+                    <a href="{{ route('register') }}"
+                        class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
+                        Регистрация
+                    </a>
+                @endif
+            @endauth
+        </nav>
+    @endif
+</div>
 
-                        <!-- Responsive Settings Options -->
-                        {{-- <div class="border-t border-gray-200 pb-1 pt-4 dark:border-gray-600">
+<!-- Responsive Settings Options -->
+{{-- <div class="border-t border-gray-200 pb-1 pt-4 dark:border-gray-600">
                             <div class="flex items-center px-4">
                                 @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                                     <div class="me-3 shrink-0">
@@ -108,5 +108,5 @@
                                     @endif
                                 @endif
                             </div>
-                        </div> --}}
                         </div>
+                        </div> --}}
