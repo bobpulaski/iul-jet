@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\Attributes\On;
+use DateTime;
 
 class IulFormComponent extends Component
 {
@@ -26,8 +27,12 @@ class IulFormComponent extends Component
 
     public string $currentAlgorithm = 'md5';
     public $fileType = 'docx';
+    public $headerType = 'regular';
+    public $isTitle = false;
+    public $isFooter = true;
+    public $signDate;
+    public $signFormattedDate;
     public bool $rememberResponsiblePersons = false;
-    // public $formattedDate;
 
     // Правила валидации
     protected function rules()
@@ -57,6 +62,10 @@ class IulFormComponent extends Component
             'documentDesignation.min' => 'Поле должно содержать не менее 3 символов.',
             'documentDesignation.max' => 'Поле не должно содержать более 255 символов.',
 
+            'documentName.required' => 'Поле обязательно для заполнения.',
+            'documentName.min' => 'Поле должно содержать не менее 3 символов.',
+            'documentName.max' => 'Поле не должно содержать более 255 символов.',
+
             'versionNumber.required' => 'Поле обязательно для заполнения.',
 
             'inputFile.required' => 'Пожалуйста, загрузите файл',
@@ -68,6 +77,7 @@ class IulFormComponent extends Component
     //Основной алгоритм формирования очета
     public function start()
     {
+
         $this->validate($this->rules(), $this->messages());
 
         $data = [
@@ -79,6 +89,9 @@ class IulFormComponent extends Component
             'versionNumber' => $this->versionNumber,
             'currentAlgorithm' => $this->currentAlgorithm,
             'responsiblePersons' => $this->responsiblePersons,
+            'headerType' => $this->headerType,
+            'isTitle' => $this->isTitle,
+            'signDate' => $this->signFormattedDate,
             // 'fileType' => $this->fileType,
         ];
 
@@ -97,20 +110,24 @@ class IulFormComponent extends Component
             case 'html':
                 dd('HTML');
         }
-
-
-        // dd(
-        //     $this->fileData,
-        //     $this->name,
-        //     $this->orderNumber,
-        //     $this->documentDesignation,
-        //     $this->documentName,
-        //     $this->versionNumber,
-        //     $this->currentAlgorithm,
-        //     $this->responsiblePersons,
-        // );
     }
 
+    #[On('changeSignDateEvent')]
+    public function changeSignDate($signDateFromFront)
+    {
+        // dd($signDateFromFront);
+        if ($signDateFromFront === '') { // Используем оператор сравнения
+            $this->signFormattedDate = '';
+            // dd($signDateFromFront);
+        } else {
+            $this->signDate = $signDateFromFront;
+            // Форматируем дату YYYY-MM-DD
+            $date = $this->signDate; // Пример даты в формате YYYY-MM-DD
+            $dateTime = new DateTime($date);
+            $this->signFormattedDate = $dateTime->format('d.m.Y'); // Форматируем дату в DD.MM.YYYY
+            // dd($this->signFormattedDate);
+        }
+    }
 
     //Слушатель события получения информации о файле с Frontend
     #[On('compose')]

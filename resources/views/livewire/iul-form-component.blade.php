@@ -10,9 +10,7 @@
 
         {{-- Основная информация --}}
         <div class="overflow-hidden bg-white shadow-md sm:rounded-lg dark:bg-gray-800">
-
             <div class="flex flex-col p-8">
-
                 <x-ui.h3>Основная информация</x-ui.h3>
 
                 {{-- 1# Наименование объекта --}}
@@ -55,6 +53,11 @@
                         <x-label for="documentName" value="{{ __('Наименование документа*') }}" />
                         <x-input id="documentName" wire:model="documentName" class="mt-1 block w-full" type="text"
                             name="documentName" required autocomplete="documentName" />
+                        <div class="text-red-400">
+                            @error('documentName')
+                                <x-ui.form-validation-error-message :message="$message" />
+                            @enderror
+                        </div>
                     </div>
                     <div class="basis-2/12">
                         <x-label for="versionNumber" value="{{ __('№ версии*') }}" />
@@ -78,7 +81,7 @@
                     </x-ui.toggle> --}}
 
 
-                    <label class="inline-flex cursor-pointer items-center">
+                    <label class="mb-4 inline-flex cursor-pointer items-center">
                         <input disabled wire:model="rememberResponsiblePersons" type="checkbox" class="peer sr-only">
                         <div
                             class="peer relative h-6 w-11 rounded-full bg-gray-200 after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rtl:peer-checked:after:-translate-x-full dark:border-gray-600 dark:bg-gray-700 dark:peer-focus:ring-blue-800">
@@ -91,14 +94,14 @@
 
                 <div>
                     <div x-data="{
-                        rows: [{ kind: '', surname: '' }],
+                        rows: [{ kind: '', surname: '', signdate: '' }],
                         addRow() {
                             this.rows.push({ kind: '', surname: '' });
                             this.updateLivewireArray();
                         },
                         deleteRow(index) {
                             this.rows.splice(index, 1);
-                            this.updateLivewireArray();
+                            {{-- this.updateLivewireArray(); --}}
                         },
                         updateLivewireArray() {
                             @this.set('responsiblePersons', this.rows);
@@ -113,18 +116,26 @@
                         <template x-for="(row, index) in rows" :key="index">
 
                             {{-- <div class="grid grid-cols-8 gap-4 mt-4"> --}}
-                            <div class="flex flex-col">
-                                <div class="mb-2 mt-2 flex flex-col gap-4 rounded-md bg-indigo-100 p-4 md:flex-row">
+                            <div class="">
+                                <div
+                                    class="mb-2 mt-2 flex flex-col items-center gap-4 rounded-md bg-indigo-100 p-4 md:flex-row">
 
-                                    <div class="md:full basis-5/12">
+                                    <div class="md:full basis-4/12">
                                         <x-input x-model="row.kind" type="text" class="block w-full"
                                             placeholder="Характер работы" @input="updateLivewireArray()" />
                                     </div>
 
-                                    <div class="md:full basis-6/12">
+                                    <div class="md:full basis-5/12">
                                         <x-input x-model="row.surname" type="text" class="block w-full"
                                             placeholder="Фамилия" @input="updateLivewireArray()" />
                                     </div>
+
+                                    <div class="md:full basis-3/12">
+                                        <x-input x-model="row.signdate" class="block w-full" type="date" />
+                                    </div>
+
+
+
                                     <div class="md:full basis-1/12">
                                         <x-danger-button x-show="index > 0" @click="deleteRow(index)">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -203,19 +214,58 @@
 
         {{-- Настройки --}}
         <div class="mt-6 overflow-hidden bg-white shadow-md sm:rounded-lg dark:bg-gray-800">
-            <div class="flex flex-row p-8">
-                <div>
-                    <x-label for="file-type">Формат файла</x-label>
-                    <select id="file-type" wire:model="fileType"
-                        class="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-indigo-600 dark:focus:ring-indigo-600">
-                        <option value="docx" selected>DOCX</option>
-                        <option value="pdf">PDF</option>
-                        {{-- <option value="odt">ODT</option> --}}
-                        <option value="html">HTML</option>
-                    </select>
+            <div class="flex flex-col p-8">
+                <x-ui.h3>{{ __('Настройки') }}</x-ui.h3>
+                <div class="flex flex-row items-center gap-4">
+
+                    <div class="flex flex-col">
+                        <x-label for="file-type">Тип файла</x-label>
+                        <select id="file-type" wire:model="fileType"
+                            class="mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-indigo-600 dark:focus:ring-indigo-600">
+                            <option value="docx" selected>DOCX</option>
+                            <option value="pdf">PDF</option>
+                            {{-- <option value="odt">ODT</option> --}}
+                            <option value="html">HTML</option>
+                        </select>
+                    </div>
+
+                    <div class="flex flex-col">
+                        <x-label for="header-type">Начертание</x-label>
+                        <select id="header-type" wire:model="headerType"
+                            class="mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-indigo-600 dark:focus:ring-indigo-600">
+                            <option value="regular" selected>Regular</option>
+                            <option value="bold" class="italic">Bold</option>
+                            <option value="italic">Italic</option>
+                            <option value="italic-bold">Italic bold</option>
+                        </select>
+                    </div>
+
+                    <div class="flex flex-col">
+                        <x-label for="is-header-bold">Заголовок</x-label>
+                        <select id="is-header-bold" wire:model="isTitle"
+                            class="mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-indigo-600 dark:focus:ring-indigo-600">
+                            <option value="true" selected>Да</option>
+                            <option value="false">Нет</option>
+                        </select>
+                    </div>
+
+                    <div class="flex flex-col">
+                        <x-label for="sign-date">Дата подписания</x-label>
+                        <x-input id="sign-date" wire:model="signDate" class="mt-1 block w-full" type="date"
+                            name="signDate" />
+                    </div>
+
+                    <div class="flex flex-col">
+                        <x-label for="is-header-bold">Подвал</x-label>
+                        <select id="is-header-bold" wire:model="isFooter"
+                            class="mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-indigo-600 dark:focus:ring-indigo-600">
+                            <option value="true" selected>Да</option>
+                            <option value="false">Нет</option>
+                        </select>
+                    </div>
+
                 </div>
                 <div>
-                    <x-ui.h3>{{ __('Алгоритм расчета контрольной суммы') }}</x-ui.h3>
                     {{-- <div class="mt-4 flex flex-row gap-4">
 
                         <input id="algorithm-radio-md5" wire:model="currentAlgorithm" type="radio" value="md5"
@@ -261,6 +311,16 @@
     @livewire('progress-modal-component')
 
     <script type="module">
+        const signDate = document.getElementById("sign-date");
+
+        signDate.addEventListener("change", (event) => {
+            Livewire.dispatch('changeSignDateEvent', {
+                signDateFromFront: event.target.value
+            });
+        });
+
+
+
         let currentAlgorithm = '{{ $currentAlgorithm }}'; // Получаю значение по умолчанию
 
         const fileSelector = document.getElementById("inputFile");
