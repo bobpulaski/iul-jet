@@ -14,18 +14,33 @@
                 <x-ui.h3>Основная информация</x-ui.h3>
 
                 {{-- 1# Наименование объекта --}}
-                <div class="flex flex-col">
+                <div class="flex flex-row">
                     <x-label for="name" value="{{ __('Наименование объекта*') }}" />
-                    <x-input id="name" wire:model="name" class="mt-1 block w-full" type="text" name="name"
-                        required autofocus autocomplete="name" />
-                    @error('name')
-                        <x-ui.form-validation-error-message :message="$message" />
-                    @enderror
                 </div>
+
+                <div class="flex flex-row items-center justify-between gap-4">
+                    <div class="w-full">
+                        <x-input id="name" wire:model="name" class="mt-1 block w-full" type="text" name="name"
+                            required autofocus autocomplete="name" />
+                    </div>
+                    <div class="mt-2">
+                        <label class="mb-auto inline-flex cursor-pointer items-center">
+                            <input id="is-title" wire:model="isTitle" type="checkbox" class="peer sr-only">
+                            <div
+                                class="peer relative h-6 w-11 rounded-full bg-gray-200 after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-indigo-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-indigo-300 rtl:peer-checked:after:-translate-x-full dark:border-gray-600 dark:bg-gray-700 dark:peer-focus:ring-indigo-800">
+                            </div>
+                        </label>
+                        @error('name')
+                            <x-ui.form-validation-error-message :message="$message" />
+                        @enderror
+                    </div>
+                </div>
+
+
 
                 {{-- 2# Порядковый номер и обозначение --}}
                 <div class="mt-4 flex flex-row gap-4">
-                    <div class="flex basis-1/4 flex-col">
+                    <div class="basis-2/12">
                         <x-label for="orderNumber" value="{{ __('№ п/п*') }}" />
                         <x-input id="orderNumber" wire:model="orderNumber" class="mt-1 block w-full" type="number"
                             min="0" name="orderNumber" required autocomplete="orderNumber" />
@@ -35,7 +50,7 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="basis-full">
+                    <div class="basis-10/12">
                         <x-label for="documentDesignation" value="{{ __('Обозначение документа*') }}" />
                         <x-input id="documentDesignation" wire:model="documentDesignation" class="mt-1 block w-full"
                             type="text" name="documentDesignation" required autocomplete="documentDesignation" />
@@ -79,16 +94,6 @@
                     {{-- <x-ui.toggle :data="$rememberResponsiblePersons" wire:model="rememberResponsiblePersons">
                         {{ __('Запомнить') }}
                     </x-ui.toggle> --}}
-
-
-                    <label class="mb-4 inline-flex cursor-pointer items-center">
-                        <input disabled wire:model="rememberResponsiblePersons" type="checkbox" class="peer sr-only">
-                        <div
-                            class="peer relative h-6 w-11 rounded-full bg-gray-200 after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rtl:peer-checked:after:-translate-x-full dark:border-gray-600 dark:bg-gray-700 dark:peer-focus:ring-blue-800">
-                        </div>
-                        <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Запомнить</span>
-                    </label>
-
                 </div>
 
 
@@ -96,7 +101,7 @@
                     <div x-data="{
                         rows: [{ kind: '', surname: '', signdate: '' }],
                         addRow() {
-                            this.rows.push({ kind: '', surname: '' });
+                            this.rows.push({ kind: '', surname: '', signdate: '' });
                             this.updateLivewireArray();
                         },
                         deleteRow(index) {
@@ -107,6 +112,7 @@
                             @this.set('responsiblePersons', this.rows);
                         }
                     }">
+
 
                         {{-- TODO: @input="updateLivewireArray()" надо переделать, а то на каждое нажатие в поле ввода
                         реагирует.
@@ -174,7 +180,7 @@
             <div class="flex flex-col p-8">
                 <x-ui.h3>{{ __('Файл') }}</x-ui.h3>
                 <input id="inputFile" class="block w-full text-sm text-indigo-700" type="file" accept=""
-                    name="inputFile" required autofocus />
+                    name="inputFile" {{-- required --}} autofocus />
                 <div>
                     @error('inputFile')
                         <span class="error">{{ $message }}</span>
@@ -190,26 +196,24 @@
                 <div class="mt-4 flex flex-row gap-4">
                     <input id="algorithm-radio-md5" wire:model="currentAlgorithm" type="radio" value="md5"
                         name="algorithm-radio"
-                        class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600">
+                        class="h-4 w-4 border-gray-300 bg-gray-100 text-indigo-600 focus:ring-2 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-indigo-600">
                     <label for="algorithm-radio-md5"
                         class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">MD5</label>
 
                     <input id="algorithm-radio-crc32" wire:model="currentAlgorithm" type="radio" value="crc32"
                         name="algorithm-radio"
-                        class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600">
+                        class="h-4 w-4 border-gray-300 bg-gray-100 text-indigo-600 focus:ring-2 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-indigo-600">
                     <label for="algorithm-radio-crc32"
                         class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">CRC32</label>
 
                     <input id="algorithm-radio-sha1" wire:model="currentAlgorithm" type="radio" value="sha1"
                         name="algorithm-radio"
-                        class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600" />
+                        class="h-4 w-4 border-gray-300 bg-gray-100 text-indigo-600 focus:ring-2 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-indigo-600" />
                     <label for="algorithm-radio-sha1"
                         class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">SHA1</label>
                 </div>
             </div>
         </div>
-
-
 
 
         {{-- Настройки --}}
@@ -234,26 +238,21 @@
                         <select id="header-type" wire:model="headerType"
                             class="mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-indigo-600 dark:focus:ring-indigo-600">
                             <option value="regular" selected>Regular</option>
-                            <option value="bold" class="italic">Bold</option>
-                            <option value="italic">Italic</option>
-                            <option value="italic-bold">Italic bold</option>
+                            <option value="bold" class="font-bold">Bold</option>
+                            <option value="italic" class="italic">Italic</option>
+                            <option value="italic-bold" class="font-bold italic">Bold Italic</option>
                         </select>
                     </div>
 
-                    <div class="flex flex-col">
+                    {{-- <div class="flex flex-col">
                         <x-label for="is-header-bold">Заголовок</x-label>
                         <select id="is-header-bold" wire:model="isTitle"
                             class="mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-indigo-600 dark:focus:ring-indigo-600">
                             <option value="true" selected>Да</option>
                             <option value="false">Нет</option>
                         </select>
-                    </div>
+                    </div> --}}
 
-                    <div class="flex flex-col">
-                        <x-label for="sign-date">Дата подписания</x-label>
-                        <x-input id="sign-date" wire:model="signDate" class="mt-1 block w-full" type="date"
-                            name="signDate" />
-                    </div>
 
                     <div class="flex flex-col">
                         <x-label for="is-header-bold">Подвал</x-label>
@@ -291,7 +290,7 @@
         </div>
 
 
-
+        {{-- Сформировать --}}
         <div class="align-items-center mt-6 flex flex-row justify-end">
             {{-- <x-button x-show="!uploading">Сформировать</x-button> --}}
             <x-button id="loadButton">Сформировать</x-button>
@@ -311,16 +310,6 @@
     @livewire('progress-modal-component')
 
     <script type="module">
-        const signDate = document.getElementById("sign-date");
-
-        signDate.addEventListener("change", (event) => {
-            Livewire.dispatch('changeSignDateEvent', {
-                signDateFromFront: event.target.value
-            });
-        });
-
-
-
         let currentAlgorithm = '{{ $currentAlgorithm }}'; // Получаю значение по умолчанию
 
         const fileSelector = document.getElementById("inputFile");

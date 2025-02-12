@@ -10,6 +10,7 @@ use PhpOffice\PhpWord\SimpleType\Jc;
 use PhpOffice\PhpWord\SimpleType\JcTable;
 use PhpOffice\PhpWord\Style\TablePosition;
 use PhpOffice\PhpWord\Style\Language;
+use DateTime;
 
 class ReportDocx
 {
@@ -103,21 +104,60 @@ class ReportDocx
     $row1->addCell(2900, $cellStyle)->addText('Подпись', $headerFontStyle, $pStyle);
     $row1->addCell(3000, $cellStyle)->addText('Дата подписания', $headerFontStyle, $pStyle);
 
+
+
+
     if ($data['responsiblePersons'] === []) {
       $row2 = $table2->addRow();
       $row2->addCell(2900, $cellStyle)->addText('', $fontStyle, $pStyle);
       $row2->addCell(3000, $cellStyle)->addText('', $fontStyle, $pStyle);
       $row2->addCell(2900, $cellStyle)->addText('', $fontStyle, $pStyle);
-      $row2->addCell(3000, $cellStyle)->addText($data['signDate'], $fontStyle, $pStyle);
+      $row2->addCell(3000, $cellStyle)->addText('', $fontStyle, $pStyle);
     } else {
       foreach ($data['responsiblePersons'] as $item) {
+
+        if ($item['signdate'] === '') { // Используем оператор сравнения
+          $signFormattedDate = '';
+        } else {
+          $signFormattedDate = $item['signdate'];
+          // Форматируем дату YYYY-MM-DD
+          $date = $signFormattedDate; // Пример даты в формате YYYY-MM-DD
+          $dateTime = new DateTime($date);
+          $signFormattedDate = $dateTime->format('d.m.Y'); // Форматируем дату в DD.MM.YYYY
+        }
+
         $row2 = $table2->addRow();
         $row2->addCell(2900, $cellStyle)->addText($item['kind'], $fontStyle, $pStyle);
         $row2->addCell(3000, $cellStyle)->addText($item['surname'], $fontStyle, $pStyle);
         $row2->addCell(2900, $cellStyle)->addText('', $fontStyle, $pStyle);
-        $row2->addCell(3000, $cellStyle)->addText($data['signDate'], $fontStyle, $pStyle);
+        $row2->addCell(3000, $cellStyle)->addText($signFormattedDate, $fontStyle, $pStyle);
       }
     }
+
+
+    //Подвал
+    $table3 = $section->addTable([
+      'borderSize' => 6, // Размер границы таблицы
+      'borderColor' => '000000', // Цвет границы в шестнадцатеричном формате (черный)+
+      'cellMargin' => 100,
+      // 'width' => 100,
+    ]);
+
+    $cellRowSpan = array('vMerge' => 'restart', 'valign' => 'center', 'alignment' => Jc::CENTER);
+    $cellRowContinue = array('vMerge' => 'continue', 'valign' => 'center', 'alignment' => Jc::CENTER);
+
+    $row1 = $table3->addRow();
+    $row1->addCell(4200, $cellRowSpan)->addText("Информационно-удостоверяющий лист", $headerFontStyle, $pStyle);
+    $row1->addCell(4600, $cellRowSpan)->addText("(14)", $fontStyle, $pStyle);
+    $row1->addCell(1500)->addText("лист", $headerFontStyle, $pStyle);
+    $row1->addCell(1500)->addText("листов", $headerFontStyle, $pStyle);
+
+    $row2 = $table3->addRow();
+    $row2->addCell(null, $cellRowContinue);
+    $row2->addCell(null, $cellRowContinue);
+    $row2->addCell(1500)->addText("(15)", $fontStyle, $pStyle);
+    $row2->addCell(1500)->addText("(16)", $fontStyle, $pStyle);
+
 
 
     // dd($data['responsiblePersons']);

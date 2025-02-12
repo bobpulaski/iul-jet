@@ -28,9 +28,9 @@ class IulFormComponent extends Component
     public string $currentAlgorithm = 'md5';
     public $fileType = 'docx';
     public $headerType = 'regular';
-    public $isTitle = false;
+    public bool $isTitle = false;
     public $isFooter = true;
-    public $signDate;
+    // public $signDate;
     public $signFormattedDate;
     public bool $rememberResponsiblePersons = false;
 
@@ -77,6 +77,7 @@ class IulFormComponent extends Component
     //Основной алгоритм формирования очета
     public function start()
     {
+        // dd($this->responsiblePersons);
 
         $this->validate($this->rules(), $this->messages());
 
@@ -115,17 +116,14 @@ class IulFormComponent extends Component
     #[On('changeSignDateEvent')]
     public function changeSignDate($signDateFromFront)
     {
-        // dd($signDateFromFront);
         if ($signDateFromFront === '') { // Используем оператор сравнения
             $this->signFormattedDate = '';
-            // dd($signDateFromFront);
         } else {
             $this->signDate = $signDateFromFront;
             // Форматируем дату YYYY-MM-DD
             $date = $this->signDate; // Пример даты в формате YYYY-MM-DD
             $dateTime = new DateTime($date);
             $this->signFormattedDate = $dateTime->format('d.m.Y'); // Форматируем дату в DD.MM.YYYY
-            // dd($this->signFormattedDate);
         }
     }
 
