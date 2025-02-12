@@ -1,11 +1,9 @@
-<div>
+@props(['id' => null, 'model' => null])
 
-    <label class="inline-flex items-center cursor-pointer">
-        <input wire:model="data" type="checkbox" value="" class="sr-only peer">
-        <div
-            class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
-        </div>
-        <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">{{ $slot }}</span>
-    </label>
-
-</div>
+<label class="mb-auto inline-flex cursor-pointer items-center">
+    <input type="checkbox" id="{{ $id }}" {{ $attributes->merge(['wire:model' => $model]) }}
+        class="peer sr-only">
+    <div
+        class="peer relative h-6 w-11 rounded-full bg-gray-200 after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-indigo-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-indigo-300 rtl:peer-checked:after:-translate-x-full dark:border-gray-600 dark:bg-gray-700 dark:peer-focus:ring-indigo-800">
+    </div>
+</label>

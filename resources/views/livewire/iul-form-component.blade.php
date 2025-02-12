@@ -23,17 +23,10 @@
                         <x-input id="name" wire:model="name" class="mt-1 block w-full" type="text" name="name"
                             required autofocus autocomplete="name" />
                     </div>
-                    <div class="mt-2">
-                        <label class="mb-auto inline-flex cursor-pointer items-center">
-                            <input id="is-title" wire:model="isTitle" type="checkbox" class="peer sr-only">
-                            <div
-                                class="peer relative h-6 w-11 rounded-full bg-gray-200 after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-indigo-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-indigo-300 rtl:peer-checked:after:-translate-x-full dark:border-gray-600 dark:bg-gray-700 dark:peer-focus:ring-indigo-800">
-                            </div>
-                        </label>
-                        @error('name')
-                            <x-ui.form-validation-error-message :message="$message" />
-                        @enderror
-                    </div>
+                    <x-input id="is-title-toggle" wire:model="isTitle" type="checkbox" />
+                    @error('name')
+                        <x-ui.form-validation-error-message :message="$message" />
+                    @enderror
                 </div>
 
 
@@ -86,7 +79,7 @@
 
 
         {{-- Подписи ответственных лиц --}}
-        <div class="mt-6 overflow-hidden bg-white shadow-md sm:rounded-lg dark:bg-gray-800">
+        <div class="mt-3 overflow-hidden bg-white shadow-md sm:rounded-lg dark:bg-gray-800">
             <div class="flex flex-col p-8">
 
                 <div class="flex flex-row items-center justify-between">
@@ -175,8 +168,9 @@
             </div>
         </div>
 
+
         {{-- Файл --}}
-        <div class="mt-6 overflow-hidden bg-white shadow-md sm:rounded-lg dark:bg-gray-800">
+        <div class="mt-3 overflow-hidden bg-white shadow-md sm:rounded-lg dark:bg-gray-800">
             <div class="flex flex-col p-8">
                 <x-ui.h3>{{ __('Файл') }}</x-ui.h3>
                 <input id="inputFile" class="block w-full text-sm text-indigo-700" type="file" accept=""
@@ -190,7 +184,7 @@
         </div>
 
         {{-- Алгоритм --}}
-        <div class="mt-6 overflow-hidden bg-white shadow-md sm:rounded-lg dark:bg-gray-800">
+        <div class="mt-3 overflow-hidden bg-white shadow-md sm:rounded-lg dark:bg-gray-800">
             <div class="flex flex-col p-8">
                 <x-ui.h3>{{ __('Алгоритм расчета контрольной суммы') }}</x-ui.h3>
                 <div class="mt-4 flex flex-row gap-4">
@@ -216,8 +210,25 @@
         </div>
 
 
+        {{-- Подвал --}}
+        <div class="mt-3 overflow-hidden bg-white shadow-md sm:rounded-lg dark:bg-gray-800">
+            <div class="flex flex-col p-8">
+
+                <div class="flex flex-row justify-between items-center">
+                    <x-ui.h3>{{ __('Подвал') }}</x-ui.h3>
+                    <x-ui.toggle id="is-footer-toggle" wire:model="isFooter" />
+                </div>
+
+                <div class="flex flex-row">
+
+                </div>
+
+            </div>
+        </div>
+
+
         {{-- Настройки --}}
-        <div class="mt-6 overflow-hidden bg-white shadow-md sm:rounded-lg dark:bg-gray-800">
+        <div class="mt-3 overflow-hidden bg-white shadow-md sm:rounded-lg dark:bg-gray-800">
             <div class="flex flex-col p-8">
                 <x-ui.h3>{{ __('Настройки') }}</x-ui.h3>
                 <div class="flex flex-row items-center gap-4">
@@ -264,28 +275,7 @@
                     </div>
 
                 </div>
-                <div>
-                    {{-- <div class="mt-4 flex flex-row gap-4">
 
-                        <input id="algorithm-radio-md5" wire:model="currentAlgorithm" type="radio" value="md5"
-                            name="algorithm-radio"
-                            class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600">
-                        <label for="algorithm-radio-md5"
-                            class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">MD5</label>
-
-                        <input id="algorithm-radio-crc32" wire:model="currentAlgorithm" type="radio"
-                            value="crc32" name="algorithm-radio"
-                            class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600">
-                        <label for="algorithm-radio-crc32"
-                            class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">CRC32</label>
-
-                        <input id="algorithm-radio-sha1" wire:model="currentAlgorithm" type="radio" value="sha1"
-                            name="algorithm-radio"
-                            class="h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600" />
-                        <label for="algorithm-radio-sha1"
-                            class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">SHA1</label>
-                    </div> --}}
-                </div>
             </div>
         </div>
 

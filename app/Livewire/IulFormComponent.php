@@ -18,7 +18,7 @@ class IulFormComponent extends Component
     use WithFileUploads;
 
     public string $name = ''; //Наименование объекта
-    public int $orderNumber; //Номер п/п 
+    public int $orderNumber; //Номер п/п
     public string $documentDesignation = ''; //Обозначение документа
     public string $documentName = ''; //Наименование документа
     public int $versionNumber; //versionNumber
@@ -28,11 +28,14 @@ class IulFormComponent extends Component
     public string $currentAlgorithm = 'md5';
     public $fileType = 'docx';
     public $headerType = 'regular';
-    public bool $isTitle = false;
-    public $isFooter = true;
-    // public $signDate;
+    public bool $isTitle = true;
+    public bool $isFooter = true;
     public $signFormattedDate;
     public bool $rememberResponsiblePersons = false;
+
+    public string $description = '';
+    public int $page;
+    public int $pages;
 
     // Правила валидации
     protected function rules()
@@ -44,7 +47,6 @@ class IulFormComponent extends Component
             'documentName' => 'required|min:3|max:255',
             'versionNumber' => 'required',
             'currentAlgorithm' => 'required',
-            // 'inputFile' => 'required|file|max:1181920',
         ];
     }
 
