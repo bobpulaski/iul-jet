@@ -34,8 +34,8 @@ class IulFormComponent extends Component
     public bool $rememberResponsiblePersons = false;
 
     public string $description = '';
-    public int $page;
-    public int $pages;
+    public $page;
+    public $pages;
 
     // Правила валидации
     protected function rules()
@@ -94,8 +94,11 @@ class IulFormComponent extends Component
             'responsiblePersons' => $this->responsiblePersons,
             'headerType' => $this->headerType,
             'isTitle' => $this->isTitle,
+            'isFooter' => $this->isFooter,
             'signDate' => $this->signFormattedDate,
-            // 'fileType' => $this->fileType,
+            'description' => $this->description,
+            'page' => $this->page,
+            'pages' => $this->pages,
         ];
 
         switch ($this->fileType) {

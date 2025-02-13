@@ -18,12 +18,27 @@
                     <x-label for="name" value="{{ __('Наименование объекта*') }}" />
                 </div>
 
-                <div class="flex flex-row items-center justify-between gap-4">
+                <div class="relative flex flex-row items-center justify-between gap-4">
                     <div class="w-full">
                         <x-input id="name" wire:model="name" class="mt-1 block w-full" type="text" name="name"
                             required autofocus autocomplete="name" />
                     </div>
-                    <x-input id="is-title-toggle" wire:model="isTitle" type="checkbox" />
+
+                    <div x-data="{ show: true }" class="">
+                        <div x-show="show" class="absolute rounded-lg bg-gray-800 p-2 text-sm text-white shadow-lg"
+                            style="/* display: none */" @mouseenter="show = true" @mouseleave="show = false">
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis nulla repellendus
+                                eligendi laboriosam ipsa delectus ducimus laborum. Reprehenderit fugiat aliquid placeat
+                                ex voluptatem, officiis assumenda cum odit adipisci delectus iste.</p>
+                        </div>
+
+                        <x-input id="is-title-toggle" wire:model="isTitle" type="checkbox" class="h-5 w-5"
+                            @mouseenter="show = true" @mouseleave="show = false" />
+                    </div>
+
+
+
+
                     @error('name')
                         <x-ui.form-validation-error-message :message="$message" />
                     @enderror
@@ -174,7 +189,7 @@
             <div class="flex flex-col p-8">
                 <x-ui.h3>{{ __('Файл') }}</x-ui.h3>
                 <input id="inputFile" class="block w-full text-sm text-indigo-700" type="file" accept=""
-                    name="inputFile" {{-- required --}} autofocus />
+                    name="inputFile" required autofocus />
                 <div>
                     @error('inputFile')
                         <span class="error">{{ $message }}</span>
@@ -212,18 +227,42 @@
 
         {{-- Подвал --}}
         <div class="mt-3 overflow-hidden bg-white shadow-md sm:rounded-lg dark:bg-gray-800">
-            <div class="flex flex-col p-8">
 
-                <div class="flex flex-row justify-between items-center">
+            <div x-data="{ isFooterEnabled: @entangle('isFooter') }" class="flex flex-col p-8">
+                <div class="flex flex-row items-center justify-between">
                     <x-ui.h3>{{ __('Подвал') }}</x-ui.h3>
-                    <x-ui.toggle id="is-footer-toggle" wire:model="isFooter" />
+                    <x-ui.toggle id="is-footer-toggle" x-model="isFooterEnabled" />
                 </div>
 
-                <div class="flex flex-row">
-
+                <div class="flex flex-row items-center gap-4">
+                    <div class="basis-full">
+                        <x-label for="description" value="{{ __('Обозначение') }}" x-bind:disabled="!isFooterEnabled"
+                            x-bind:class="{ 'opacity-30': !isFooterEnabled, 'opacity-100': isFooterEnabled }" />
+                        <x-input id="description" wire:model="description" x-bind:disabled="!isFooterEnabled"
+                            x-bind:class="{ 'opacity-30': !isFooterEnabled, 'opacity-100': isFooterEnabled }"
+                            class="mt-1 block w-full" type="text" name="description" autofocus
+                            autocomplete="description" />
+                    </div>
+                    <div class="basis-2/12">
+                        <x-label for="page" value="{{ __('Лист') }}" x-bind:disabled="!isFooterEnabled"
+                            x-bind:class="{ 'opacity-30': !isFooterEnabled, 'opacity-100': isFooterEnabled }" />
+                        <x-input id="page" wire:model="page" x-bind:disabled="!isFooterEnabled"
+                            x-bind:class="{ 'opacity-30': !isFooterEnabled, 'opacity-100': isFooterEnabled }"
+                            class="mt-1 block w-full" type="number" min="0" name="page"
+                            autocomplete="page" />
+                    </div>
+                    <div class="basis-2/12">
+                        <x-label for="pages" value="{{ __('Листов') }}" x-bind:disabled="!isFooterEnabled"
+                            x-bind:class="{ 'opacity-30': !isFooterEnabled, 'opacity-100': isFooterEnabled }" />
+                        <x-input id="pages" wire:model="pages" x-bind:disabled="!isFooterEnabled"
+                            x-bind:class="{ 'opacity-30': !isFooterEnabled, 'opacity-100': isFooterEnabled }"
+                            class="mt-1 block w-full" type="number" min="0" name="pages"
+                            autocomplete="pages" />
+                    </div>
                 </div>
-
             </div>
+
+
         </div>
 
 
@@ -252,25 +291,6 @@
                             <option value="bold" class="font-bold">Bold</option>
                             <option value="italic" class="italic">Italic</option>
                             <option value="italic-bold" class="font-bold italic">Bold Italic</option>
-                        </select>
-                    </div>
-
-                    {{-- <div class="flex flex-col">
-                        <x-label for="is-header-bold">Заголовок</x-label>
-                        <select id="is-header-bold" wire:model="isTitle"
-                            class="mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-indigo-600 dark:focus:ring-indigo-600">
-                            <option value="true" selected>Да</option>
-                            <option value="false">Нет</option>
-                        </select>
-                    </div> --}}
-
-
-                    <div class="flex flex-col">
-                        <x-label for="is-header-bold">Подвал</x-label>
-                        <select id="is-header-bold" wire:model="isFooter"
-                            class="mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-indigo-600 dark:focus:ring-indigo-600">
-                            <option value="true" selected>Да</option>
-                            <option value="false">Нет</option>
                         </select>
                     </div>
 

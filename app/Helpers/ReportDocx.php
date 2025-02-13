@@ -136,27 +136,33 @@ class ReportDocx
 
 
     //Подвал
-    $table3 = $section->addTable([
-      'borderSize' => 6, // Размер границы таблицы
-      'borderColor' => '000000', // Цвет границы в шестнадцатеричном формате (черный)+
-      'cellMargin' => 100,
-      // 'width' => 100,
-    ]);
 
-    $cellRowSpan = array('vMerge' => 'restart', 'valign' => 'center', 'alignment' => Jc::CENTER);
-    $cellRowContinue = array('vMerge' => 'continue', 'valign' => 'center', 'alignment' => Jc::CENTER);
 
-    $row1 = $table3->addRow();
-    $row1->addCell(4200, $cellRowSpan)->addText("Информационно-удостоверяющий лист", $headerFontStyle, $pStyle);
-    $row1->addCell(4600, $cellRowSpan)->addText("(14)", $fontStyle, $pStyle);
-    $row1->addCell(1500)->addText("лист", $headerFontStyle, $pStyle);
-    $row1->addCell(1500)->addText("листов", $headerFontStyle, $pStyle);
+    if ($data['isFooter']) {
+      $table3 = $section->addTable([
+        'borderSize' => 6, // Размер границы таблицы
+        'borderColor' => '000000', // Цвет границы в шестнадцатеричном формате (черный)+
+        'cellMargin' => 100,
+        // 'width' => 100,
+      ]);
 
-    $row2 = $table3->addRow();
-    $row2->addCell(null, $cellRowContinue);
-    $row2->addCell(null, $cellRowContinue);
-    $row2->addCell(1500)->addText("(15)", $fontStyle, $pStyle);
-    $row2->addCell(1500)->addText("(16)", $fontStyle, $pStyle);
+      $cellRowSpan = array('vMerge' => 'restart', 'valign' => 'center', 'alignment' => Jc::CENTER);
+      $cellRowContinue = array('vMerge' => 'continue', 'valign' => 'center', 'alignment' => Jc::CENTER);
+
+      $row1 = $table3->addRow();
+      $row1->addCell(4200, $cellRowSpan)->addText("Информационно-удостоверяющий лист", $headerFontStyle, $pStyle);
+      $row1->addCell(4600, $cellRowSpan)->addText($data['description'], $fontStyle, $pStyle);
+      $row1->addCell(1500)->addText("лист", $headerFontStyle, $pStyle);
+      $row1->addCell(1500)->addText("листов", $headerFontStyle, $pStyle);
+
+      $row2 = $table3->addRow();
+      $row2->addCell(null, $cellRowContinue);
+      $row2->addCell(null, $cellRowContinue);
+      $row2->addCell(1500)->addText($data['page'], $fontStyle, $pStyle);
+      $row2->addCell(1500)->addText($data['pages'], $fontStyle, $pStyle);
+    }
+
+
 
 
 
