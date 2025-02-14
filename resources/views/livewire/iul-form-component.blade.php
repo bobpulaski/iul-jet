@@ -24,11 +24,7 @@
                             required autofocus autocomplete="name" />
                     </div>
 
-
                     <x-input id="is-title-toggle" wire:model="isTitle" type="checkbox" class="h-5 w-5" />
-
-
-
 
                     @error('name')
                         <x-ui.form-validation-error-message :message="$message" />

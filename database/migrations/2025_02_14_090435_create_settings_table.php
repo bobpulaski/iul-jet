@@ -16,8 +16,8 @@ return new class extends Migration {
 
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
 
-            $table->boolean('is_title')->nullable()->default('true');
-            $table->boolean('is_footer')->nullable()->default('true');
+            $table->boolean('is_title')->nullable()->default(true);
+            $table->boolean('is_footer')->nullable()->default(true);
         });
     }
 

@@ -5,7 +5,7 @@ namespace App\Livewire;
 use App\Helpers\ReportDocx;
 use App\Helpers\FileInfo;
 use App\Helpers\FileRemover;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Illuminate\Support\Facades\Auth;
 
 
 use Livewire\Component;
@@ -16,6 +16,29 @@ use DateTime;
 class IulFormComponent extends Component
 {
     use WithFileUploads;
+
+    public $settings;
+    public bool $isTitle = false;
+    public bool $isFooter = false;
+    public function mount()
+    {
+        $user = Auth::user();
+        $settings = $user->settings()->first();
+        if (!$settings) {
+            $settings = $user->settings()->create();
+            $settings = $user->settings()->first();
+            $this->settings = $settings;
+
+            $this->isTitle = $this->settings->is_title;
+            $this->isFooter = $this->settings->is_footer;
+        } else {
+            $this->settings = $settings;
+
+            $this->isTitle = $this->settings->is_title;
+            $this->isFooter = $this->settings->is_footer;
+        }
+    }
+
 
     public string $name = ''; //Наименование объекта
     public int $orderNumber; //Номер п/п
@@ -28,14 +51,16 @@ class IulFormComponent extends Component
     public string $currentAlgorithm = 'md5';
     public $fileType = 'docx';
     public $headerType = 'regular';
-    public bool $isTitle = true;
-    public bool $isFooter = true;
+
     public $signFormattedDate;
     public bool $rememberResponsiblePersons = false;
 
     public string $description = '';
     public $page;
     public $pages;
+
+
+
 
     // Правила валидации
     protected function rules()
@@ -79,8 +104,6 @@ class IulFormComponent extends Component
     //Основной алгоритм формирования очета
     public function start()
     {
-        // dd($this->responsiblePersons);
-
         $this->validate($this->rules(), $this->messages());
 
         $data = [
@@ -110,6 +133,24 @@ class IulFormComponent extends Component
 
                 $fileRemover = new FileRemover();
                 $fileRemover->fileRemove($filePath);
+
+                //Обновляем данные в таблице Settings
+                $user = Auth::user();
+                $settings = $user->settings;
+
+                try {
+                    if (!$settings) {
+                        $settings = $user->settings()->create();
+                    } else {
+                        $settings->update([
+                            'is_title' => $this->isTitle,
+                            'is_footer' => $this->isFooter,
+                        ]);
+                    }
+                } catch (\Exception $e) {
+                    dd($e->getMessage());
+                }
+
 
                 return $response;
 
@@ -143,4 +184,6 @@ class IulFormComponent extends Component
     {
         return view('livewire.iul-form-component');
     }
+
+
 }

@@ -22,7 +22,6 @@ class SendSettingsForNewUser
      */
     public function handle(UserRegistered $event): void
     {
-        // dd($event);
         // Создание записи в таблице Settings со значениями по умолчанию
         $settings = new Settings();
         $settings->user_id = $event->user->id;
