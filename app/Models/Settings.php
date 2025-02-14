@@ -9,6 +9,8 @@ class Settings extends Model
     protected $fillable = [
         'is_title',
         'is_footer',
+        'file_type',
+        'algorithm',
     ];
     public function user()
     {

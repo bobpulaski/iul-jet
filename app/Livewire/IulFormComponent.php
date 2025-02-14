@@ -20,6 +20,8 @@ class IulFormComponent extends Component
     public $settings;
     public bool $isTitle = false;
     public bool $isFooter = false;
+    public string $fileType = 'docx';
+    public string $currentAlgorithm = 'md5';
     public function mount()
     {
         $user = Auth::user();
@@ -31,11 +33,15 @@ class IulFormComponent extends Component
 
             $this->isTitle = $this->settings->is_title;
             $this->isFooter = $this->settings->is_footer;
+            $this->fileType = $this->settings->file_type;
+            $this->currentAlgorithm = $this->settings->algorithm;
         } else {
             $this->settings = $settings;
 
             $this->isTitle = $this->settings->is_title;
             $this->isFooter = $this->settings->is_footer;
+            $this->fileType = $this->settings->file_type;
+            $this->currentAlgorithm = $this->settings->algorithm;
         }
     }
 
@@ -48,8 +54,8 @@ class IulFormComponent extends Component
     public $responsiblePersons = []; //Характер работы; Фамилия
     public array $fileData = []; //Данные файла, получаемые с Frontend
 
-    public string $currentAlgorithm = 'md5';
-    public $fileType = 'docx';
+    // public string $currentAlgorithm = 'md5';
+
     public $headerType = 'regular';
 
     public $signFormattedDate;
@@ -145,12 +151,13 @@ class IulFormComponent extends Component
                         $settings->update([
                             'is_title' => $this->isTitle,
                             'is_footer' => $this->isFooter,
+                            'file_type' => $this->fileType,
+                            'algorithm' => $this->currentAlgorithm,
                         ]);
                     }
                 } catch (\Exception $e) {
                     dd($e->getMessage());
                 }
-
 
                 return $response;
 
