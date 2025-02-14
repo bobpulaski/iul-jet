@@ -24,17 +24,8 @@
                             required autofocus autocomplete="name" />
                     </div>
 
-                    <div x-data="{ show: true }" class="">
-                        <div x-show="show" class="absolute rounded-lg bg-gray-800 p-2 text-sm text-white shadow-lg"
-                            style="/* display: none */" @mouseenter="show = true" @mouseleave="show = false">
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis nulla repellendus
-                                eligendi laboriosam ipsa delectus ducimus laborum. Reprehenderit fugiat aliquid placeat
-                                ex voluptatem, officiis assumenda cum odit adipisci delectus iste.</p>
-                        </div>
 
-                        <x-input id="is-title-toggle" wire:model="isTitle" type="checkbox" class="h-5 w-5"
-                            @mouseenter="show = true" @mouseleave="show = false" />
-                    </div>
+                    <x-input id="is-title-toggle" wire:model="isTitle" type="checkbox" class="h-5 w-5" />
 
 
 
