@@ -22,7 +22,11 @@
     <!-- load all algortihms into the global `hashwasm` variable -->
     <script src="https://cdn.jsdelivr.net/npm/hash-wasm@4"></script>
     <script src="https://cdn.jsdelivr.net/npm/hash-wasm@4/dist/md5.umd.min.js"></script>
-
+    @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @else
+    @endif
+    
     <!-- Styles -->
     @livewireStyles
 </head>

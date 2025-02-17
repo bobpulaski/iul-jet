@@ -21,15 +21,13 @@
         rel="stylesheet">
 
     <!-- Styles / Scripts -->
-    @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    @else
-    @endif
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script src="https://cdn.tailwindcss.com/"></script>
 </head>
 
 <body class="font-sans antialiased dark:bg-black dark:text-white/50">
 
-    <div class="bg-slate-200 text-black/80 dark:bg-black dark:text-white/50">
+    <div class="text-black/80 dark:bg-black dark:text-white/50">
 
 
         <section id="hero" class="h-screen">
@@ -39,7 +37,7 @@
 
                     <!-- Primary Navigation Menu -->
                     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                        <div class="flex h-16 justify-between items-center">
+                        <div class="flex h-16 items-center justify-between">
 
                             <!-- Logo -->
                             <x-mainpage.logo />
@@ -63,30 +61,41 @@
                 </nav>
             </header>
 
-            <div class="mx-auto w-1/2 px-4 mt-12 sm:px-6 lg:px-8">
-                <div">
-                    <h1 class="text-8xl font-extrabold text-center">Конструктор ИУЛ<br>
-                        <div class="text-3xl bg-sky-400 text-white p-6">для
+            <div class="mx-auto mt-12 w-1/2 px-4 sm:px-6 lg:px-8">
+                <div>
+                    <h1 class="text-center text-7xl font-extrabold">Конструктор <span
+                            class="z-50 rounded-lg bg-sky-500 p-4 text-white">ИУЛ</span><br>
+                        <div class="z-10 mt-4 rounded-lg bg-slate-800 p-6 text-3xl text-white">для
                             проектно-сметной документации</div>
                     </h1>
-                    <h2></h2>
+                    <div class="mt-8 flex flex-row items-center justify-between gap-8">
+                        <h2 class="basis-2/3 text-start text-xl text-slate-600">Упростите создание
+                            информационно-удостоверяющих листов с помощью нашего сервиса, в соответствии с
+                            требованиями <span class="font-bold">ГОСТа Р 21.101-2020.</span></h2>
+                        <a href="{{ route('register') }}"
+                            class="justify-center rounded-md bg-sky-500 px-4 py-3 text-center font-semibold text-white transition duration-300 ease-in-out hover:bg-sky-600">Начните
+                            прямо сейчас →</a>
+                    </div>
+
+                </div>
             </div>
-    </div>
-
-    </section>
-
-
-    <div class="flex flex-col items-center justify-center selection:bg-[#FF2D20] selection:text-white">
-        <div class="relative w-full max-w-2xl lg:max-w-6xl">
+        </section>
 
 
 
 
 
+        <div class="flex flex-col items-center justify-center selection:bg-[#FF2D20] selection:text-white">
+            <div class="relative w-full max-w-2xl lg:max-w-6xl">
 
 
 
-            {{-- <main class="mt-6">
+
+
+
+
+
+                {{-- <main class="mt-6">
                     <div class="relative w-full max-w-2xl px-6 lg:max-w-7xl">
                         <h1 class="text-4xl">Конструктор ИУЛ для проектно-сметной документации</h1>
                         <ol>
@@ -105,13 +114,13 @@
                     </div>
                 </main> --}}
 
-            <footer class="py-16 text-center text-sm text-black dark:text-white/70">
-                {{-- Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }}) --}}
-                © 2025 Quatros
-            </footer>
+                <footer class="py-16 text-center text-sm text-black dark:text-white/70">
+                    {{-- Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }}) --}}
+                    © 2025 Quatros
+                </footer>
 
+            </div>
         </div>
-    </div>
 
     </div>
 
