@@ -3,6 +3,9 @@
 namespace App\Livewire;
 
 use App\Helpers\ReportDocx;
+use App\Helpers\ReportHtml;
+use App\Helpers\ReportPdf;
+
 use App\Helpers\FileInfo;
 use App\Helpers\FileRemover;
 use Illuminate\Support\Facades\Auth;
@@ -162,7 +165,64 @@ class IulFormComponent extends Component
                 return $response;
 
             case 'html':
-                dd('HTML');
+                $ReportHtml = new ReportHtml();
+                $filePath = $ReportHtml->reportGenerate($data);
+
+                $response = response()->download($filePath);
+
+                $fileRemover = new FileRemover();
+                $fileRemover->fileRemove($filePath);
+
+                //Обновляем данные в таблице Settings
+                $user = Auth::user();
+                $settings = $user->settings;
+
+                try {
+                    if (!$settings) {
+                        $settings = $user->settings()->create();
+                    } else {
+                        $settings->update([
+                            'is_title' => $this->isTitle,
+                            'is_footer' => $this->isFooter,
+                            'file_type' => $this->fileType,
+                            'algorithm' => $this->currentAlgorithm,
+                        ]);
+                    }
+                } catch (\Exception $e) {
+                    dd($e->getMessage());
+                }
+
+                return $response;
+
+                case 'pdf':
+                    $ReportPdf = new ReportPdf();
+                    $filePath = $ReportPdf->reportGenerate($data);
+    
+                    $response = response()->download($filePath);
+    
+                    $fileRemover = new FileRemover();
+                    $fileRemover->fileRemove($filePath);
+    
+                    //Обновляем данные в таблице Settings
+                    $user = Auth::user();
+                    $settings = $user->settings;
+    
+                    try {
+                        if (!$settings) {
+                            $settings = $user->settings()->create();
+                        } else {
+                            $settings->update([
+                                'is_title' => $this->isTitle,
+                                'is_footer' => $this->isFooter,
+                                'file_type' => $this->fileType,
+                                'algorithm' => $this->currentAlgorithm,
+                            ]);
+                        }
+                    } catch (\Exception $e) {
+                        dd($e->getMessage());
+                    }
+    
+                    return $response;
         }
     }
 

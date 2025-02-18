@@ -271,7 +271,7 @@
                     </div>
 
                     <div class="flex flex-col">
-                        <x-label for="header-type">Начертание</x-label>
+                        <x-label for="header-type">Начертание заголовков</x-label>
                         <select id="header-type" wire:model="headerType"
                             class="mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-indigo-600 dark:focus:ring-indigo-600">
                             <option value="regular" selected>Regular</option>
