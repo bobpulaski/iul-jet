@@ -16,6 +16,12 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    Route::get('/html-report', function () {
+        $data = session('reportData');
+        // dd($data);
+        return view('iulpdf', compact('data'));
+    })->name('htmlreport');
 });
 
 
@@ -29,3 +35,4 @@ Route::get('role', function () {
     $roles = $user->roles;
     return $roles; // Возвращаем пользователя
 });
+

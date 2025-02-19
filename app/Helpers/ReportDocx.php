@@ -29,6 +29,8 @@ class ReportDocx
 
     $section = $phpWord->addSection(); // Добавляем секцию
 
+    $section->addText('Информационно-удостоверяющий лист', array('size' => 16));
+
     // Добавляем таблицу
     $table1 = $section->addTable([
       'borderSize' => 6, // Размер границы таблицы

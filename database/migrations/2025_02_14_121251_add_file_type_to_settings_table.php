@@ -11,8 +11,8 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('settings', function (Blueprint $table) {
-            $table->string('file_type')->nullable()->default('docx'); // Добавляем поле file_type
-            $table->string('algorithm')->nullable()->default('md5'); // Добавляем поле file_type
+            $table->string('file_type')->nullable()->default('pdf');
+            $table->string('algorithm')->nullable()->default('md5');
         });
     }
 

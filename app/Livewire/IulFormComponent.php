@@ -113,6 +113,7 @@ class IulFormComponent extends Component
     //Основной алгоритм формирования очета
     public function start()
     {
+
         $this->validate($this->rules(), $this->messages());
 
         $data = [
@@ -165,8 +166,36 @@ class IulFormComponent extends Component
                 return $response;
 
             case 'html':
-                $ReportHtml = new ReportHtml();
-                $filePath = $ReportHtml->reportGenerate($data);
+                //Обновляем данные в таблице Settings
+                $user = Auth::user();
+                $settings = $user->settings;
+
+                try {
+                    if (!$settings) {
+                        $settings = $user->settings()->create();
+                    } else {
+                        $settings->update([
+                            'is_title' => $this->isTitle,
+                            'is_footer' => $this->isFooter,
+                            'file_type' => $this->fileType,
+                            'algorithm' => $this->currentAlgorithm,
+                        ]);
+                    }
+                } catch (\Exception $e) {
+                    dd($e->getMessage());
+                }
+
+
+
+            // // Сохраните данные в сессии
+            // session(['reportData' => $data]);
+            // // Перенаправьте пользователя на маршрут
+            // return redirect()->route('htmlreport');
+
+
+            case 'pdf':
+                $ReportPdf = new ReportPdf();
+                $filePath = $ReportPdf->reportGenerate($data);
 
                 $response = response()->download($filePath);
 
@@ -193,36 +222,6 @@ class IulFormComponent extends Component
                 }
 
                 return $response;
-
-                case 'pdf':
-                    $ReportPdf = new ReportPdf();
-                    $filePath = $ReportPdf->reportGenerate($data);
-    
-                    $response = response()->download($filePath);
-    
-                    $fileRemover = new FileRemover();
-                    $fileRemover->fileRemove($filePath);
-    
-                    //Обновляем данные в таблице Settings
-                    $user = Auth::user();
-                    $settings = $user->settings;
-    
-                    try {
-                        if (!$settings) {
-                            $settings = $user->settings()->create();
-                        } else {
-                            $settings->update([
-                                'is_title' => $this->isTitle,
-                                'is_footer' => $this->isFooter,
-                                'file_type' => $this->fileType,
-                                'algorithm' => $this->currentAlgorithm,
-                            ]);
-                        }
-                    } catch (\Exception $e) {
-                        dd($e->getMessage());
-                    }
-    
-                    return $response;
         }
     }
 
@@ -249,6 +248,9 @@ class IulFormComponent extends Component
 
     public function render()
     {
+        if (count($this->getErrorBag()->all()) > 0) {
+            dd('ee');
+        }
         return view('livewire.iul-form-component');
     }
 

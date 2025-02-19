@@ -22,13 +22,14 @@
                     <div class="w-full">
                         <x-input id="name" wire:model="name" class="mt-1 block w-full" type="text" name="name"
                             required autofocus autocomplete="name" />
+                        @error('name')
+                            <x-ui.form-validation-error-message :message="$message" />
+                        @enderror
                     </div>
 
                     <x-input id="is-title-toggle" wire:model="isTitle" type="checkbox" class="h-5 w-5" />
 
-                    @error('name')
-                        <x-ui.form-validation-error-message :message="$message" />
-                    @enderror
+
                 </div>
 
 
@@ -263,10 +264,10 @@
                         <x-label for="file-type">Тип файла</x-label>
                         <select id="file-type" wire:model="fileType"
                             class="mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-indigo-600 dark:focus:ring-indigo-600">
-                            <option value="docx" selected>DOCX</option>
                             <option value="pdf">PDF</option>
+                            <option value="docx" selected>DOCX</option>
                             {{-- <option value="odt">ODT</option> --}}
-                            <option value="html">HTML</option>
+                            {{-- <option value="html">HTML</option> --}}
                         </select>
                     </div>
 
