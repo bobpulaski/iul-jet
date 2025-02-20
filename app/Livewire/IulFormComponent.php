@@ -25,6 +25,8 @@ class IulFormComponent extends Component
     public bool $isFooter = false;
     public string $fileType = 'docx';
     public string $currentAlgorithm = 'md5';
+    public $headerType = 'regular';
+
     public function mount()
     {
         $user = Auth::user();
@@ -32,12 +34,14 @@ class IulFormComponent extends Component
         if (!$settings) {
             $settings = $user->settings()->create();
             $settings = $user->settings()->first();
+
             $this->settings = $settings;
 
             $this->isTitle = $this->settings->is_title;
             $this->isFooter = $this->settings->is_footer;
             $this->fileType = $this->settings->file_type;
             $this->currentAlgorithm = $this->settings->algorithm;
+            $this->headerType = $this->settings->header_type;
         } else {
             $this->settings = $settings;
 
@@ -45,6 +49,7 @@ class IulFormComponent extends Component
             $this->isFooter = $this->settings->is_footer;
             $this->fileType = $this->settings->file_type;
             $this->currentAlgorithm = $this->settings->algorithm;
+            $this->headerType = $this->settings->header_type;
         }
     }
 
@@ -56,11 +61,6 @@ class IulFormComponent extends Component
     public int $versionNumber; //versionNumber
     public $responsiblePersons = []; //Характер работы; Фамилия
     public array $fileData = []; //Данные файла, получаемые с Frontend
-
-    // public string $currentAlgorithm = 'md5';
-
-    public $headerType = 'regular';
-
     public $signFormattedDate;
     public bool $rememberResponsiblePersons = false;
 
@@ -157,12 +157,12 @@ class IulFormComponent extends Component
                             'is_footer' => $this->isFooter,
                             'file_type' => $this->fileType,
                             'algorithm' => $this->currentAlgorithm,
+                            'header_type' => $this->headerType,
                         ]);
                     }
                 } catch (\Exception $e) {
                     dd($e->getMessage());
                 }
-
                 return $response;
 
             case 'html':
@@ -179,6 +179,7 @@ class IulFormComponent extends Component
                             'is_footer' => $this->isFooter,
                             'file_type' => $this->fileType,
                             'algorithm' => $this->currentAlgorithm,
+                            'header_type' => $this->headerType,
                         ]);
                     }
                 } catch (\Exception $e) {
@@ -187,10 +188,12 @@ class IulFormComponent extends Component
 
 
 
-            // // Сохраните данные в сессии
-            // session(['reportData' => $data]);
-            // // Перенаправьте пользователя на маршрут
-            // return redirect()->route('htmlreport');
+                session(['reportData' => $data]);
+
+                // return redirect()->route('htmlreport');
+                $this->dispatch('redirectToReport');
+                break;
+
 
 
             case 'pdf':
@@ -215,12 +218,12 @@ class IulFormComponent extends Component
                             'is_footer' => $this->isFooter,
                             'file_type' => $this->fileType,
                             'algorithm' => $this->currentAlgorithm,
+                            'header_type' => $this->headerType,
                         ]);
                     }
                 } catch (\Exception $e) {
                     dd($e->getMessage());
                 }
-
                 return $response;
         }
     }

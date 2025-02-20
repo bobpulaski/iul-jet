@@ -267,7 +267,7 @@
                             <option value="pdf">PDF</option>
                             <option value="docx" selected>DOCX</option>
                             {{-- <option value="odt">ODT</option> --}}
-                            {{-- <option value="html">HTML</option> --}}
+                            <option value="html">HTML</option>
                         </select>
                     </div>
 
@@ -307,7 +307,16 @@
 
     @livewire('progress-modal-component')
 
+
+
     <script type="module">
+        document.addEventListener('livewire:init', () => {
+            Livewire.on('redirectToReport', (event) => {
+                window.open('{{ route('htmlreport') }}', '_blank'); // Открывает в новой вкладке
+            });
+        });
+
+
         let currentAlgorithm = '{{ $currentAlgorithm }}'; // Получаю значение по умолчанию
 
         const fileSelector = document.getElementById("inputFile");

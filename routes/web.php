@@ -20,7 +20,7 @@ Route::middleware([
     Route::get('/html-report', function () {
         $data = session('reportData');
         // dd($data);
-        return view('iulpdf', compact('data'));
+        return view('iul-html', ['data' => $data]);
     })->name('htmlreport');
 });
 

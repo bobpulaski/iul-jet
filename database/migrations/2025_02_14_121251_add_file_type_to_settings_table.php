@@ -13,6 +13,7 @@ return new class extends Migration {
         Schema::table('settings', function (Blueprint $table) {
             $table->string('file_type')->nullable()->default('pdf');
             $table->string('algorithm')->nullable()->default('md5');
+            $table->string('header_type')->nullable()->default('regular');
         });
     }
 

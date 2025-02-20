@@ -11,6 +11,7 @@ class Settings extends Model
         'is_footer',
         'file_type',
         'algorithm',
+        'header_type',
     ];
     public function user()
     {

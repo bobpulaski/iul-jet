@@ -3,6 +3,10 @@
 
 <head>
     <style>
+        body {
+            padding: 1rem;
+        }
+
         a.NoteRef {
             text-decoration: none;
         }
@@ -19,12 +23,18 @@
             border-spacing: 0px;
             width: 100%;
             text-align: center;
-            font-size: 9pt;
+            font-size: 12px;
         }
 
         td {
-            border: .1px solid rgb(43, 43, 43);
+            /* border: .1px solid rgb(43, 43, 43); */
             padding: 8px;
+        }
+
+        table,
+        th,
+        td {
+            border: .1px solid black;
         }
 
         body>div+div {
@@ -48,7 +58,10 @@
 <body>
 
     @php
-        switch ($headerType) {
+
+        // dd($data);
+
+        switch ($data['headerType']) {
             case 'bold':
                 $style = 'font-weight: bold; font-style: normal;';
                 break;
@@ -74,10 +87,10 @@
     <table>
 
         {{-- Title --}}
-        @if ($isTitle === true)
+        @if ($data['isTitle'] === true)
             <tr>
                 <td colspan="2" style="{{ $style }}">Наименование объекта</td>
-                <td colspan="2">{{ $name }}</td>
+                <td colspan="2">{{ $data['name'] }}</td>
             </tr>
         @endif
 
@@ -90,16 +103,20 @@
         </tr>
 
         <tr>
-            <td style="width: 10%;">{{ $orderNumber }}</td>
-            <td style="width: 20%;">{{ $documentDesignation }}</td>
-            <td style="width: 40%;">{{ $documentName }}</td>
-            <td style="width: 30%;">{{ $versionNumber }}</td>
+            <td style="width: 10%;">{{ $data['orderNumber'] }}</td>
+            <td style="width: 20%;">{{ $data['documentDesignation'] }}</td>
+            <td style="width: 40%;">{{ $data['documentName'] }}</td>
+            <td style="width: 30%;">{{ $data['versionNumber'] }}</td>
         </tr>
 
         {{-- Algorithm --}}
         <tr>
-            <td colspan="2" style="{{ $style }}">{{ $currentAlgorithm }}</td>
-            <td colspan="2">{{ $fileData[0]['hash'] }}</td>
+            {{-- @php
+                dd($data);
+            @endphp --}}
+
+            <td colspan="2" style="{{ $style }}">{{ $data['currentAlgorithm'] }}</td>
+            <td colspan="2">{{ $data['fileData'][0]['hash'] }}</td>
         </tr>
 
         {{-- File Information --}}
@@ -110,22 +127,22 @@
         </tr>
 
         <tr>
-            <td colspan="2">{{ $fileData[0]['fileName'] }}</td>
-            <td style="width: 40%;">{{ $fileData[0]['formattedDate'] }}</td>
-            <td style="width: 30%;">{{ $fileData[0]['fileSize'] }}</td>
+            <td colspan="2">{{ $data['fileData'][0]['fileName'] }}</td>
+            <td style="width: 40%;">{{ $data['fileData'][0]['formattedDate'] }}</td>
+            <td style="width: 30%;">{{ $data['fileData'][0]['fileSize'] }}</td>
         </tr>
     </table>
 
-    <table>
+    <table style="border-top: none;">
         {{-- Signs --}}
-        <tr>
-            <td style="width: 25%; {{ $style }}">Характер работы</td>
-            <td style="width: 25%; {{ $style }}">Фамилия</td>
-            <td style="width: 20%; {{ $style }}">Подпись</td>
-            <td style="width: 30%; {{ $style }}">Дата подписания</td>
+        <tr style="border-top: none;">
+            <td style="width: 25%; border-top: none; {{ $style }}">Характер работы</td>
+            <td style="width: 25%; border-top: none; {{ $style }}">Фамилия</td>
+            <td style="width: 20%; border-top: none; {{ $style }}">Подпись</td>
+            <td style="width: 30%; border-top: none; {{ $style }}">Дата подписания</td>
         </tr>
 
-        @if ($responsiblePersons === [])
+        @if ($data['responsiblePersons'] === [])
             <tr>
                 <td style="width: 25%; {{ $style }}"></td>
                 <td style="width: 25%; {{ $style }}"></td>
@@ -133,7 +150,7 @@
                 <td style="width: 30%; {{ $style }}"></td>
             </tr>
         @else
-            @foreach ($responsiblePersons as $item)
+            @foreach ($data['responsiblePersons'] as $item)
                 @php
                     $signFormattedDate = '';
 
@@ -156,17 +173,17 @@
     </table>
 
     {{-- Footer --}}
-    @if ($isFooter === true)
-        <table>
+    @if ($data['isFooter'] === true)
+        <table style="border-top: none;">
             <tr>
-                <td style="width: 30%;" rowspan="2">Информационно-удостоверяющий лист</td>
-                <td style="width: 40%;" rowspan="2">{{ $description }}</td>
-                <td style="width: 15%;">лист</td>
-                <td style="width: 15%;">листов</td>
+                <td style="width: 30%; border-top: none;" rowspan="2">Информационно-удостоверяющий лист</td>
+                <td style="width: 40%; border-top: none;" rowspan="2">{{ $data['description'] }}</td>
+                <td style="width: 15%; border-top: none;">лист</td>
+                <td style="width: 15%; border-top: none;">листов</td>
             </tr>
             <tr>
-                <td>{{ $page }}</td>
-                <td>{{ $pages }}</td>
+                <td>{{ $data['page'] }}</td>
+                <td>{{ $data['pages'] }}</td>
             </tr>
         </table>
     @endif
