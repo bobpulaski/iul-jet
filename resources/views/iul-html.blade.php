@@ -182,8 +182,17 @@
                 <td style="width: 15%; border-top: none;">листов</td>
             </tr>
             <tr>
-                <td>{{ $data['page'] }}</td>
-                <td>{{ $data['pages'] }}</td>
+                @if ($data['page'] === '')
+                    <td>&nbsp;</td>
+                @else
+                    <td>{{ $data['page'] }}</td>
+                @endif
+
+                @if ($data['pages'] === '')
+                    <td>&nbsp;</td>
+                @else
+                    <td>{{ $data['pages'] }}</td>
+                @endif
             </tr>
         </table>
     @endif

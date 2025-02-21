@@ -17,9 +17,12 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 
+    Route::get('/history', function () {
+        return view('history');
+    })->name('history');
+
     Route::get('/html-report', function () {
         $data = session('reportData');
-        // dd($data);
         return view('iul-html', ['data' => $data]);
     })->name('htmlreport');
 });

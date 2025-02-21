@@ -8,6 +8,7 @@ use App\Helpers\ReportPdf;
 
 use App\Helpers\FileInfo;
 use App\Helpers\FileRemover;
+use App\Models\History;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -30,6 +31,7 @@ class IulFormComponent extends Component
     public function mount()
     {
         $user = Auth::user();
+
         $settings = $user->settings()->first();
         if (!$settings) {
             $settings = $user->settings()->create();
@@ -186,14 +188,19 @@ class IulFormComponent extends Component
                     dd($e->getMessage());
                 }
 
-
-
                 session(['reportData' => $data]);
-
-                // return redirect()->route('htmlreport');
                 $this->dispatch('redirectToReport');
-                break;
 
+                // Сохраняем в таблице History
+                $historyData = [
+                    'name' => $this->name,
+                    'order_number' => $this->orderNumber,
+                    'document_designation' => $this->documentDesignation,
+                ];
+
+                $user->histories()->create($historyData);
+
+                break;
 
 
             case 'pdf':
