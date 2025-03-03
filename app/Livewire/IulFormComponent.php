@@ -5,11 +5,11 @@ namespace App\Livewire;
 use App\Helpers\ReportDocx;
 use App\Helpers\ReportPdf;
 use App\Services\ReportService;
+use App\Services\UserSettingsService;
 
-// use App\Helpers\ReportHtml;
 
-use App\Helpers\FileInfo;
-use App\Helpers\FileRemover;
+// use App\Helpers\FileInfo;
+// use App\Helpers\FileRemover;
 use App\Models\History;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,7 +21,7 @@ use DateTime;
 
 class IulFormComponent extends Component
 {
-    // use WithFileUploads;
+    protected $settingsService;
 
     public $settings;
     public bool $isTitle = false;
@@ -30,31 +30,41 @@ class IulFormComponent extends Component
     public string $currentAlgorithm = 'md5';
     public $headerType = 'regular';
 
-    public function mount()
+    public function mount(UserSettingsService $settingsService)
     {
-        $user = Auth::user();
+        $this->settingsService = $settingsService;
+        $settings = $this->settingsService->getSettings();
+        $this->settings = $settings;
 
-        $settings = $user->settings()->first();
-        if (!$settings) {
-            $settings = $user->settings()->create();
-            $settings = $user->settings()->first();
+        $this->isTitle = $settings->is_title;
+        $this->isFooter = $settings->is_footer;
+        $this->fileType = $settings->file_type;
+        $this->currentAlgorithm = $settings->algorithm;
+        $this->headerType = $settings->header_type;
 
-            $this->settings = $settings;
+        // $user = Auth::user();
+        // $settings = $user->settings()->first();
 
-            $this->isTitle = $this->settings->is_title;
-            $this->isFooter = $this->settings->is_footer;
-            $this->fileType = $this->settings->file_type;
-            $this->currentAlgorithm = $this->settings->algorithm;
-            $this->headerType = $this->settings->header_type;
-        } else {
-            $this->settings = $settings;
+        // if (!$settings) {
+        //     $settings = $user->settings()->create();
+        //     $settings = $user->settings()->first();
 
-            $this->isTitle = $this->settings->is_title;
-            $this->isFooter = $this->settings->is_footer;
-            $this->fileType = $this->settings->file_type;
-            $this->currentAlgorithm = $this->settings->algorithm;
-            $this->headerType = $this->settings->header_type;
-        }
+        //     $this->settings = $settings;
+
+        //     $this->isTitle = $this->settings->is_title;
+        //     $this->isFooter = $this->settings->is_footer;
+        //     $this->fileType = $this->settings->file_type;
+        //     $this->currentAlgorithm = $this->settings->algorithm;
+        //     $this->headerType = $this->settings->header_type;
+        // } else {
+        //     $this->settings = $settings;
+
+        //     $this->isTitle = $this->settings->is_title;
+        //     $this->isFooter = $this->settings->is_footer;
+        //     $this->fileType = $this->settings->file_type;
+        //     $this->currentAlgorithm = $this->settings->algorithm;
+        //     $this->headerType = $this->settings->header_type;
+        // }
     }
 
 
@@ -113,6 +123,7 @@ class IulFormComponent extends Component
             'inputFile.max' => 'Размер файла не должен превышать 80 MB',
         ];
     }
+
 
 
     //Основной алгоритм формирования очета
