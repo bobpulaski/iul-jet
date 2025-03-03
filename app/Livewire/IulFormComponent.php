@@ -3,8 +3,10 @@
 namespace App\Livewire;
 
 use App\Helpers\ReportDocx;
-use App\Helpers\ReportHtml;
 use App\Helpers\ReportPdf;
+use App\Services\ReportService;
+
+// use App\Helpers\ReportHtml;
 
 use App\Helpers\FileInfo;
 use App\Helpers\FileRemover;
@@ -19,7 +21,7 @@ use DateTime;
 
 class IulFormComponent extends Component
 {
-    use WithFileUploads;
+    // use WithFileUploads;
 
     public $settings;
     public bool $isTitle = false;
@@ -112,6 +114,7 @@ class IulFormComponent extends Component
         ];
     }
 
+
     //Основной алгоритм формирования очета
     public function start()
     {
@@ -136,103 +139,116 @@ class IulFormComponent extends Component
             'pages' => $this->pages,
         ];
 
-        switch ($this->fileType) {
-            case 'docx':
-                $ReportDocx = new ReportDocx();
-                $filePath = $ReportDocx->reportGenerate($data);
+        $reportService = new ReportService();
+        $result = $reportService->generateReport($data, $this->fileType);
 
-                $response = response()->download($filePath);
-
-                $fileRemover = new FileRemover();
-                $fileRemover->fileRemove($filePath);
-
-                //Обновляем данные в таблице Settings
-                $user = Auth::user();
-                $settings = $user->settings;
-
-                try {
-                    if (!$settings) {
-                        $settings = $user->settings()->create();
-                    } else {
-                        $settings->update([
-                            'is_title' => $this->isTitle,
-                            'is_footer' => $this->isFooter,
-                            'file_type' => $this->fileType,
-                            'algorithm' => $this->currentAlgorithm,
-                            'header_type' => $this->headerType,
-                        ]);
-                    }
-                } catch (\Exception $e) {
-                    dd($e->getMessage());
-                }
-                return $response;
-
-            case 'html':
-                //Обновляем данные в таблице Settings
-                $user = Auth::user();
-                $settings = $user->settings;
-
-                try {
-                    if (!$settings) {
-                        $settings = $user->settings()->create();
-                    } else {
-                        $settings->update([
-                            'is_title' => $this->isTitle,
-                            'is_footer' => $this->isFooter,
-                            'file_type' => $this->fileType,
-                            'algorithm' => $this->currentAlgorithm,
-                            'header_type' => $this->headerType,
-                        ]);
-                    }
-                } catch (\Exception $e) {
-                    dd($e->getMessage());
-                }
-
-                session(['reportData' => $data]);
-                $this->dispatch('redirectToReport');
-
-                // Сохраняем в таблице History
-                $historyData = [
-                    'name' => $this->name,
-                    'order_number' => $this->orderNumber,
-                    'document_designation' => $this->documentDesignation,
-                ];
-
-                $user->histories()->create($historyData);
-
-                break;
-
-
-            case 'pdf':
-                $ReportPdf = new ReportPdf();
-                $filePath = $ReportPdf->reportGenerate($data);
-
-                $response = response()->download($filePath);
-
-                $fileRemover = new FileRemover();
-                $fileRemover->fileRemove($filePath);
-
-                //Обновляем данные в таблице Settings
-                $user = Auth::user();
-                $settings = $user->settings;
-
-                try {
-                    if (!$settings) {
-                        $settings = $user->settings()->create();
-                    } else {
-                        $settings->update([
-                            'is_title' => $this->isTitle,
-                            'is_footer' => $this->isFooter,
-                            'file_type' => $this->fileType,
-                            'algorithm' => $this->currentAlgorithm,
-                            'header_type' => $this->headerType,
-                        ]);
-                    }
-                } catch (\Exception $e) {
-                    dd($e->getMessage());
-                }
-                return $response;
+        if (is_bool($result) && $result === false) {
+            // Если это HTML, вызываем событие для редиректа
+            $this->dispatch('redirectToReport');
+        } else {
+            // Если это не HTML, то можно возвращать результат, например, для загрузки
+            return $result; // это будет response()->download($filePath);
         }
+
+
+
+
+        // switch ($this->fileType) {
+        //     case 'docx':
+        //         $ReportDocx = new ReportDocx();
+        //         $filePath = $ReportDocx->reportGenerate($data);
+
+        //         $response = response()->download($filePath);
+
+        //         $fileRemover = new FileRemover();
+        //         $fileRemover->fileRemove($filePath);
+
+        //         //Обновляем данные в таблице Settings
+        //         $user = Auth::user();
+        //         $settings = $user->settings;
+
+        //         try {
+        //             if (!$settings) {
+        //                 $settings = $user->settings()->create();
+        //             } else {
+        //                 $settings->update([
+        //                     'is_title' => $this->isTitle,
+        //                     'is_footer' => $this->isFooter,
+        //                     'file_type' => $this->fileType,
+        //                     'algorithm' => $this->currentAlgorithm,
+        //                     'header_type' => $this->headerType,
+        //                 ]);
+        //             }
+        //         } catch (\Exception $e) {
+        //             dd($e->getMessage());
+        //         }
+        //         return $response;
+
+        //     case 'html':
+        //         //Обновляем данные в таблице Settings
+        //         $user = Auth::user();
+        //         $settings = $user->settings;
+
+        //         try {
+        //             if (!$settings) {
+        //                 $settings = $user->settings()->create();
+        //             } else {
+        //                 $settings->update([
+        //                     'is_title' => $this->isTitle,
+        //                     'is_footer' => $this->isFooter,
+        //                     'file_type' => $this->fileType,
+        //                     'algorithm' => $this->currentAlgorithm,
+        //                     'header_type' => $this->headerType,
+        //                 ]);
+        //             }
+        //         } catch (\Exception $e) {
+        //             dd($e->getMessage());
+        //         }
+
+        //         session(['reportData' => $data]);
+        //         $this->dispatch('redirectToReport');
+
+        //         // Сохраняем в таблице History
+        //         $historyData = [
+        //             'name' => $this->name,
+        //             'order_number' => $this->orderNumber,
+        //             'document_designation' => $this->documentDesignation,
+        //         ];
+
+        //         $user->histories()->create($historyData);
+        //         break;
+
+
+        //     case 'pdf':
+        //         $ReportPdf = new ReportPdf();
+        //         $filePath = $ReportPdf->reportGenerate($data);
+
+        //         $response = response()->download($filePath);
+
+        //         $fileRemover = new FileRemover();
+        //         $fileRemover->fileRemove($filePath);
+
+        //         //Обновляем данные в таблице Settings
+        //         $user = Auth::user();
+        //         $settings = $user->settings;
+
+        //         try {
+        //             if (!$settings) {
+        //                 $settings = $user->settings()->create();
+        //             } else {
+        //                 $settings->update([
+        //                     'is_title' => $this->isTitle,
+        //                     'is_footer' => $this->isFooter,
+        //                     'file_type' => $this->fileType,
+        //                     'algorithm' => $this->currentAlgorithm,
+        //                     'header_type' => $this->headerType,
+        //                 ]);
+        //             }
+        //         } catch (\Exception $e) {
+        //             dd($e->getMessage());
+        //         }
+        //         return $response;
+        // }
     }
 
     #[On('changeSignDateEvent')]
