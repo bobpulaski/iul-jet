@@ -34,6 +34,7 @@ class IulFormComponent extends Component
     {
         $this->settingsService = $settingsService;
         $settings = $this->settingsService->getSettings();
+
         $this->settings = $settings;
 
         $this->isTitle = $settings->is_title;
@@ -41,30 +42,6 @@ class IulFormComponent extends Component
         $this->fileType = $settings->file_type;
         $this->currentAlgorithm = $settings->algorithm;
         $this->headerType = $settings->header_type;
-
-        // $user = Auth::user();
-        // $settings = $user->settings()->first();
-
-        // if (!$settings) {
-        //     $settings = $user->settings()->create();
-        //     $settings = $user->settings()->first();
-
-        //     $this->settings = $settings;
-
-        //     $this->isTitle = $this->settings->is_title;
-        //     $this->isFooter = $this->settings->is_footer;
-        //     $this->fileType = $this->settings->file_type;
-        //     $this->currentAlgorithm = $this->settings->algorithm;
-        //     $this->headerType = $this->settings->header_type;
-        // } else {
-        //     $this->settings = $settings;
-
-        //     $this->isTitle = $this->settings->is_title;
-        //     $this->isFooter = $this->settings->is_footer;
-        //     $this->fileType = $this->settings->file_type;
-        //     $this->currentAlgorithm = $this->settings->algorithm;
-        //     $this->headerType = $this->settings->header_type;
-        // }
     }
 
 
@@ -127,7 +104,7 @@ class IulFormComponent extends Component
 
 
     //Основной алгоритм формирования очета
-    public function start()
+    public function start(UserSettingsService $settingsService)
     {
 
         $this->validate($this->rules(), $this->messages());
@@ -153,113 +130,35 @@ class IulFormComponent extends Component
         $reportService = new ReportService();
         $result = $reportService->generateReport($data, $this->fileType);
 
+        // Данные текущих настроек отчета
+        $settingsData = [
+            'is_title' => $this->isTitle,
+            'is_footer' => $this->isFooter,
+            'file_type' => $this->fileType,
+            'algorithm' => $this->currentAlgorithm,
+            'header_type' => $this->headerType,
+        ];
+
+        // Получаем ссылку на зависимость класса настроек пользователя
+        $this->settingsService = $settingsService;
+
         if (is_bool($result) && $result === false) {
-            // Если это HTML, вызываем событие для редиректа
+            // Если это HTML, вызываем событие на frontend для открытия новой вкладки
             $this->dispatch('redirectToReport');
+
+            // Сохраняем настройки
+            $this->settingsService->updateSettings($settingsData);
         } else {
-            // Если это не HTML, то можно возвращать результат, например, для загрузки
+            // Сохраняем настройки
+            $this->settingsService->updateSettings($settingsData);
+
+            // Если это не HTML, то возвращаем результат, например, для загрузки
             return $result; // это будет response()->download($filePath);
+
         }
 
 
 
-
-        // switch ($this->fileType) {
-        //     case 'docx':
-        //         $ReportDocx = new ReportDocx();
-        //         $filePath = $ReportDocx->reportGenerate($data);
-
-        //         $response = response()->download($filePath);
-
-        //         $fileRemover = new FileRemover();
-        //         $fileRemover->fileRemove($filePath);
-
-        //         //Обновляем данные в таблице Settings
-        //         $user = Auth::user();
-        //         $settings = $user->settings;
-
-        //         try {
-        //             if (!$settings) {
-        //                 $settings = $user->settings()->create();
-        //             } else {
-        //                 $settings->update([
-        //                     'is_title' => $this->isTitle,
-        //                     'is_footer' => $this->isFooter,
-        //                     'file_type' => $this->fileType,
-        //                     'algorithm' => $this->currentAlgorithm,
-        //                     'header_type' => $this->headerType,
-        //                 ]);
-        //             }
-        //         } catch (\Exception $e) {
-        //             dd($e->getMessage());
-        //         }
-        //         return $response;
-
-        //     case 'html':
-        //         //Обновляем данные в таблице Settings
-        //         $user = Auth::user();
-        //         $settings = $user->settings;
-
-        //         try {
-        //             if (!$settings) {
-        //                 $settings = $user->settings()->create();
-        //             } else {
-        //                 $settings->update([
-        //                     'is_title' => $this->isTitle,
-        //                     'is_footer' => $this->isFooter,
-        //                     'file_type' => $this->fileType,
-        //                     'algorithm' => $this->currentAlgorithm,
-        //                     'header_type' => $this->headerType,
-        //                 ]);
-        //             }
-        //         } catch (\Exception $e) {
-        //             dd($e->getMessage());
-        //         }
-
-        //         session(['reportData' => $data]);
-        //         $this->dispatch('redirectToReport');
-
-        //         // Сохраняем в таблице History
-        //         $historyData = [
-        //             'name' => $this->name,
-        //             'order_number' => $this->orderNumber,
-        //             'document_designation' => $this->documentDesignation,
-        //         ];
-
-        //         $user->histories()->create($historyData);
-        //         break;
-
-
-        //     case 'pdf':
-        //         $ReportPdf = new ReportPdf();
-        //         $filePath = $ReportPdf->reportGenerate($data);
-
-        //         $response = response()->download($filePath);
-
-        //         $fileRemover = new FileRemover();
-        //         $fileRemover->fileRemove($filePath);
-
-        //         //Обновляем данные в таблице Settings
-        //         $user = Auth::user();
-        //         $settings = $user->settings;
-
-        //         try {
-        //             if (!$settings) {
-        //                 $settings = $user->settings()->create();
-        //             } else {
-        //                 $settings->update([
-        //                     'is_title' => $this->isTitle,
-        //                     'is_footer' => $this->isFooter,
-        //                     'file_type' => $this->fileType,
-        //                     'algorithm' => $this->currentAlgorithm,
-        //                     'header_type' => $this->headerType,
-        //                 ]);
-        //             }
-        //         } catch (\Exception $e) {
-        //             dd($e->getMessage());
-        //         }
-        //         return $response;
-        // }
     }
 
     #[On('changeSignDateEvent')]

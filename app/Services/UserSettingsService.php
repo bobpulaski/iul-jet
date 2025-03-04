@@ -9,8 +9,15 @@ class UserSettingsService
     public function getSettings()
     {
         $user = Auth::user();
-        return $user->settings()->first() ?: $user->settings()->create();
+        $settings = $user->settings()->first();
+
+        if (!$settings) {
+            $user->settings()->create();
+            $settings = $user->settings()->first(); // Повторно запрашиваем настройки
+        }
+        return $settings;
     }
+
 
     public function updateSettings($settingsData)
     {
