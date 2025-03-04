@@ -87,9 +87,9 @@
 
                 <div class="flex flex-row items-center justify-between">
                     <x-ui.h3>{{ __('Подписи ответственных лиц') }}</x-ui.h3>
-                    {{-- <x-ui.toggle :data="$rememberResponsiblePersons" wire:model="rememberResponsiblePersons">
+                    <x-ui.toggle :data="$rememberResponsiblePersons" wire:model="rememberResponsiblePersons">
                         {{ __('Запомнить') }}
-                    </x-ui.toggle> --}}
+                    </x-ui.toggle>
                 </div>
 
 

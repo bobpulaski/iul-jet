@@ -2,34 +2,30 @@
 
 namespace App\Livewire;
 
-use App\Helpers\ReportDocx;
-use App\Helpers\ReportPdf;
+use Livewire\Component;
+use Livewire\Attributes\On;
+
 use App\Services\ReportService;
 use App\Services\UserSettingsService;
 
-
-// use App\Helpers\FileInfo;
-// use App\Helpers\FileRemover;
 use App\Models\History;
-use Illuminate\Support\Facades\Auth;
-
-
-use Livewire\Component;
-use Livewire\WithFileUploads;
-use Livewire\Attributes\On;
 use DateTime;
 
 class IulFormComponent extends Component
 {
-    protected $settingsService;
 
-    public $settings;
+
+
     public bool $isTitle = false;
+    public bool $rememberSignatures = false;
+    public string $currentAlgorithm = 'md5';
     public bool $isFooter = false;
     public string $fileType = 'docx';
-    public string $currentAlgorithm = 'md5';
     public $headerType = 'regular';
 
+
+    protected $settingsService;
+    private $settings;
     public function mount(UserSettingsService $settingsService)
     {
         $this->settingsService = $settingsService;
@@ -50,10 +46,10 @@ class IulFormComponent extends Component
     public string $documentDesignation = ''; //Обозначение документа
     public string $documentName = ''; //Наименование документа
     public int $versionNumber; //versionNumber
-    public $responsiblePersons = []; //Характер работы; Фамилия
+    public $responsiblePersons = []; //Характер работы, Фамилия, Дата
     public array $fileData = []; //Данные файла, получаемые с Frontend
     public $signFormattedDate;
-    public bool $rememberResponsiblePersons = false;
+
 
     public string $description = '';
     public $page;
@@ -156,9 +152,6 @@ class IulFormComponent extends Component
             return $result; // это будет response()->download($filePath);
 
         }
-
-
-
     }
 
     #[On('changeSignDateEvent')]
@@ -184,11 +177,7 @@ class IulFormComponent extends Component
 
     public function render()
     {
-        if (count($this->getErrorBag()->all()) > 0) {
-            dd('ee');
-        }
         return view('livewire.iul-form-component');
     }
-
 
 }
