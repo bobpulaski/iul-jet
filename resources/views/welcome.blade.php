@@ -61,11 +61,11 @@
                 </nav>
             </header>
 
-            <div class="mx-auto mt-12 w-1/2 px-4 sm:px-6 lg:px-8">
+            <div class="mx-auto mt-12 max-w-screen-lg px-4 sm:px-6 lg:px-8">
                 <div>
-                    <h1 class="text-center text-7xl font-extrabold">Конструктор <span
-                            class="z-50 rounded-lg bg-sky-500 p-4 text-white">ИУЛ</span><br>
-                        <div class="z-10 mt-4 rounded-lg bg-slate-800 p-6 text-3xl text-white">для
+                    <h1 class="text-center text-5xl font-extrabold lg:text-7xl">Конструктор <span
+                            class="rounded-lg bg-sky-500 p-4 text-white">ИУЛ</span><br>
+                        <div class="mt-4 rounded-lg bg-slate-800 p-6 text-2xl lg:text-3xl text-white">для
                             проектно-сметной документации</div>
                     </h1>
                     <div class="mt-8 flex flex-row items-center justify-between gap-8">
@@ -83,20 +83,19 @@
 
         <section>
             <div class="mx-auto mt-12 max-w-7xl px-4 sm:px-6 lg:px-8">
-                <h3 class="text-center text-5xl font-bold">Гибкий, быстрый и удобный</h3>
-                <div class="mt-12 flex flex-row gap-12">
-                    <div class="rounded-lg border border-sky-500 p-4">Lorem ipsum dolor sit amet consectetur,
-                        adipisicing elit. Totam
-                        necessitatibus
-                        minima,
-                        obcaecati ab
-                        ipsa fuga recusandae aperiam reiciendis assumenda adipisci expedita sapiente dolore dignissimos
-                        error est, officiis hic. Maxime, quae.</div>
-                    <div class="rounded-lg border border-sky-500 p-4">Lorem ipsum dolor sit amet consectetur adipisicing
-                        elit. Iure nisi et doloribus earum
-                        recusandae
+                <h3 class="text-center text-4xl lg:text-5xl font-bold">Гибкий, быстрый и удобный</h3>
+                <div class="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-3">
+                    <div class="rounded-lg border border-sky-500 p-4">
+                        <h3 class="text-xl mb-4 font-semibold dark:text-slate-200">Простая настройка формы</h3>
+                        Настройте форму ИУЛ под ваши требования: заголовок, подвал, тип и начертания шрифта - всё
+                        сохраняется на-лету.
+                    </div>
+                    <div class="rounded-lg border border-sky-500 p-4">
+                        <h3 class="text-xl mb-4 font-semibold dark:text-slate-200">Молниеносная загрузка файлов</h3>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure nisi et doloribus earum recusandae
                         modi corrupti optio porro, odio dolores minima amet numquam velit explicabo, fuga cum architecto
-                        sapiente aperiam.</div>
+                        sapiente aperiam.
+                    </div>
                     <div class="rounded-lg border border-sky-500 p-4">
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt placeat minus, consequatur
                         quisquam impedit natus eaque sit quam nulla? Aliquid sint obcaecati ducimus alias laudantium
@@ -105,6 +104,7 @@
                 </div>
             </div>
         </section>
+
 
 
 
