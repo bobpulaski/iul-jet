@@ -30,7 +30,7 @@
     <div class="text-black/80 dark:bg-black dark:text-white/50">
 
 
-        <section id="hero" class="h-screen">
+        <section id="hero" class="">
 
             <header>
                 <nav x-data="{ open: false }">
@@ -70,7 +70,7 @@
                     </h1>
                     <div class="mt-8 flex flex-row items-center justify-between gap-8">
                         <h2 class="basis-2/3 text-start text-xl text-slate-600">Упростите создание
-                            информационно-удостоверяющих листов с помощью нашего сервиса, в соответствии с
+                            информационно-удостоверяющих листов с помощью удобного сервиса, в соответствии с
                             требованиями <span class="font-bold">ГОСТа Р 21.101-2020.</span></h2>
                         <a href="{{ route('register') }}"
                             class="justify-center rounded-md bg-sky-500 px-4 py-3 text-center font-semibold text-white transition duration-300 ease-in-out hover:bg-sky-600">Начните
@@ -81,7 +81,30 @@
             </div>
         </section>
 
-
+        <section>
+            <div class="mx-auto mt-12 max-w-7xl px-4 sm:px-6 lg:px-8">
+                <h3 class="text-center text-5xl font-bold">Гибкий, быстрый и удобный</h3>
+                <div class="mt-12 flex flex-row gap-12">
+                    <div class="rounded-lg border border-sky-500 p-4">Lorem ipsum dolor sit amet consectetur,
+                        adipisicing elit. Totam
+                        necessitatibus
+                        minima,
+                        obcaecati ab
+                        ipsa fuga recusandae aperiam reiciendis assumenda adipisci expedita sapiente dolore dignissimos
+                        error est, officiis hic. Maxime, quae.</div>
+                    <div class="rounded-lg border border-sky-500 p-4">Lorem ipsum dolor sit amet consectetur adipisicing
+                        elit. Iure nisi et doloribus earum
+                        recusandae
+                        modi corrupti optio porro, odio dolores minima amet numquam velit explicabo, fuga cum architecto
+                        sapiente aperiam.</div>
+                    <div class="rounded-lg border border-sky-500 p-4">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt placeat minus, consequatur
+                        quisquam impedit natus eaque sit quam nulla? Aliquid sint obcaecati ducimus alias laudantium
+                        ullam. Maxime recusandae beatae eaque?
+                    </div>
+                </div>
+            </div>
+        </section>
 
 
 
