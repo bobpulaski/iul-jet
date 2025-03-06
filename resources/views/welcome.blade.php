@@ -7,6 +7,9 @@
         content="Онлайн конструктор ИУЛ для оформления информационно-удостоверяющего листа для государственной и негосударственной экспертизы. Сформируйте и скачайте информационно-удостоверяющий лист с любого устройства на сайте Quartos.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link rel="icon" href="{{ asset('icons8-4-32(2).png') }}" type="image/x-icon">
+
+
     <!-- <title>{{ config('app.name', 'Laravel') }}</title> -->
     <title>Конструктор ИУЛ проектной документации для экспертизы</title>
 
@@ -65,7 +68,7 @@
                 <div>
                     <h1 class="text-center text-5xl font-extrabold lg:text-7xl">Конструктор <span
                             class="rounded-lg bg-sky-500 p-4 text-white">ИУЛ</span><br>
-                        <div class="mt-4 rounded-lg bg-slate-800 p-6 text-2xl lg:text-3xl text-white">для
+                        <div class="mt-4 rounded-lg bg-slate-800 p-6 text-2xl text-white lg:text-3xl">для
                             проектно-сметной документации</div>
                     </h1>
                     <div class="mt-8 flex flex-row items-center justify-between gap-8">
@@ -83,15 +86,15 @@
 
         <section>
             <div class="mx-auto mt-12 max-w-7xl px-4 sm:px-6 lg:px-8">
-                <h3 class="text-center text-4xl lg:text-5xl font-bold">Гибкий, быстрый и удобный</h3>
+                <h3 class="text-center text-4xl font-bold lg:text-5xl">Гибкий, быстрый и удобный</h3>
                 <div class="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-3">
                     <div class="rounded-lg border border-sky-500 p-4">
-                        <h3 class="text-xl mb-4 font-semibold dark:text-slate-200">Простая настройка формы</h3>
+                        <h3 class="mb-4 text-xl font-semibold dark:text-slate-200">Простая настройка формы</h3>
                         Настройте форму ИУЛ под ваши требования: заголовок, подвал, тип и начертания шрифта - всё
                         сохраняется на-лету.
                     </div>
                     <div class="rounded-lg border border-sky-500 p-4">
-                        <h3 class="text-xl mb-4 font-semibold dark:text-slate-200">Молниеносная загрузка файлов</h3>
+                        <h3 class="mb-4 text-xl font-semibold dark:text-slate-200">Молниеносная загрузка файлов</h3>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure nisi et doloribus earum recusandae
                         modi corrupti optio porro, odio dolores minima amet numquam velit explicabo, fuga cum architecto
                         sapiente aperiam.

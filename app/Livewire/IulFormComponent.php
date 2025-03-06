@@ -6,6 +6,7 @@ use Livewire\Component;
 use Livewire\Attributes\On;
 
 use App\Services\ReportService;
+use App\Services\SigntaturesService;
 use App\Services\UserSettingsService;
 
 use App\Models\History;
@@ -13,11 +14,21 @@ use DateTime;
 
 class IulFormComponent extends Component
 {
+    public string $name = ''; //Наименование объекта
+    public int $orderNumber; //Номер п/п
+    public string $documentDesignation = ''; //Обозначение документа
+    public string $documentName = ''; //Наименование документа
+    public int $versionNumber; //versionNumber
+    public array $responsiblePersons = []; //Характер работы, Фамилия, Дата
+    public array $fileData = []; //Данные файла, получаемые с Frontend
+    public $signFormattedDate;
 
-
+    public string $description = '';
+    public $page;
+    public $pages;
 
     public bool $isTitle = false;
-    public bool $rememberSignatures = false;
+    public bool $isRememberSignatures = true;
     public string $currentAlgorithm = 'md5';
     public bool $isFooter = false;
     public string $fileType = 'docx';
@@ -25,9 +36,12 @@ class IulFormComponent extends Component
 
 
     protected $settingsService;
+    protected $signtaturesService;
     private $settings;
-    public function mount(UserSettingsService $settingsService)
+    private $signtatures;
+    public function mount(UserSettingsService $settingsService, SigntaturesService $signtaturesService)
     {
+        //Получаем настройки пользователя
         $this->settingsService = $settingsService;
         $settings = $this->settingsService->getSettings();
 
@@ -38,22 +52,17 @@ class IulFormComponent extends Component
         $this->fileType = $settings->file_type;
         $this->currentAlgorithm = $settings->algorithm;
         $this->headerType = $settings->header_type;
+        $this->isRememberSignatures = $settings->remember_signatures;
+
+        //Получаем последние сохраненные подписи
+        $this->signtaturesService = $signtaturesService;
+        $signtatures = $this->signtaturesService->getSigntatures();
+        $this->responsiblePersons = $signtatures->toArray();
+        // dd($this->responsiblePersons->toArray());
     }
 
 
-    public string $name = ''; //Наименование объекта
-    public int $orderNumber; //Номер п/п
-    public string $documentDesignation = ''; //Обозначение документа
-    public string $documentName = ''; //Наименование документа
-    public int $versionNumber; //versionNumber
-    public $responsiblePersons = []; //Характер работы, Фамилия, Дата
-    public array $fileData = []; //Данные файла, получаемые с Frontend
-    public $signFormattedDate;
 
-
-    public string $description = '';
-    public $page;
-    public $pages;
 
 
 
@@ -100,7 +109,7 @@ class IulFormComponent extends Component
 
 
     //Основной алгоритм формирования очета
-    public function start(UserSettingsService $settingsService)
+    public function start(UserSettingsService $settingsService, SigntaturesService $signtaturesService)
     {
 
         $this->validate($this->rules(), $this->messages());
@@ -114,6 +123,7 @@ class IulFormComponent extends Component
             'versionNumber' => $this->versionNumber,
             'currentAlgorithm' => $this->currentAlgorithm,
             'responsiblePersons' => $this->responsiblePersons,
+            'rememberSignatures' => $this->isRememberSignatures,
             'headerType' => $this->headerType,
             'isTitle' => $this->isTitle,
             'isFooter' => $this->isFooter,
@@ -133,24 +143,31 @@ class IulFormComponent extends Component
             'file_type' => $this->fileType,
             'algorithm' => $this->currentAlgorithm,
             'header_type' => $this->headerType,
+            'remember_signatures' => $this->isRememberSignatures,
         ];
 
-        // Получаем ссылку на зависимость класса настроек пользователя
+        // Получаем ссылки на зависимость класса настроек пользователя и подписей
         $this->settingsService = $settingsService;
+        $this->signtaturesService = $signtaturesService;
 
         if (is_bool($result) && $result === false) {
             // Если это HTML, вызываем событие на frontend для открытия новой вкладки
             $this->dispatch('redirectToReport');
 
-            // Сохраняем настройки
+            //Сохраняем настройки пользователя
             $this->settingsService->updateSettings($settingsData);
+
+            //Сохраняем подписи ответственных лиц
+            if ($this->isRememberSignatures) {
+                $this->signtaturesService->createSigntatures($this->responsiblePersons);
+            }
+
         } else {
             // Сохраняем настройки
             $this->settingsService->updateSettings($settingsData);
 
             // Если это не HTML, то возвращаем результат, например, для загрузки
             return $result; // это будет response()->download($filePath);
-
         }
     }
 

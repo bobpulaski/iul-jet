@@ -74,7 +74,7 @@ class User extends Authenticatable
 
     public function signatures()
     {
-        return $this->hasOne(Signature::class);
+        return $this->hasMany(Signature::class);
     }
 
     public function histories()

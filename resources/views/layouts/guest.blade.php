@@ -6,10 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <link rel="icon" href="{{ asset('icons8-4-48.png') }}" type="image/x-icon">
+
+
     @if (request()->routeIs('login'))
-        <title>Войти в Quatrus</title>
+        <title>Войти в Quatros</title>
     @elseif (request()->routeIs('register'))
-        <title>Регистрация в Quatrus пароля</title>
+        <title>Регистрация в Quatros пароля</title>
     @elseif (request()->routeIs('forgot-password'))
         <title>Восстановление пароля</title>
     @else

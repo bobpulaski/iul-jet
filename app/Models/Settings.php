@@ -12,6 +12,7 @@ class Settings extends Model
         'file_type',
         'algorithm',
         'header_type',
+        'remember_signatures',
     ];
     public function user()
     {

@@ -87,7 +87,7 @@
 
                 <div class="flex flex-row items-center justify-between">
                     <x-ui.h3>{{ __('Подписи ответственных лиц') }}</x-ui.h3>
-                    <x-ui.toggle :data="$rememberResponsiblePersons" wire:model="rememberResponsiblePersons">
+                    <x-ui.toggle wire:model="isRememberSignatures">
                         {{ __('Запомнить') }}
                     </x-ui.toggle>
                 </div>
@@ -95,18 +95,22 @@
 
                 <div>
                     <div x-data="{
-                        rows: [{ kind: '', surname: '', signdate: '' }],
-                        addRow() {
-                            this.rows.push({ kind: '', surname: '', signdate: '' });
-                            this.updateLivewireArray();
-                        },
-                        deleteRow(index) {
-                            this.rows.splice(index, 1);
-                            {{-- this.updateLivewireArray(); --}}
-                        },
-                        updateLivewireArray() {
-                            @this.set('responsiblePersons', this.rows);
-                        }
+                        {{-- rows: [{ kind: '', surname: '', signdate: '' }], --}}
+                        rows: $wire.entangle('responsiblePersons'),
+                    
+                            addRow() {
+                                this.rows.push({ kind: '', surname: '', signdate: '' });
+                                this.updateLivewireArray();
+                            },
+                    
+                            deleteRow(index) {
+                                this.rows.splice(index, 1);
+                                {{-- this.updateLivewireArray(); --}}
+                            },
+                            {{--                     
+                            updateLivewireArray() {
+                                @this.set('responsiblePersons', this.rows);
+                            } --}}
                     }">
 
 
@@ -114,10 +118,10 @@
                         реагирует.
                         Сделал так, потому-что первая строка подписей не попадает в массив, пока не добавишь новую
                         строку --}}
+                        <p x-text="stext"></p>
 
                         <template x-for="(row, index) in rows" :key="index">
 
-                            {{-- <div class="grid grid-cols-8 gap-4 mt-4"> --}}
                             <div class="">
                                 <div
                                     class="mb-2 mt-2 flex flex-col items-center gap-4 rounded-md bg-indigo-100 p-4 md:flex-row">
