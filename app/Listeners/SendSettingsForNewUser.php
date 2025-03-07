@@ -2,6 +2,7 @@
 
 namespace App\Listeners;
 
+use App\Models\Signature;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use App\Events\UserRegistered;
@@ -26,5 +27,10 @@ class SendSettingsForNewUser
         $settings = new Settings();
         $settings->user_id = $event->user->id;
         $settings->save();
+
+        // Создание записи в таблице Signatures со значениями по умолчанию
+        $signarures = new Signature();
+        $signarures->user_id = $event->user->id;
+        $signarures->save();
     }
 }

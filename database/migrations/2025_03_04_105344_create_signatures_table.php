@@ -18,8 +18,8 @@ return new class extends Migration {
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
 
             // Основная информация
-            $table->string('kind')->nullable(); // Характер работы
-            $table->string('surname')->nullable(); // Фамилия
+            $table->string('kind')->nullable()->default(''); // Характер работы
+            $table->string('surname')->nullable()->default(''); // Фамилия
             $table->date('signdate')->nullable(); // Дата подписания
         });
     }
