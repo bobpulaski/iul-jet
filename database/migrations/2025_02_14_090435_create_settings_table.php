@@ -17,7 +17,12 @@ return new class extends Migration {
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
 
             $table->boolean('is_title')->nullable()->default(true);
+            $table->boolean('remember_signatures')->nullable()->default(true);
+            $table->string('algorithm')->nullable()->default('md5');
             $table->boolean('is_footer')->nullable()->default(true);
+            $table->string('file_type')->nullable()->default('pdf');
+            $table->string('header_type')->nullable()->default('regular');
+
         });
     }
 

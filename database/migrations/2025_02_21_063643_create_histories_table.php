@@ -18,17 +18,32 @@ return new class extends Migration {
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
 
             // Основная информация
-            $table->string('name'); // Наименование объекта*
-            $table->tinyInteger('order_number'); // № п/п*
-            $table->string('document_designation'); // Обозначение документа*
-            $table->string('document_name'); // Наименование документа*
-            $table->tinyInteger('version_number'); // № версии*
-            $table->string('current_algorithm'); // Алгоритм расчета контрольной суммы
+            $table->string('name')->nullable(); // Наименование объекта*
+            $table->tinyInteger('order_number')->nullable(); // № п/п*
+            $table->string('document_designation')->nullable(); // Обозначение документа*
+            $table->string('document_name')->nullable(); // Наименование документа*
+            $table->tinyInteger('version_number')->nullable(); // № версии*
 
-            // Подвал
+            $table->json('responsible_persons')->nullable(); // Подписи
+
+            $table->string('hash')->nullable();
+            $table->string('file_name')->nullable();
+            $table->date('formatted_date')->nullable();
+            $table->integer('file_size')->nullable();
+
+
+            $table->string('algorithm')->nullable();
+
             $table->string('description')->nullable(); // Обозначение
             $table->tinyInteger('page')->nullable(); // Лист
             $table->tinyInteger('pages')->nullable(); // Листов
+
+            $table->boolean('is_title')->nullable()->default(true);
+            $table->string('header_type')->nullable()->default('regular');
+            $table->boolean('is_footer')->nullable()->default(true);
+
+            $table->boolean('remember_signatures')->nullable()->default(true);
+            $table->string('file_type')->nullable()->default('pdf');
         });
     }
 

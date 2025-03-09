@@ -4,6 +4,7 @@ namespace App\Helpers;
 
 use Str;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Debugbar;
 
 use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\SimpleType\Jc;
@@ -17,6 +18,8 @@ class ReportPdf
 
   public function reportGenerate($data)
   {
+
+    Debugbar::info($data);
 
     $randomString = Str::random(9); // Генерация случайной строки длиной 15 символов
 

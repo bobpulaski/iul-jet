@@ -111,11 +111,7 @@
 
         {{-- Algorithm --}}
         <tr>
-            {{-- @php
-                dd($data);
-            @endphp --}}
-
-            <td colspan="2" style="{{ $style }}">{{ $data['currentAlgorithm'] }}</td>
+            <td colspan="2" style="{{ $style }}">{{ $data['algorithm'] }}</td>
             <td colspan="2">{{ $data['fileData'][0]['hash'] }}</td>
         </tr>
 

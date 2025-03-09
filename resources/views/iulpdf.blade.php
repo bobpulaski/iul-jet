@@ -98,7 +98,7 @@
 
         {{-- Algorithm --}}
         <tr>
-            <td colspan="2" style="{{ $style }}">{{ $currentAlgorithm }}</td>
+            <td colspan="2" style="{{ $style }}">{{ $algorithm }}</td>
             <td colspan="2">{{ $fileData[0]['hash'] }}</td>
         </tr>
 

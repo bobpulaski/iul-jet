@@ -13,9 +13,9 @@ function hashChunk(chunk) {
     });
 }
 
-export const readFile = async (file, currentAlgorithm) => {
+export const readFile = async (file, algorithm) => {
     if (!hasher) {
-        switch (currentAlgorithm) {
+        switch (algorithm) {
             case 'md5':
                 hasher = await hashwasm.createMD5();
                 break;

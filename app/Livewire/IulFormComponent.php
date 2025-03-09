@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use Livewire\Attributes\On;
+use Debugbar;
 
 use App\Services\ReportService;
 use App\Services\SigntaturesService;
@@ -19,7 +20,9 @@ class IulFormComponent extends Component
     public string $documentDesignation = ''; //Обозначение документа
     public string $documentName = ''; //Наименование документа
     public int $versionNumber; //versionNumber
+
     public array $responsiblePersons = []; //Характер работы, Фамилия, Дата
+
     public array $fileData = []; //Данные файла, получаемые с Frontend
     public $signFormattedDate;
 
@@ -29,7 +32,7 @@ class IulFormComponent extends Component
 
     public bool $isTitle = false;
     public bool $isRememberSignatures = true;
-    public string $currentAlgorithm = 'md5';
+    public string $algorithm = 'md5';
     public bool $isFooter = false;
     public string $fileType = 'docx';
     public $headerType = 'regular';
@@ -50,7 +53,7 @@ class IulFormComponent extends Component
         $this->isTitle = $settings->is_title;
         $this->isFooter = $settings->is_footer;
         $this->fileType = $settings->file_type;
-        $this->currentAlgorithm = $settings->algorithm;
+        $this->algorithm = $settings->algorithm;
         $this->headerType = $settings->header_type;
         $this->isRememberSignatures = $settings->remember_signatures;
 
@@ -58,12 +61,7 @@ class IulFormComponent extends Component
         $this->signtaturesService = $signtaturesService;
         $signtatures = $this->signtaturesService->getSigntatures();
         $this->responsiblePersons = $signtatures->toArray();
-        // dd($this->responsiblePersons->toArray());
     }
-
-
-
-
 
 
 
@@ -76,7 +74,7 @@ class IulFormComponent extends Component
             'documentDesignation' => 'required|min:3|max:255',
             'documentName' => 'required|min:3|max:255',
             'versionNumber' => 'required',
-            'currentAlgorithm' => 'required',
+            'algorithm' => 'required',
         ];
     }
 
@@ -114,24 +112,48 @@ class IulFormComponent extends Component
 
         $this->validate($this->rules(), $this->messages());
 
+        // Данные для формирования отчета
         $data = [
-            'fileData' => $this->fileData,
+
             'name' => $this->name,
             'orderNumber' => $this->orderNumber,
             'documentDesignation' => $this->documentDesignation,
             'documentName' => $this->documentName,
             'versionNumber' => $this->versionNumber,
-            'currentAlgorithm' => $this->currentAlgorithm,
-            'responsiblePersons' => $this->responsiblePersons,
-            'rememberSignatures' => $this->isRememberSignatures,
-            'headerType' => $this->headerType,
-            'isTitle' => $this->isTitle,
-            'isFooter' => $this->isFooter,
-            'signDate' => $this->signFormattedDate,
+
+            'responsiblePersons' => $this->responsiblePersons, //Массив подписей
+
+            'fileData' => $this->fileData,
+
+            'algorithm' => $this->algorithm,
+
             'description' => $this->description,
             'page' => $this->page,
             'pages' => $this->pages,
+
+            'isTitle' => $this->isTitle,
+            'headerType' => $this->headerType,
+            'isFooter' => $this->isFooter,
+            // 'signDate' => $this->signFormattedDate,
         ];
+
+
+
+        $signaturesArray = [
+            'signature1' => 'hello1',
+            'signature2' => 'buy2',
+        ];
+
+        Debugbar::info(is_array($signaturesArray));
+        Debugbar::info('json_encode' . json_encode($signaturesArray));
+
+        $user = auth()->user();
+        $user->histories()->create(['signatures' => json_encode($signaturesArray)]);
+
+        $signs= json_decode($user->histories()->first()->signatures, true);
+
+        Debugbar::info(is_array($signs));
+        Debugbar::info($signs);
 
         $reportService = new ReportService();
         $result = $reportService->generateReport($data, $this->fileType);
@@ -141,7 +163,7 @@ class IulFormComponent extends Component
             'is_title' => $this->isTitle,
             'is_footer' => $this->isFooter,
             'file_type' => $this->fileType,
-            'algorithm' => $this->currentAlgorithm,
+            'algorithm' => $this->algorithm,
             'header_type' => $this->headerType,
             'remember_signatures' => $this->isRememberSignatures,
         ];

@@ -97,17 +97,17 @@
                     <div x-data="{
                         {{-- rows: [{ kind: '', surname: '', signdate: '' }], --}}
                         rows: $wire.entangle('responsiblePersons'),
-                    
+
                             addRow() {
                                 this.rows.push({ kind: '', surname: '', signdate: '' });
                                 this.updateLivewireArray();
                             },
-                    
+
                             deleteRow(index) {
                                 this.rows.splice(index, 1);
                                 {{-- this.updateLivewireArray(); --}}
                             },
-                            {{--                     
+                            {{--
                             updateLivewireArray() {
                                 @this.set('responsiblePersons', this.rows);
                             } --}}
@@ -193,19 +193,19 @@
             <div class="flex flex-col p-8">
                 <x-ui.h3>{{ __('Алгоритм расчета контрольной суммы') }}</x-ui.h3>
                 <div class="mt-4 flex flex-row gap-4">
-                    <input id="algorithm-radio-md5" wire:model="currentAlgorithm" type="radio" value="md5"
+                    <input id="algorithm-radio-md5" wire:model="algorithm" type="radio" value="md5"
                         name="algorithm-radio"
                         class="h-4 w-4 border-gray-300 bg-gray-100 text-indigo-600 focus:ring-2 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-indigo-600">
                     <label for="algorithm-radio-md5"
                         class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">MD5</label>
 
-                    <input id="algorithm-radio-crc32" wire:model="currentAlgorithm" type="radio" value="crc32"
+                    <input id="algorithm-radio-crc32" wire:model="algorithm" type="radio" value="crc32"
                         name="algorithm-radio"
                         class="h-4 w-4 border-gray-300 bg-gray-100 text-indigo-600 focus:ring-2 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-indigo-600">
                     <label for="algorithm-radio-crc32"
                         class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">CRC32</label>
 
-                    <input id="algorithm-radio-sha1" wire:model="currentAlgorithm" type="radio" value="sha1"
+                    <input id="algorithm-radio-sha1" wire:model="algorithm" type="radio" value="sha1"
                         name="algorithm-radio"
                         class="h-4 w-4 border-gray-300 bg-gray-100 text-indigo-600 focus:ring-2 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-indigo-600" />
                     <label for="algorithm-radio-sha1"
@@ -319,7 +319,7 @@
         });
 
 
-        let currentAlgorithm = '{{ $currentAlgorithm }}'; // Получаю значение по умолчанию
+        let algorithm = '{{ $algorithm }}'; // Получаю значение по умолчанию
 
         const fileSelector = document.getElementById("inputFile");
         const resultElement = document.getElementById("loadButton");
@@ -328,7 +328,7 @@
         // Обработчик изменения радиокнопок
         algorithmRadios.forEach((radio) => {
             radio.addEventListener('change', (event) => {
-                currentAlgorithm = event.target.value; // Обновляем текущий алгоритм
+                algorithm = event.target.value; // Обновляем текущий алгоритм
                 const file = fileSelector.files[0]; // Получаем выбранный файл
                 update(file);
             });
@@ -349,7 +349,7 @@
             resultElement.innerHTML = "Loading...";
 
             const start = Date.now();
-            const hash = await readFile(file, currentAlgorithm); // Передаем текущий алгоритм
+            const hash = await readFile(file, algorithm); // Передаем текущий алгоритм
             const end = Date.now();
 
             const duration = end - start;
@@ -373,7 +373,7 @@
                 options); // Форматируем дату для лучшей читаемости
 
             console.log(`
-                Hash: ${currentAlgorithm} - ${hash}
+                Hash: ${algorithm} - ${hash}
                 FileName: ${fileName}
                 fileSize: ${fileSize}
                 fileType: ${fileType}
@@ -398,7 +398,7 @@
         }
 
 
-        // let currentAlgorithm = '{{ $currentAlgorithm }}'; // Получаю значение по умолчанию
+        // let currentAlgorithm = '{{ $algorithm }}'; // Получаю значение по умолчанию
 
         // const fileSelector = document.getElementById("inputFile");
         // const resultElement = document.getElementById("loadButton");
