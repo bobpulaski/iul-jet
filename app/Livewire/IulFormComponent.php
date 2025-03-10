@@ -4,11 +4,12 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use Livewire\Attributes\On;
-use Debugbar;
+use Barryvdh\Debugbar\Facades\Debugbar;
 
 use App\Services\ReportService;
 use App\Services\SigntaturesService;
 use App\Services\UserSettingsService;
+use App\Services\HistoryService;
 
 use App\Models\History;
 use DateTime;
@@ -16,7 +17,7 @@ use DateTime;
 class IulFormComponent extends Component
 {
     public string $name = ''; //Наименование объекта
-    public int $orderNumber; //Номер п/п
+    public $orderNumber; //Номер п/п
     public string $documentDesignation = ''; //Обозначение документа
     public string $documentName = ''; //Наименование документа
     public int $versionNumber; //versionNumber
@@ -40,6 +41,8 @@ class IulFormComponent extends Component
 
     protected $settingsService;
     protected $signtaturesService;
+    protected $historyService;
+
     private $settings;
     private $signtatures;
     public function mount(UserSettingsService $settingsService, SigntaturesService $signtaturesService)
@@ -70,7 +73,6 @@ class IulFormComponent extends Component
     {
         return [
             'name' => 'required|min:3|max:255',
-            'orderNumber' => 'required',
             'documentDesignation' => 'required|min:3|max:255',
             'documentName' => 'required|min:3|max:255',
             'versionNumber' => 'required',
@@ -85,8 +87,6 @@ class IulFormComponent extends Component
             'name.required' => 'Поле обязательно для заполнения.',
             'name.min' => 'Поле должно содержать не менее 3 символов.',
             'name.max' => 'Поле не должно содержать более 255 символов.',
-
-            'orderNumber.required' => 'Поле обязательно для заполнения.',
 
             'documentDesignation.required' => 'Поле обязательно для заполнения.',
             'documentDesignation.min' => 'Поле должно содержать не менее 3 символов.',
@@ -107,14 +107,13 @@ class IulFormComponent extends Component
 
 
     //Основной алгоритм формирования очета
-    public function start(UserSettingsService $settingsService, SigntaturesService $signtaturesService)
+    public function start(UserSettingsService $settingsService, SigntaturesService $signtaturesService, HistoryService $historyService)
     {
 
         $this->validate($this->rules(), $this->messages());
 
         // Данные для формирования отчета
         $data = [
-
             'name' => $this->name,
             'orderNumber' => $this->orderNumber,
             'documentDesignation' => $this->documentDesignation,
@@ -139,21 +138,21 @@ class IulFormComponent extends Component
 
 
 
-        $signaturesArray = [
-            'signature1' => 'hello1',
-            'signature2' => 'buy2',
-        ];
+        // $signaturesArray = [
+        //     'signature1' => 'hello1',
+        //     'signature2' => 'buy2',
+        // ];
 
-        Debugbar::info(is_array($signaturesArray));
-        Debugbar::info('json_encode' . json_encode($signaturesArray));
+        // Debugbar::info(is_array($signaturesArray));
+        // Debugbar::info('json_encode' . json_encode($signaturesArray));
 
-        $user = auth()->user();
-        $user->histories()->create(['signatures' => json_encode($signaturesArray)]);
+        // $user = auth()->user();
+        // $user->histories()->create(['signatures' => json_encode($signaturesArray)]);
 
-        $signs= json_decode($user->histories()->first()->signatures, true);
+        // $signs = json_decode($user->histories()->first()->signatures, true);
 
-        Debugbar::info(is_array($signs));
-        Debugbar::info($signs);
+        // Debugbar::info(is_array($signs));
+        // Debugbar::info($signs);
 
         $reportService = new ReportService();
         $result = $reportService->generateReport($data, $this->fileType);
@@ -168,9 +167,35 @@ class IulFormComponent extends Component
             'remember_signatures' => $this->isRememberSignatures,
         ];
 
+        // Данные для сохранения Истории
+        $historyData = [
+            'name' => $this->name,
+            'order_number' => $this->orderNumber,
+            'document_designation' => $this->documentDesignation,
+            'document_name' => $this->documentName,
+            'version_number' => $this->versionNumber,
+            'responsible_persons' => json_encode($this->responsiblePersons, true),
+            'hash' => $this->fileData[0]['hash'],
+            'file_name' => $this->fileData[0]['fileName'],
+            'formatted_date' => $this->fileData[0]['formattedDate'],
+            'file_size' => $this->fileData[0]['fileSize'],
+            'algorithm' => $this->algorithm,
+            'description' => $this->description,
+            'page' => $this->page,
+            'pages' => $this->pages,
+            'is_title' => $this->isTitle,
+            'header_type' => $this->headerType,
+            'is_footer' => $this->isFooter,
+            'remember_signatures' => $this->isRememberSignatures,
+            'file_type' => $this->fileType,
+        ];
+
+        Debugbar::info(is_array($this->responsiblePersons));
+
         // Получаем ссылки на зависимость класса настроек пользователя и подписей
         $this->settingsService = $settingsService;
         $this->signtaturesService = $signtaturesService;
+        $this->historyService = $historyService;
 
         if (is_bool($result) && $result === false) {
             // Если это HTML, вызываем событие на frontend для открытия новой вкладки
@@ -178,6 +203,7 @@ class IulFormComponent extends Component
 
             //Сохраняем настройки пользователя
             $this->settingsService->updateSettings($settingsData);
+            $this->historyService->createHistory($historyData);
 
             //Сохраняем подписи ответственных лиц
             if ($this->isRememberSignatures) {
@@ -187,6 +213,7 @@ class IulFormComponent extends Component
         } else {
             // Сохраняем настройки
             $this->settingsService->updateSettings($settingsData);
+            $this->historyService->createHistory($historyData);
 
             // Если это не HTML, то возвращаем результат, например, для загрузки
             return $result; // это будет response()->download($filePath);

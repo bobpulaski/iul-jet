@@ -9,23 +9,27 @@
                 <table class="w-full text-left text-sm text-gray-500 rtl:text-right dark:text-gray-400">
                     <thead class="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
-                            <th scope="col" class="px-6 py-3">id</th>
-                            <th scope="col" class="px-6 py-3">user_id</th>
-                            <th scope="col" class="px-6 py-3">name</th>
-                            <th scope="col" class="px-6 py-3">order_number</th>
-                            <th scope="col" class="px-6 py-3">document_designation</th>
-                            <th scope="col" class="px-6 py-3">type</th>
+                            <th scope="col" class="px-6 py-3">Дата</th>
+                            <th scope="col" class="px-6 py-3">Наименование объекта</th>
+                            <th scope="col" class="px-6 py-3">Обозначение</th>
+                            <th scope="col" class="px-6 py-3">Наименование документа</th>
+                            <th scope="col" class="px-6 py-3">Алгоритм</th>
+                            <th scope="col" class="px-6 py-3">Имя файла</th>
+                            <th scope="col" class="px-6 py-3">Тип файла</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($historyData as $item)
                             <tr class="border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
-                                <td class="px-6 py-4">{{ $item->id }}</td>
-                                <td class="px-6 py-4">{{ $item->user_id }}</td>
+                                <td class="px-6 py-4">
+                                    {{ \Carbon\Carbon::parse($item->created_at)->format('d.m.Y H:i:s') }}
+                                </td>
                                 <td class="px-6 py-4">{{ $item->name }}</td>
-                                <td class="px-6 py-4">{{ $item->order_number }}</td>
                                 <td class="px-6 py-4">{{ $item->document_designation }}</td>
-                                <td class="px-6 py-4"><x-ui.select-format /></td>
+                                <td class="px-6 py-4">{{ $item->document_name }}</td>
+                                <td class="px-6 py-4">{{ $item->algorithm }}</td>
+                                <td class="px-6 py-4">{{ $item->file_name }}</td>
+                                <td class="px-6 py-4">{{ $item->file_type }}</td>
                             </tr>
                         @endforeach
                     </tbody>

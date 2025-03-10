@@ -37,9 +37,9 @@
                 {{-- 2# Порядковый номер и обозначение --}}
                 <div class="mt-4 flex flex-row gap-4">
                     <div class="basis-2/12">
-                        <x-label for="orderNumber" value="{{ __('№ п/п*') }}" />
+                        <x-label for="orderNumber" value="{{ __('№ п/п') }}" />
                         <x-input id="orderNumber" wire:model="orderNumber" class="mt-1 block w-full" type="number"
-                            min="0" name="orderNumber" required autocomplete="orderNumber" />
+                            min="0" name="orderNumber" autocomplete="orderNumber" />
                         <div class="text-red-400">
                             @error('orderNumber')
                                 <x-ui.form-validation-error-message :message="$message" />
@@ -97,12 +97,12 @@
                     <div x-data="{
                         {{-- rows: [{ kind: '', surname: '', signdate: '' }], --}}
                         rows: $wire.entangle('responsiblePersons'),
-
+                    
                             addRow() {
                                 this.rows.push({ kind: '', surname: '', signdate: '' });
                                 this.updateLivewireArray();
                             },
-
+                    
                             deleteRow(index) {
                                 this.rows.splice(index, 1);
                                 {{-- this.updateLivewireArray(); --}}
@@ -366,7 +366,7 @@
                 hour: 'numeric',
                 minute: 'numeric',
                 second: 'numeric',
-                hour12: false // Установите false, если хотите 24-часовой формат
+                hour12: false // Установите true, если хотите 12-часовой формат
             };
 
             const formattedDate = fileModifiedDate.toLocaleString('ru-RU',

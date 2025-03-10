@@ -9,7 +9,7 @@ class SigntaturesService
   public function getSigntatures()
   {
     $user = Auth::user();
-    $signtatures = $user->signatures()->get();
+    $signtatures = $user->signatures()->select('kind', 'surname', 'signdate')->get();
     return $signtatures;
   }
 
