@@ -1,10 +1,10 @@
 <x-action-section>
     <x-slot name="title">
-        {{ __('Two Factor Authentication') }}
+        {{ __('Двухфакторная аутентификация') }}
     </x-slot>
 
     <x-slot name="description">
-        {{ __('Add additional security to your account using two factor authentication.') }}
+        {{ __('Добавьте дополнительную безопасность к вашей учетной записи, используя двухфакторную аутентификацию.') }}
     </x-slot>
 
     <x-slot name="content">
@@ -16,7 +16,7 @@
                     {{ __('You have enabled two factor authentication.') }}
                 @endif
             @else
-                {{ __('You have not enabled two factor authentication.') }}
+                {{ __('Вы не включили двухфакторную аутентификацию.') }}
             @endif
         </h3>
 
@@ -38,7 +38,7 @@
                     </p>
                 </div>
 
-                <div class="mt-4 p-2 inline-block bg-white">
+                <div class="mt-4 inline-block bg-white p-2">
                     {!! $this->user->twoFactorQrCodeSvg() !!}
                 </div>
 
@@ -52,8 +52,8 @@
                     <div class="mt-4">
                         <x-label for="code" value="{{ __('Code') }}" />
 
-                        <x-input id="code" type="text" name="code" class="block mt-1 w-1/2" inputmode="numeric" autofocus autocomplete="one-time-code"
-                            wire:model="code"
+                        <x-input id="code" type="text" name="code" class="mt-1 block w-1/2"
+                            inputmode="numeric" autofocus autocomplete="one-time-code" wire:model="code"
                             wire:keydown.enter="confirmTwoFactorAuthentication" />
 
                         <x-input-error for="code" class="mt-2" />
@@ -68,7 +68,8 @@
                     </p>
                 </div>
 
-                <div class="grid gap-1 max-w-xl mt-4 px-4 py-4 font-mono text-sm bg-gray-100 dark:bg-gray-900 dark:text-gray-100 rounded-lg">
+                <div
+                    class="mt-4 grid max-w-xl gap-1 rounded-lg bg-gray-100 px-4 py-4 font-mono text-sm dark:bg-gray-900 dark:text-gray-100">
                     @foreach (json_decode(decrypt($this->user->two_factor_recovery_codes), true) as $code)
                         <div>{{ $code }}</div>
                     @endforeach
@@ -77,7 +78,7 @@
         @endif
 
         <div class="mt-5">
-            @if (! $this->enabled)
+            @if (!$this->enabled)
                 <x-confirms-password wire:then="enableTwoFactorAuthentication">
                     <x-button type="button" wire:loading.attr="disabled">
                         {{ __('Enable') }}
