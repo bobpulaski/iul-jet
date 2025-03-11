@@ -136,24 +136,6 @@ class IulFormComponent extends Component
             // 'signDate' => $this->signFormattedDate,
         ];
 
-
-
-        // $signaturesArray = [
-        //     'signature1' => 'hello1',
-        //     'signature2' => 'buy2',
-        // ];
-
-        // Debugbar::info(is_array($signaturesArray));
-        // Debugbar::info('json_encode' . json_encode($signaturesArray));
-
-        // $user = auth()->user();
-        // $user->histories()->create(['signatures' => json_encode($signaturesArray)]);
-
-        // $signs = json_decode($user->histories()->first()->signatures, true);
-
-        // Debugbar::info(is_array($signs));
-        // Debugbar::info($signs);
-
         $reportService = new ReportService();
         $result = $reportService->generateReport($data, $this->fileType);
 

@@ -24,7 +24,7 @@ class ReportService
         return $this->handleHtmlReport($data);
 
       default:
-        throw new \InvalidArgumentException('Invalid file type');
+        throw new \InvalidArgumentException('Не верный формат файла для выгрузки');
     }
 
     $filePath = $reportGenerator->reportGenerate($data);

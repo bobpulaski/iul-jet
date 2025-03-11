@@ -87,7 +87,7 @@
     <table>
 
         {{-- Title --}}
-        @if ($data['isTitle'] === true)
+        @if ($data['isTitle'])
             <tr>
                 <td colspan="2" style="{{ $style }}">Наименование объекта</td>
                 <td colspan="2">{{ $data['name'] }}</td>
@@ -169,7 +169,7 @@
     </table>
 
     {{-- Footer --}}
-    @if ($data['isFooter'] === true)
+    @if ($data['isFooter'])
         <table style="border-top: none;">
             <tr>
                 <td style="width: 30%; border-top: none;" rowspan="2">Информационно-удостоверяющий лист</td>

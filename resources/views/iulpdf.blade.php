@@ -74,7 +74,7 @@
     <table>
 
         {{-- Title --}}
-        @if ($isTitle === true)
+        @if ($isTitle)
             <tr>
                 <td colspan="2" style="{{ $style }}">Наименование объекта</td>
                 <td colspan="2">{{ $name }}</td>
@@ -156,7 +156,7 @@
     </table>
 
     {{-- Footer --}}
-    @if ($isFooter === true)
+    @if ($isFooter)
         <table>
             <tr>
                 <td style="width: 30%;" rowspan="2">Информационно-удостоверяющий лист</td>

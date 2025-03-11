@@ -78,7 +78,7 @@ class ReportDocx
     $row3->addCell(3000, $cellStyle)->addText($data['versionNumber'], $fontStyle, $pStyle);
 
     $row4 = $table1->addRow();
-    $row4->addCell(4200, ['gridSpan' => 2])->addText($data['currentAlgorithm'], $headerFontStyle, $pStyle);
+    $row4->addCell(4200, ['gridSpan' => 2])->addText($data['algorithm'], $headerFontStyle, $pStyle);
     $row4->addCell(7600, ['gridSpan' => 2])->addText($data['fileData'][0]['hash'], $fontStyle, $pStyle);
 
     $row5 = $table1->addRow();
