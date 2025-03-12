@@ -2,9 +2,11 @@
 
 namespace App\Livewire;
 
+use App\Models\User;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use Barryvdh\Debugbar\Facades\Debugbar;
+use Illuminate\Support\Facades\Auth;
 
 use App\Services\ReportService;
 use App\Services\SigntaturesService;
@@ -47,23 +49,55 @@ class IulFormComponent extends Component
     private $signtatures;
     public function mount(UserSettingsService $settingsService, SigntaturesService $signtaturesService)
     {
-        //Получаем настройки пользователя
-        $this->settingsService = $settingsService;
-        $settings = $this->settingsService->getSettings();
+        // Если форма вызвана из Истории (есть id записи из таблицы истории)
 
-        $this->settings = $settings;
+        if (request()->id) {
+            $user = Auth::user();
+            $fromHistory = $user->histories->where('id', request()->id / 2 / 52)->first();
+            if ($fromHistory) {
+                $this->isTitle = $fromHistory->is_title;
 
-        $this->isTitle = $settings->is_title;
-        $this->isFooter = $settings->is_footer;
-        $this->fileType = $settings->file_type;
-        $this->algorithm = $settings->algorithm;
-        $this->headerType = $settings->header_type;
-        $this->isRememberSignatures = $settings->remember_signatures;
+                $this->name = $fromHistory->name;
+                $this->orderNumber = $fromHistory->order_number;
+                $this->documentDesignation = $fromHistory->document_designation;
+                $this->documentName = $fromHistory->document_name;
+                $this->versionNumber = $fromHistory->version_number;
 
-        //Получаем последние сохраненные подписи
-        $this->signtaturesService = $signtaturesService;
-        $signtatures = $this->signtaturesService->getSigntatures();
-        $this->responsiblePersons = $signtatures->toArray();
+                $this->isRememberSignatures = $fromHistory->remember_signatures;
+                $this->responsiblePersons = json_decode($fromHistory->responsible_persons, true);
+
+                $this->algorithm = $fromHistory->algorithm;
+
+                $this->isFooter = $fromHistory->is_footer;
+                $this->description = $fromHistory->description;
+                $this->page = $fromHistory->page;
+                $this->pages = $fromHistory->pages;
+
+                $this->fileType = $fromHistory->file_type;
+                $this->headerType = $fromHistory->header_type;
+            } else {
+                abort(403, 'Unauthorized.');
+            }
+        } else {
+
+            //Получаем настройки пользователя
+            $this->settingsService = $settingsService;
+            $settings = $this->settingsService->getSettings();
+
+            $this->settings = $settings;
+
+            $this->isTitle = $settings->is_title;
+            $this->isFooter = $settings->is_footer;
+            $this->fileType = $settings->file_type;
+            $this->algorithm = $settings->algorithm;
+            $this->headerType = $settings->header_type;
+            $this->isRememberSignatures = $settings->remember_signatures;
+
+            //Получаем последние сохраненные подписи
+            $this->signtaturesService = $signtaturesService;
+            $signtatures = $this->signtaturesService->getSigntatures();
+            $this->responsiblePersons = $signtatures->toArray();
+        }
     }
 
 

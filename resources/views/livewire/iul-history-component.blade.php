@@ -1,5 +1,47 @@
 <div>
-    <div class="overflow-hidden bg-white shadow-md sm:rounded-lg dark:bg-gray-800">
+
+    @foreach ($historyData as $item)
+        <div class="mb-3 overflow-hidden bg-white p-8 shadow-md sm:rounded-lg dark:bg-gray-800">
+            <div class="flex flex-row gap-2 pb-4">
+                <p class="text-sm font-semibold">Дата создания:</p>
+                <p class="text-sm">{{ \Carbon\Carbon::parse($item->created_at)->format('d.m.Y в H:i:s') }}</p>
+            </div>
+
+            <div class="flex flex-row gap-2 pb-4">
+                <p class="text-sm font-semibold">Наименование объекта:</p>
+                <p class="text-sm">{{ $item->name }}</p>
+            </div>
+            <div class="flex flex-row gap-2 pb-4">
+                <p class="text-sm font-semibold">Обозначение документа:</p>
+                <p class="text-sm">{{ $item->document_designation }}</p>
+            </div>
+            <div class="flex flex-row gap-2 pb-4">
+                <p class="text-sm font-semibold">Наименование документа:</p>
+                <p class="text-sm">{{ $item->document_name }}</p>
+            </div>
+
+            <div class="flex flex-row gap-4 pb-4">
+                <div class="flex flex-row gap-1 rounded-md bg-sky-100 p-2">
+                    <p class="text-sm font-semibold">№ п/п:</p>
+                    <p class="text-sm">{{ $item->order_number }}</p>
+                </div>
+                <div class="flex flex-row gap-1 rounded-md bg-sky-100 p-2">
+                    <p class="text-sm font-semibold">№ версии:</p>
+                    <p class="text-sm">{{ $item->version_number }}</p>
+                </div>
+                <div class="flex flex-row gap-1 rounded-md bg-sky-100 p-2">
+                    <p class="text-sm font-semibold">Алгоритм:</p>
+                    <p class="text-sm">{{ $item->algorithm }}</p>
+                </div>
+            </div>
+
+
+
+        </div>
+    @endforeach
+
+
+    {{-- <div class="overflow-hidden bg-white shadow-md sm:rounded-lg dark:bg-gray-800">
         <div class="flex flex-col p-8">
             <div class="flex flex-col">
                 <x-label for="file-type">На страницу</x-label>
@@ -42,7 +84,11 @@
                                 <td class="px-6 py-4">{{ $item->is_footer }}</td>
                                 <td class="px-6 py-4">{{ $item->file_type }}</td>
                                 <td class="px-6 py-4">
-                                    <x-button wire:click="ReportSave({{ $item->id }})">Скачать</x-button>
+                                    <x-button wire:click="reportSave({{ $item->id }})">Скачать</x-button>
+                                    @php
+                                        $id = $item->id * 2 * 52;
+                                    @endphp
+                                    <x-button wire:click="reportEdit({{ $id }})">Edit</x-button>
                                 </td>
                             </tr>
                         @endforeach
@@ -52,7 +98,7 @@
             </div>
         </div>
 
-    </div>
+    </div> --}}
 </div>
 
 <script type="module">

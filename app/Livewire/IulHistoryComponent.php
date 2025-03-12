@@ -8,6 +8,7 @@ use Livewire\WithPagination;
 use Illuminate\Support\Facades\Auth;
 use Barryvdh\Debugbar\Facades\Debugbar;
 use App\Services\ReportService;
+use Illuminate\Support\Facades\Crypt;
 
 class IulHistoryComponent extends Component
 {
@@ -20,7 +21,12 @@ class IulHistoryComponent extends Component
 
     }
 
-    public function ReportSave($id)
+    public function reportEdit($id)
+    {
+        return redirect()->route('dashboard', ['id' => $id]);
+    }
+
+    public function reportSave($id)
     {
         $results = History::find($id)->toArray();
 
