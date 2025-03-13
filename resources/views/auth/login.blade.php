@@ -1,8 +1,7 @@
 <x-guest-layout>
     <x-authentication-card>
         <x-slot name="logo">
-            {{-- <x-authentication-card-logo /> --}}
-            <img src="{{ asset('images/logo.png') }}" alt="Quartos Logo">
+            <x-mainpage.logo />
         </x-slot>
 
         <x-validation-errors class="mb-4" />
@@ -18,8 +17,8 @@
 
             <div>
                 <x-label for="email" value="{{ __('Email') }}" />
-                <x-input id="email" class="mt-1 block w-full" type="email" name="email" :value="old('email')"
-                    required autofocus autocomplete="username" />
+                <x-input id="email" class="mt-1 block w-full" type="email" name="email" :value="old('email')" required
+                    autofocus autocomplete="username" />
             </div>
 
             <div class="mt-4">

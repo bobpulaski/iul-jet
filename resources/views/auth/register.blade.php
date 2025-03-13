@@ -2,7 +2,7 @@
     <x-authentication-card>
         <x-slot name="logo">
             {{-- <x-authentication-card-logo /> --}}
-            <img src="{{ asset('storage/images/logo.png') }}" alt="Quartos Logo">
+            <x-mainpage.logo />
         </x-slot>
 
         <x-validation-errors class="mb-4" />

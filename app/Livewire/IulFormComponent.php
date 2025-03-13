@@ -14,10 +14,14 @@ use App\Services\UserSettingsService;
 use App\Services\HistoryService;
 
 use App\Models\History;
+
 use DateTime;
+use Laravel\Jetstream\InteractsWithBanner;
 
 class IulFormComponent extends Component
 {
+    use InteractsWithBanner;
+
     public string $name = ''; //Наименование объекта
     public $orderNumber; //Номер п/п
     public string $documentDesignation = ''; //Обозначение документа
@@ -53,7 +57,7 @@ class IulFormComponent extends Component
 
         if (request()->id) {
             $user = Auth::user();
-            $fromHistory = $user->histories->where('id', request()->id / 2 / 52)->first();
+            $fromHistory = $user->histories->where('id', request()->id / 52)->first();
             if ($fromHistory) {
                 $this->isTitle = $fromHistory->is_title;
 
@@ -172,6 +176,7 @@ class IulFormComponent extends Component
 
         $reportService = new ReportService();
         $result = $reportService->generateReport($data, $this->fileType);
+        $this->banner('Отчет успешно сохранён.');
 
         // Данные текущих настроек отчета
         $settingsData = [
@@ -206,8 +211,6 @@ class IulFormComponent extends Component
             'file_type' => $this->fileType,
         ];
 
-        Debugbar::info(is_array($this->responsiblePersons));
-
         // Получаем ссылки на зависимость класса настроек пользователя и подписей
         $this->settingsService = $settingsService;
         $this->signtaturesService = $signtaturesService;
@@ -217,11 +220,11 @@ class IulFormComponent extends Component
             // Если это HTML, вызываем событие на frontend для открытия новой вкладки
             $this->dispatch('redirectToReport');
 
-            //Сохраняем настройки пользователя
+            // Сохраняем настройки пользователя
             $this->settingsService->updateSettings($settingsData);
             $this->historyService->createHistory($historyData);
 
-            //Сохраняем подписи ответственных лиц
+            // Сохраняем подписи ответственных лиц
             if ($this->isRememberSignatures) {
                 $this->signtaturesService->createSigntatures($this->responsiblePersons);
             }
@@ -232,8 +235,10 @@ class IulFormComponent extends Component
             $this->historyService->createHistory($historyData);
 
             // Если это не HTML, то возвращаем результат, например, для загрузки
+
             return $result; // это будет response()->download($filePath);
         }
+
     }
 
     #[On('changeSignDateEvent')]

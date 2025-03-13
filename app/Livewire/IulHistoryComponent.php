@@ -9,16 +9,40 @@ use Illuminate\Support\Facades\Auth;
 use Barryvdh\Debugbar\Facades\Debugbar;
 use App\Services\ReportService;
 use Illuminate\Support\Facades\Crypt;
+use Laravel\Jetstream\InteractsWithBanner;
 
 class IulHistoryComponent extends Component
 {
     use WithPagination;
+    use InteractsWithBanner;
 
     public $perPage = 10;
+    public bool $confirmingHistoryDeletion = false;
+
+    public int $historyId;
 
     public function mount(
     ) {
 
+    }
+
+    public function confirmHistoryDeletion($id)
+    {
+        $this->confirmingHistoryDeletion = true;
+        $this->historyId = $id / 52;
+
+    }
+
+    public function deleteHistory()
+    {
+        $history = History::find($this->historyId); // получаем запись по ID
+        if ($history) {
+            $history->delete();
+            $this->confirmingHistoryDeletion = false;
+            $this->banner('Запись успешно удалена.');
+        } else {
+            $this->dangerBanner('Запись не найдена. Удаление не возможно.');
+        }
     }
 
     public function reportEdit($id)
@@ -28,7 +52,7 @@ class IulHistoryComponent extends Component
 
     public function reportSave($id)
     {
-        $results = History::find($id)->toArray();
+        $results = History::find($id / 52)->toArray();
 
         $data = [
             'name' => $results['name'],
@@ -65,8 +89,10 @@ class IulHistoryComponent extends Component
         if (is_bool($result) && $result === false) {
             // Если это HTML, вызываем событие на frontend для открытия новой вкладки
             $this->dispatch('redirectToReport');
+            $this->banner('Отчет успешно сохранён.');
         } else {
             // Если это не HTML, то возвращаем результат, например, для загрузки
+            $this->banner('Отчет успешно сохранён.');
             return $result; // это будет response()->download($filePath);
         }
 
