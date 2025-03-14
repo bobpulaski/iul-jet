@@ -28,7 +28,7 @@ return new class extends Migration {
 
             $table->string('hash')->nullable();
             $table->string('file_name')->nullable();
-            $table->date('formatted_date')->nullable();
+            $table->string('formatted_date')->nullable();
             $table->integer('file_size')->nullable();
 
 

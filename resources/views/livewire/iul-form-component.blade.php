@@ -100,7 +100,7 @@
                     
                             addRow() {
                                 this.rows.push({ kind: '', surname: '', signdate: '' });
-                                this.updateLivewireArray();
+                                {{-- this.updateLivewireArray(); --}}
                             },
                     
                             deleteRow(index) {
@@ -126,12 +126,12 @@
 
                                     <div class="md:full basis-4/12">
                                         <x-input x-model="row.kind" type="text" class="block w-full"
-                                            placeholder="Характер работы" @input="updateLivewireArray()" />
+                                            placeholder="Характер работы" />
                                     </div>
 
                                     <div class="md:full basis-5/12">
                                         <x-input x-model="row.surname" type="text" class="block w-full"
-                                            placeholder="Фамилия" @input="updateLivewireArray()" />
+                                            placeholder="Фамилия" />
                                     </div>
 
                                     <div class="md:full basis-3/12">
