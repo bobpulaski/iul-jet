@@ -23,3 +23,5 @@ yarn-error.log
 /.zed
 /nbproject/private/
 .DS_Store
+
+# domains/quatros.ru
