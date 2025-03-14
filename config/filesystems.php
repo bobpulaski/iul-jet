@@ -72,7 +72,7 @@ return [
 
     'links' => [
         // public_path('storage') => storage_path('app/public'),
-        base_path('domains/quatros.ru') => base_path('public'),
+        base_path('quatros.ru') => base_path('public'),
     ],
 
 ];
