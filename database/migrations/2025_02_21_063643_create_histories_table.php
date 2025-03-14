@@ -19,10 +19,10 @@ return new class extends Migration {
 
             // Основная информация
             $table->string('name')->nullable(); // Наименование объекта*
-            $table->tinyInteger('order_number')->nullable(); // № п/п*
+            $table->integer('order_number')->nullable(); // № п/п
             $table->string('document_designation')->nullable(); // Обозначение документа*
             $table->string('document_name')->nullable(); // Наименование документа*
-            $table->tinyInteger('version_number')->nullable(); // № версии*
+            $table->integer('version_number')->nullable(); // № версии*
 
             $table->json('responsible_persons')->nullable(); // Подписи
 
