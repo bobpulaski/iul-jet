@@ -64,7 +64,7 @@
                 </nav>
             </header>
 
-            <div class="mx-auto mt-12 max-w-screen-lg px-4 sm:px-6 lg:px-8">
+            <div class="mx-auto mt-12 max-w-screen-lg px-4 sm:px-6 lg:px-8 h-screen">
                 <div>
                     <h1 class="text-center text-5xl font-extrabold lg:text-7xl">Конструктор <span
                             class="rounded-lg bg-sky-500 p-4 text-white">ИУЛ</span><br>
@@ -84,7 +84,7 @@
             </div>
         </section>
 
-        <section>
+        {{-- <section>
             <div class="mx-auto mt-12 max-w-7xl px-4 sm:px-6 lg:px-8">
                 <h3 class="text-center text-4xl font-bold lg:text-5xl">Гибкий, быстрый и удобный</h3>
                 <div class="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-3">
@@ -106,7 +106,7 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> --}}
 
 
 
