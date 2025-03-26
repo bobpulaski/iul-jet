@@ -9,7 +9,7 @@
 
         <form method="POST" action="{{ route('register') }}">
             @csrf
-            @honeypot
+            <x-honeypot />
 
             <div>
                 <x-label for="name" value="{{ __('Имя') }}" />
