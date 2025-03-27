@@ -26,5 +26,17 @@
     "Profile": "Профиль",
     "Confirm Password": "Подтвердите пароль",
     "For your security, please confirm your password to continue.": "Для вашей безопасности, пожалуйста, подтвердите ваш пароль чтобы продолжить.",
-    "Please enter your password to confirm you would like to log out of your other browser sessions across all of your devices.": "Пожалуйста, введите свой пароль, чтобы подтвердить, что вы хотите выйти из своих других сеансов в браузере на всех ваших устройствах."
+    "Please enter your password to confirm you would like to log out of your other browser sessions across all of your devices.": "Пожалуйста, введите свой пароль, чтобы подтвердить, что вы хотите выйти из своих других сеансов в браузере на всех ваших устройствах.",
+    "Whoops! Something went wrong.": "Что-то пошло не так.",
+    "Before continuing, could you verify your email address by clicking on the link we just emailed to you? If you didn't receive the email, we will gladly send you another.": "Перед тем как продолжить, пожалуйста, подтвердите свой адрес электронной почты, кликнув по ссылке, которую мы только что отправили вам на почту. Если вы не получили письмо, мы с радостью отправим его снова.",
+    "A new verification link has been sent to the email address you provided in your profile settings.": "Новая ссылка для подтверждения была отправлена на адрес электронной почты, указанный вами в настройках профиля.",
+    "Resend Verification Email": "Повторить",
+    "Edit Profile": "Редактировать профиль",
+    "Log Out": "Выйти",
+    "Hello!": "Здравствуйте!",
+    "Verify Email Address": "Подтвердить мой E-mail",
+    "Please click the button below to verify your email address.": "Пожалуйста, нажмите кнопку ниже, чтобы подтвердить ваш адрес электронной почты.",
+    "If you did not create an account, no further action is required.": "Если вы не создавали учетную запись на сайте quatros.ru, просто проигнорируйте это письмо.",
+    "Regards,": "С уважением,",
+    "If you're having trouble clicking the \":actionText\" button, copy and paste the URL below\ninto your web browser:": "Если у вас возникли проблемы с нажатием кнопки, скопируйте и вставьте следующий URL в ваш веб-браузер:"
 }
