@@ -16,7 +16,7 @@
     @elseif (request()->routeIs('forgot-password'))
         <title>Восстановление пароля</title>
     @else
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ config('app.name', 'Quatros.ru') }}</title>
     @endif
 
     <!-- Fonts -->
