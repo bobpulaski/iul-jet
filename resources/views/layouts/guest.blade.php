@@ -10,9 +10,9 @@
 
 
     @if (request()->routeIs('login'))
-        <title>Войти в Quatros</title>
+        <title>Войти</title>
     @elseif (request()->routeIs('register'))
-        <title>Регистрация в Quatros пароля</title>
+        <title>Регистрация</title>
     @elseif (request()->routeIs('forgot-password'))
         <title>Восстановление пароля</title>
     @else
