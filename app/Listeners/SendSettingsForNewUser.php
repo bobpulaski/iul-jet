@@ -6,7 +6,9 @@ use App\Models\Signature;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use App\Events\UserRegistered;
+use App\Mail\UserRegisteredMail;
 use App\Models\Settings;
+use Illuminate\Support\Facades\Mail;
 
 class SendSettingsForNewUser
 {
@@ -32,5 +34,10 @@ class SendSettingsForNewUser
         $signarures = new Signature();
         $signarures->user_id = $event->user->id;
         $signarures->save();
+
+        // dd(request());
+        $email = request('email');
+        $userIp = request()->ip();
+        Mail::to('mynameisempty@yandex.ru')->send(new UserRegisteredMail($userIp, $email));
     }
 }
