@@ -9,7 +9,7 @@
     <link rel="icon" href="{{ asset('icons8-4-48.png') }}" type="image/x-icon">
 
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Quatros') }}</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
