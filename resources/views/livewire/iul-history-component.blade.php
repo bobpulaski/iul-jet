@@ -1,7 +1,7 @@
 <div>
     @if ($historyData->isEmpty())
         <x-ui.p>Записей в истории пока нет. <x-nav-link href="{{ route('dashboard') }}" wire:navigate
-                :active="request()->routeIs('dashboard')">{{ __('Создайте свой первый отчет.') }} </x-nav-link>
+                :active="request()->routeIs('dashboard')">{{ __('Создайте свой первый лист.') }} </x-nav-link>
         </x-ui.p>
     @else
         <div class="mb-4 flex flex-row items-center justify-end gap-2">
