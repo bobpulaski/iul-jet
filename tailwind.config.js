@@ -12,7 +12,9 @@ export default {
         "./storage/framework/views/*.php",
         "./resources/views/**/*.blade.php",
     ],
-
+    watch: {
+        reloadOnBladeUpdates: true,
+    },
     theme: {
         extend: {
             // fontFamily: {

@@ -32,7 +32,6 @@
 
     <div class="text-black/80 dark:bg-black dark:text-white/50">
 
-
         <section id="hero" class="">
 
             <header>
@@ -69,12 +68,13 @@
                     <h1 class="text-center text-5xl font-extrabold lg:text-7xl">Конструктор <span
                             class="rounded-lg bg-sky-500 p-4 text-white">ИУЛ</span><br>
                         <div class="mt-4 rounded-lg bg-slate-800 p-6 text-2xl text-white lg:text-3xl">для
-                            проектно-сметной документации</div>
+                            проектно-сметной документации
+                        </div>
                     </h1>
                     <div class="mt-8 flex flex-row items-center justify-between gap-8">
-                        <h2 class="basis-2/3 text-start text-xl text-slate-600">Упростите создание
+                        <h4 class="basis-2/3 text-start text-xl text-slate-600">Упростите создание
                             информационно-удостоверяющих листов с помощью удобного сервиса, в соответствии с
-                            требованиями <span class="font-bold">ГОСТа Р 21.101-2020.</span></h2>
+                            требованиями <span class="font-bold">ГОСТа Р 21.101-2020.</span></h4>
                         <a href="{{ route('register') }}"
                             class="justify-center rounded-md bg-sky-500 px-4 py-3 text-center font-semibold text-white transition duration-300 ease-in-out hover:bg-sky-600">Начните
                             прямо сейчас →</a>
@@ -85,117 +85,290 @@
         </section>
 
         <!-- Быстрый и удобный -->
-        <section class="mt-20">
-            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <h3 class="text-center text-4xl font-extrabold lg:text-5xl mb-20 text-gray-700">
-                    Быстрый и удобный
-                </h3>
-                <div class="grid grid-cols-1 gap-8 lg:grid-cols-3">
-                    <div class="rounded-lg border-2 border-sky-500 p-4">
-                        <h3 class="mb-4 text-xl font-bold dark:text-slate-200 text-slate-700">
-                            Гибкая и простая настройка формы
-                        </h3>
-                        <p class="text-xl text-slate-600">
-                            Настройте форму ИУЛ под ваши требования: заголовок, подвал, тип и
-                            начертания шрифта – всё сохраняется налету.
-                        </p>
-                    </div>
-                    <div class="rounded-lg border-2 border-sky-500 p-4">
-                        <h3 class="mb-4 text-xl font-bold dark:text-slate-200 text-slate-700">
-                            Молниеносная загрузка файлов
-                        </h3>
-                        <p class="text-xl text-slate-600">
-                            Анализ файлов проекта происходит практически мгновенно. Благодаря
-                            оптимизированному коду алгоритмов обработки сервис не накладывает
-                            никаких ограничений на размер загружаемого файла.
-                        </p>
-                    </div>
-                    <div class="rounded-lg border-2 border-sky-500 p-4">
-                        <h3 class="mb-4 text-xl font-bold dark:text-slate-200 text-slate-600">
-                            История всегда под рукой
-                        </h3>
-                        <p class="text-xl text-slate-600">
-                            Все сформированные информационно-удостоверяющие листы сохраняются
-                            в истории. Вы всегда можете вернуться к любому из них
-                            отредактировать или использовать в качестве шаблона.
-                        </p>
-                    </div>
+        <x-mainpage.section>
+            <x-mainpage.h2>
+                Быстрый, удобный и лёгкий.
+            </x-mainpage.h2>
+            <x-mainpage.p-center>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            </x-mainpage.p-center>
+            <x-mainpage.grid-3-col>
+                <div class="rounded-lg border-2 border-sky-500 p-4">
+                    <x-mainpage.h4>
+                        Гибкая и простая настройка
+                    </x-mainpage.h4>
+                    <x-mainpage.p>
+                        Настройте форму ИУЛ под ваши требования: заголовок, подвал, тип и
+                        начертания шрифта – всё сохраняется налету.
+                    </x-mainpage.p>
                 </div>
-            </div>
-        </section>
+                <div class="rounded-lg border-2 border-sky-500 p-4">
+                    <x-mainpage.h4>
+                        Молниеносная загрузка файлов
+                    </x-mainpage.h4>
+                    <x-mainpage.p>
+                        Анализ файлов проекта происходит практически мгновенно. Благодаря
+                        оптимизированному коду алгоритмов обработки сервис не накладывает
+                        никаких ограничений на размер загружаемого файла.
+                    </x-mainpage.p>
+                </div>
+                <div class="rounded-lg border-2 border-sky-500 p-4">
+                    <x-mainpage.h4>
+                        История всегда под рукой
+                    </x-mainpage.h4>
+                    <x-mainpage.p>
+                        Все сформированные информационно-удостоверяющие листы сохраняются
+                        в истории. Вы всегда можете вернуться к любому из них
+                        отредактировать или использовать в качестве шаблона.
+                    </x-mainpage.p>
+                </div>
+            </x-mainpage.grid-3-col>
+        </x-mainpage.section>
 
         <!-- Формирование ИУЛ стало проще -->
+        <x-mainpage.section>
+            <x-mainpage.h2>
+                Формирование ИУЛ стало проще
+            </x-mainpage.h2>
+            <x-mainpage.p-center>
+                Сервис Quatros акцентирует внимание на содержимом
+                информационно-удостоверяющих листов, а не на их оформлении.
+            </x-mainpage.p-center>
+            <x-mainpage.flex-row>
+                <div class="flex basis-1/2 flex-col justify-center">
+                    <x-mainpage.h3>
+                        Интуитивный интерфейс
+                    </x-mainpage.h3>
+                    <x-mainpage.p>
+                        Порядок заполнения разделов для формирования ИУЛ соответствует
+                        форме № 15 из приложения Х рекомендуемых правил ГОСТ Р
+                        21.101-2020.
+                    </x-mainpage.p>
+                    <x-mainpage.p>
+                        Настраиваемые опции позволяют учитывать требования к выходной
+                        форме листа.
+                    </x-mainpage.p>
+                </div>
+                <div class="flex basis-1/2">
+                    <div class="relative">
+                        <div
+                            class="absolute inset-0 rotate-3 transform rounded-xl bg-gradient-to-r from-pink-500 to-yellow-500">
+                        </div>
 
-        <section class="mt-20">
-            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                        <img class="relative z-10 rounded-xl border border-slate-200"
+                            src="{{ asset('images/iul-interface.jpg') }}" alt="ИУЛ Интерфейс" />
+                    </div>
+                </div>
+            </x-mainpage.flex-row>
+        </x-mainpage.section>
 
-                <h3 class="text-center text-4xl font-extrabold lg:text-5xl mb-8 text-gray-700">
-                    Формирование ИУЛ стало проще
-                </h3>
-                <h4 class="text-center text-xl text-slate-600 mb-12 max-w-5xl mx-auto">
-                    Сервис Quatros позволяет акцентировать внимание на содержимом
-                    информационно-удостоверяющих листов, а не на их оформлении.
-                </h4>
-                <div class="flex flex-row gap-18 mt-20">
-                    <div class="flex flex-col flex-1/2 justify-center">
-                        <h4 class="text-2xl font-bold lg:text-3xl mb-6 text-gray-700">
-                            Интуитивный интерфейс
-                        </h4>
-                        <p class="text-xl dark:text-slate-200 text-slate-600">
-                            Порядок заполнения разделов для формирования ИУЛ соответствует
-                            форме № 15 из приложения Х рекомендуемых правил ГОСТ Р
-                            21.101-2020.
-                        </p>
-                        <p class="text-xl dark:text-slate-200 text-slate-600 mt-4">
-                            Настраиваемые опции позволяют учитывать требования к выходной
-                            форме листа.
+        <x-mainpage.section>
+            <x-mainpage.flex-row>
+                <div class="flex basis-1/2">
+                    <div class="relative">
+                        <div
+                            class="absolute inset-0 rotate-3 transform rounded-xl bg-gradient-to-r from-pink-500 to-yellow-500">
+                        </div>
+
+                        <img class="relative z-10 rounded-xl border border-slate-200"
+                            src="{{ asset('images/iul-signs.jpg') }}" />
+                    </div>
+                </div>
+                <div class="flex basis-1/2 flex-col justify-center">
+                    <x-mainpage.h3>
+                        Удобно подписывать
+                    </x-mainpage.h3>
+                    <x-mainpage.p>
+                        Добавляя строки с информацией о лицах, подписавших документ, не
+                        нужно беспокоиться о том, что при формировании нового ИУЛ придется
+                        заполнять этот раздел заново – просто включите опцию «Запомнить».
+                    </x-mainpage.p>
+                    <x-mainpage.p>
+                        Если вы предпочитаете заполнять этот раздел от руки, достаточно
+                        оставить поля пустыми.
+                    </x-mainpage.p>
+                </div>
+            </x-mainpage.flex-row>
+        </x-mainpage.section>
+
+        <x-mainpage.section>
+            <x-mainpage.flex-row>
+                <div class="flex basis-1/2 flex-col justify-center">
+                    <x-mainpage.h3>
+                        Ничего не потеряется
+                    </x-mainpage.h3>
+                    <x-mainpage.p>
+                        Вся работа по формированию информационно-удостоверяющих листов
+                        сохраняется в разделе «История».
+                    </x-mainpage.p>
+                    <x-mainpage.p>
+                        Вы всегда можете вернуться к нужному ИУЛ для внесения изменений
+                        или для формировании нового на основе имеющегося.
+                    </x-mainpage.p>
+                </div>
+                <div class="flex basis-1/2">
+                    <div class="relative">
+                        <div
+                            class="absolute inset-0 rotate-3 transform rounded-xl bg-gradient-to-r from-pink-500 to-yellow-500">
+                        </div>
+
+                        <img class="relative z-10 rounded-xl border border-slate-200"
+                            src="{{ asset('images/iul-history.jpg') }}" alt="История ИУЛ" />
+                    </div>
+                </div>
+            </x-mainpage.flex-row>
+        </x-mainpage.section>
+
+        <!-- Три алгоритма расчета контрольной суммы -->
+        <x-mainpage.section>
+            <x-mainpage.h2>
+                Три алгоритма расчета контрольной суммы
+            </x-mainpage.h2>
+            <x-mainpage.p-center>
+                Используйте любой алгоритм расчета по согласованию с принимающей
+                стороной.
+            </x-mainpage.p-center>
+            <div class="flex flex-row justify-around">
+                <x-mainpage.algorithm-circle>MD5</x-mainpage.algorithm-circle>
+                <x-mainpage.algorithm-circle>CRC32</x-mainpage.algorithm-circle>
+                <x-mainpage.algorithm-circle>SHA1</x-mainpage.algorithm-circle>
+            </div>
+        </x-mainpage.section>
+
+        <!-- Сохраняйте в удобном для вас формате -->
+        <x-mainpage.section>
+            <x-mainpage.h2>
+                Сохраняйте в удобном для вас формате
+            </x-mainpage.h2>
+            <x-mainpage.p-center>
+                Поддержка нескольких типов файлов для выгрузки сформированного ИУЛ.
+            </x-mainpage.p-center>
+            <div class="flex flex-row justify-around">
+                <x-mainpage.export-format class="bg-sky-700">*.DOCX</x-mainpage.export-format>
+                <x-mainpage.export-format class="bg-rose-700">*.PDF</x-mainpage.export-format>
+                <x-mainpage.export-format class="bg-orange-700">*.HTML</x-mainpage.export-format>
+            </div>
+        </x-mainpage.section>
+
+
+        <!-- Вопросы и ответы -->
+        <x-mainpage.section>
+            {{-- <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8"> --}}
+            <x-mainpage.h2>
+                Вопросы и ответы
+            </x-mainpage.h2>
+
+            <div x-data="{ openIndex: null }">
+                <!-- Аккордеон секция 1 -->
+                <div class="mb-0">
+                    <button @click="openIndex === 1 ? openIndex = null : openIndex = 1"
+                        class="flex w-full items-center justify-between gap-3 rounded-t-xl border border-b-0 border-gray-200 p-5 font-medium text-gray-500 hover:bg-gray-100 focus:ring-1 focus:ring-gray-200 rtl:text-right dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
+                        <span class="font-semibold">Как начать пользоваться конструктором?</span>
+                        <svg class="h-5 w-5 transform" :class="openIndex === 1 ? 'rotate-180' : 'rotate-0'"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div x-show="openIndex === 1"
+                        class="border border-b-0 border-gray-200 p-5 dark:border-gray-700 dark:bg-gray-900">
+                        <p>
+                            Чтобы начать пользоваться конструктором ИУЛ, вам необходимо
+                            зарегистрироваться. После регистрации на указанный вами email
+                            придёт письмо с подтверждением вашего электронного почтового
+                            ящика. Подтвердив свою учетную запись, вам будет доступен весь
+                            функционал сервиса.
                         </p>
                     </div>
-                    <div class="flex flex-col flex-1/2">
-                        <div class="relative">
-                            <div
-                                class="absolute inset-0 bg-gradient-to-r from-pink-500 to-yellow-500 transform rotate-4 rounded-xl">
-                            </div>
+                </div>
 
-                            <img class="rounded-xl relative z-10 border border-slate-200"
-                                src="src/images/iul-interface.jpg" />
-                        </div>
+                <!-- Аккордеон секция 2 -->
+                <div class="mb-0">
+                    <button @click="openIndex === 2 ? openIndex = null : openIndex = 2"
+                        class="flex w-full items-center justify-between gap-3 border border-b-0 border-gray-200 p-5 font-medium text-gray-500 hover:bg-gray-100 focus:ring-1 focus:ring-gray-200 rtl:text-right dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
+                        <span class="font-semibold">Должен ли я что-то устанавливать на свой компьютер?</span>
+                        <svg class="h-5 w-5 transform" :class="openIndex === 2 ? 'rotate-180' : 'rotate-0'"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div x-show="openIndex === 2"
+                        class="border border-b-0 border-gray-200 p-5 dark:border-gray-700 dark:bg-gray-900">
+                        <p>
+                            Конструктор ИУЛ работает через веб-браузер, как любое
+                            SaaS-приложение. Это очень удобно, ведь вам не нужно
+                            беспокоиться о скачивании и установке программ. Просто зайдите в
+                            браузер, и вы готовы к работе из любой места, где есть интернет!
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Аккордеон секция 3 -->
+                <div class="mb-0">
+                    <button @click="openIndex === 3 ? openIndex = null : openIndex = 3"
+                        class="flex w-full items-center justify-between gap-3 border border-b-0 border-gray-200 p-5 font-medium text-gray-500 hover:bg-gray-100 focus:ring-1 focus:ring-gray-200 rtl:text-right dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
+                        <span class="font-semibold">Соответствует ли выходная форма ИУЛ требованиям действующего
+                            законодательства?</span>
+                        <svg class="h-5 w-5 transform" :class="openIndex === 3 ? 'rotate-180' : 'rotate-0'"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div x-show="openIndex === 3"
+                        class="border border-b-0 border-gray-200 p-5 dark:border-gray-700 dark:bg-gray-900">
+                        <p>
+                            Да, соответствует. При формировании
+                            информационно-удостоверяющего листа (ИУЛ) приняты положения
+                            <i>ГОСТ Р 21.101-2020 «Система проектной документации для
+                                строительства. Основные требования к проектной и рабочей
+                                документации»</i>, действующего в настоящее время.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Аккордеон секция 4 -->
+                <div class="mb-0">
+                    <button @click="openIndex === 4 ? openIndex = null : openIndex = 4"
+                        class="border-b-1 flex w-full items-center justify-between gap-3 border border-gray-200 p-5 font-medium text-gray-500 hover:bg-gray-100 focus:ring-1 focus:ring-gray-200 rtl:text-right dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
+                        <span class="font-semibold">Если у меня остались вопросы?</span>
+                        <svg class="h-5 w-5 transform" :class="openIndex === 4 ? 'rotate-180' : 'rotate-0'"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div x-show="openIndex === 4"
+                        class="border-b-1 border border-gray-200 p-5 dark:border-gray-700 dark:bg-gray-900">
+                        <p>
+                            Конечно, если у вас остались вопросы, вы всегда можете
+                            обратиться за помощью! После регистрации вам будет доступен
+                            раздел «Техподдержка», где вы сможете задать вопрос, указать на
+                            ошибку или написать отзыв о работе конструктора. Мы всегда рады
+                            помочь!
+                        </p>
                     </div>
                 </div>
             </div>
-        </section>
+        </x-mainpage.section>
 
+        <section class="mt-20">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <h3 class="mb-8 text-center text-4xl font-extrabold text-gray-700 lg:text-5xl">
+                    Начните прямо сейчас!
+                </h3>
+                <h4 class="mb-16 text-center text-xl text-slate-600">
+                    <a href="/login" class="font-medium text-sky-700 underline">Войдите</a>
+                    или
+                    <a href="/register" class="font-medium text-sky-700 underline">зарегистрируйтесь</a>.
+                </h4>
+            </div>
+        </section>
 
 
         <div class="flex flex-col items-center justify-center selection:bg-[#FF2D20] selection:text-white">
             <div class="relative w-full max-w-2xl lg:max-w-6xl">
-
-
-
-
-
-
-
-
-                {{-- <main class="mt-6">
-                    <div class="relative w-full max-w-2xl px-6 lg:max-w-7xl">
-                        <h1 class="text-4xl">Конструктор ИУЛ для проектно-сметной документации</h1>
-                        <ol>
-                            <li>Поддерживаемые форматы</li>
-                            <li>Поддерживаемые версии браузеров (десктоп и мобильный)</li>
-                            <li>ГОСТ Р 21.101-2020 Система проектной документации для строительства. Основные требования
-                                к
-                                проектной и рабочей документации</li>
-                            <li>УЛ рекомендуется выполнять в соответствии с формой 15 на листах формата A4, A5 по ГОСТ
-                                2.301.68 «Единая система конструкторской документации»</li>
-                            <li>Скорость загрузки фалов</li>
-                            <li>Неограниченный размер входного файла (ограничения накладываются вашим железом)</li>
-                            <li>Несколько алгоритмов расчета контрольных сумм</li>
-                            <li>Гибкая настройка формы листа</li>
-                        </ol>
-                    </div>
-                </main> --}}
-
                 <footer class="py-16 text-center text-sm text-black dark:text-white/70">
                     {{-- Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }}) --}}
                     © 2025 Quatros

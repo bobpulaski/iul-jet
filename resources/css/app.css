@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* section {
+    outline: 2px solid #48bb78;
+    outline-offset: 5px;
+    background-color: #ccc;
+}
+
+h2 {
+    background-color: lightgoldenrodyellow;
+} */
