@@ -64,7 +64,7 @@
                 </nav>
             </header>
 
-            <div class="mx-auto mt-12 max-w-screen-lg px-4 sm:px-6 lg:px-8 h-screen">
+            <div class="mx-auto mt-12 max-w-screen-lg px-4 sm:px-6 lg:px-8">
                 <div>
                     <h1 class="text-center text-5xl font-extrabold lg:text-7xl">Конструктор <span
                             class="rounded-lg bg-sky-500 p-4 text-white">ИУЛ</span><br>
@@ -84,30 +84,86 @@
             </div>
         </section>
 
-        {{-- <section>
-            <div class="mx-auto mt-12 max-w-7xl px-4 sm:px-6 lg:px-8">
-                <h3 class="text-center text-4xl font-bold lg:text-5xl">Гибкий, быстрый и удобный</h3>
-                <div class="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-3">
-                    <div class="rounded-lg border border-sky-500 p-4">
-                        <h3 class="mb-4 text-xl font-semibold dark:text-slate-200">Простая настройка формы</h3>
-                        Настройте форму ИУЛ под ваши требования: заголовок, подвал, тип и начертания шрифта - всё
-                        сохраняется на-лету.
+        <!-- Быстрый и удобный -->
+        <section class="mt-20">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <h3 class="text-center text-4xl font-extrabold lg:text-5xl mb-20 text-gray-700">
+                    Быстрый и удобный
+                </h3>
+                <div class="grid grid-cols-1 gap-8 lg:grid-cols-3">
+                    <div class="rounded-lg border-2 border-sky-500 p-4">
+                        <h3 class="mb-4 text-xl font-bold dark:text-slate-200 text-slate-700">
+                            Гибкая и простая настройка формы
+                        </h3>
+                        <p class="text-xl text-slate-600">
+                            Настройте форму ИУЛ под ваши требования: заголовок, подвал, тип и
+                            начертания шрифта – всё сохраняется налету.
+                        </p>
                     </div>
-                    <div class="rounded-lg border border-sky-500 p-4">
-                        <h3 class="mb-4 text-xl font-semibold dark:text-slate-200">Молниеносная загрузка файлов</h3>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure nisi et doloribus earum recusandae
-                        modi corrupti optio porro, odio dolores minima amet numquam velit explicabo, fuga cum architecto
-                        sapiente aperiam.
+                    <div class="rounded-lg border-2 border-sky-500 p-4">
+                        <h3 class="mb-4 text-xl font-bold dark:text-slate-200 text-slate-700">
+                            Молниеносная загрузка файлов
+                        </h3>
+                        <p class="text-xl text-slate-600">
+                            Анализ файлов проекта происходит практически мгновенно. Благодаря
+                            оптимизированному коду алгоритмов обработки сервис не накладывает
+                            никаких ограничений на размер загружаемого файла.
+                        </p>
                     </div>
-                    <div class="rounded-lg border border-sky-500 p-4">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt placeat minus, consequatur
-                        quisquam impedit natus eaque sit quam nulla? Aliquid sint obcaecati ducimus alias laudantium
-                        ullam. Maxime recusandae beatae eaque?
+                    <div class="rounded-lg border-2 border-sky-500 p-4">
+                        <h3 class="mb-4 text-xl font-bold dark:text-slate-200 text-slate-600">
+                            История всегда под рукой
+                        </h3>
+                        <p class="text-xl text-slate-600">
+                            Все сформированные информационно-удостоверяющие листы сохраняются
+                            в истории. Вы всегда можете вернуться к любому из них
+                            отредактировать или использовать в качестве шаблона.
+                        </p>
                     </div>
                 </div>
             </div>
-        </section> --}}
+        </section>
 
+        <!-- Формирование ИУЛ стало проще -->
+
+        <section class="mt-20">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+                <h3 class="text-center text-4xl font-extrabold lg:text-5xl mb-8 text-gray-700">
+                    Формирование ИУЛ стало проще
+                </h3>
+                <h4 class="text-center text-xl text-slate-600 mb-12 max-w-5xl mx-auto">
+                    Сервис Quatros позволяет акцентировать внимание на содержимом
+                    информационно-удостоверяющих листов, а не на их оформлении.
+                </h4>
+                <div class="flex flex-row gap-18 mt-20">
+                    <div class="flex flex-col flex-1/2 justify-center">
+                        <h4 class="text-2xl font-bold lg:text-3xl mb-6 text-gray-700">
+                            Интуитивный интерфейс
+                        </h4>
+                        <p class="text-xl dark:text-slate-200 text-slate-600">
+                            Порядок заполнения разделов для формирования ИУЛ соответствует
+                            форме № 15 из приложения Х рекомендуемых правил ГОСТ Р
+                            21.101-2020.
+                        </p>
+                        <p class="text-xl dark:text-slate-200 text-slate-600 mt-4">
+                            Настраиваемые опции позволяют учитывать требования к выходной
+                            форме листа.
+                        </p>
+                    </div>
+                    <div class="flex flex-col flex-1/2">
+                        <div class="relative">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-r from-pink-500 to-yellow-500 transform rotate-4 rounded-xl">
+                            </div>
+
+                            <img class="rounded-xl relative z-10 border border-slate-200"
+                                src="src/images/iul-interface.jpg" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
 
 
