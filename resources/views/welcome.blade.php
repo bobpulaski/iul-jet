@@ -87,10 +87,10 @@
         <!-- Быстрый и удобный -->
         <x-mainpage.section>
             <x-mainpage.h2>
-                Быстрый, удобный и лёгкий.
+                Быстрый, удобный и лёгкий
             </x-mainpage.h2>
             <x-mainpage.p-center>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Исключите ошибки в оформлении и ускорьте процесс подачи документов в органы экспертизы.
             </x-mainpage.p-center>
             <x-mainpage.grid-3-col>
                 <div class="rounded-lg border-2 border-sky-500 p-4">
@@ -263,13 +263,32 @@
                 <div class="mb-0">
                     <button @click="openIndex === 1 ? openIndex = null : openIndex = 1"
                         class="flex w-full items-center justify-between gap-3 rounded-t-xl border border-b-0 border-gray-200 p-5 font-medium text-gray-500 hover:bg-gray-100 focus:ring-1 focus:ring-gray-200 rtl:text-right dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
-                        <span class="font-semibold">Как начать пользоваться конструктором?</span>
+                        <span class="font-semibold">Какие возможности и преимущества при использовании сервиса?</span>
                         <svg class="h-5 w-5 transform" :class="openIndex === 1 ? 'rotate-180' : 'rotate-0'"
                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
                     </button>
                     <div x-show="openIndex === 1"
+                        class="border border-b-0 border-gray-200 p-5 dark:border-gray-700 dark:bg-gray-900">
+                        <p>
+                            Сокращение времени на подготовку и составление ИУЛ, исключение ошибок при оформлении
+                            документов, обновление, корректировка данных, сохранение истории и многое другое!
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Аккордеон секция 2 -->
+                <div class="mb-0">
+                    <button @click="openIndex === 2 ? openIndex = null : openIndex = 2"
+                        class="flex w-full items-center justify-between gap-3 border border-b-0 border-gray-200 p-5 font-medium text-gray-500 hover:bg-gray-100 focus:ring-1 focus:ring-gray-200 rtl:text-right dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
+                        <span class="font-semibold">Как начать пользоваться конструктором?</span>
+                        <svg class="h-5 w-5 transform" :class="openIndex === 2 ? 'rotate-180' : 'rotate-0'"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div x-show="openIndex === 2"
                         class="border border-b-0 border-gray-200 p-5 dark:border-gray-700 dark:bg-gray-900">
                         <p>
                             Чтобы начать пользоваться конструктором ИУЛ, вам необходимо
@@ -281,17 +300,19 @@
                     </div>
                 </div>
 
-                <!-- Аккордеон секция 2 -->
+                <!-- Аккордеон секция 3 -->
                 <div class="mb-0">
-                    <button @click="openIndex === 2 ? openIndex = null : openIndex = 2"
+                    <button @click="openIndex === 3 ? openIndex = null : openIndex = 3"
                         class="flex w-full items-center justify-between gap-3 border border-b-0 border-gray-200 p-5 font-medium text-gray-500 hover:bg-gray-100 focus:ring-1 focus:ring-gray-200 rtl:text-right dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
                         <span class="font-semibold">Должен ли я что-то устанавливать на свой компьютер?</span>
-                        <svg class="h-5 w-5 transform" :class="openIndex === 2 ? 'rotate-180' : 'rotate-0'"
-                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        <svg class="h-5 w-5 transform" :class="openIndex === 3 ? 'rotate-180' : 'rotate-0'"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 9l-7 7-7-7" />
                         </svg>
                     </button>
-                    <div x-show="openIndex === 2"
+                    <div x-show="openIndex === 3"
                         class="border border-b-0 border-gray-200 p-5 dark:border-gray-700 dark:bg-gray-900">
                         <p>
                             Конструктор ИУЛ работает через веб-браузер, как любое
@@ -302,20 +323,20 @@
                     </div>
                 </div>
 
-                <!-- Аккордеон секция 3 -->
+                <!-- Аккордеон секция 4 -->
                 <div class="mb-0">
-                    <button @click="openIndex === 3 ? openIndex = null : openIndex = 3"
+                    <button @click="openIndex === 4 ? openIndex = null : openIndex = 4"
                         class="flex w-full items-center justify-between gap-3 border border-b-0 border-gray-200 p-5 font-medium text-gray-500 hover:bg-gray-100 focus:ring-1 focus:ring-gray-200 rtl:text-right dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
                         <span class="font-semibold">Соответствует ли выходная форма ИУЛ требованиям действующего
                             законодательства?</span>
-                        <svg class="h-5 w-5 transform" :class="openIndex === 3 ? 'rotate-180' : 'rotate-0'"
+                        <svg class="h-5 w-5 transform" :class="openIndex === 4 ? 'rotate-180' : 'rotate-0'"
                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M19 9l-7 7-7-7" />
                         </svg>
                     </button>
-                    <div x-show="openIndex === 3"
+                    <div x-show="openIndex === 4"
                         class="border border-b-0 border-gray-200 p-5 dark:border-gray-700 dark:bg-gray-900">
                         <p>
                             Да, соответствует. При формировании
@@ -327,19 +348,19 @@
                     </div>
                 </div>
 
-                <!-- Аккордеон секция 4 -->
+                <!-- Аккордеон секция 5 -->
                 <div class="mb-0">
-                    <button @click="openIndex === 4 ? openIndex = null : openIndex = 4"
+                    <button @click="openIndex === 5 ? openIndex = null : openIndex = 5"
                         class="border-b-1 flex w-full items-center justify-between gap-3 border border-gray-200 p-5 font-medium text-gray-500 hover:bg-gray-100 focus:ring-1 focus:ring-gray-200 rtl:text-right dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
                         <span class="font-semibold">Если у меня остались вопросы?</span>
-                        <svg class="h-5 w-5 transform" :class="openIndex === 4 ? 'rotate-180' : 'rotate-0'"
+                        <svg class="h-5 w-5 transform" :class="openIndex === 5 ? 'rotate-180' : 'rotate-0'"
                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M19 9l-7 7-7-7" />
                         </svg>
                     </button>
-                    <div x-show="openIndex === 4"
+                    <div x-show="openIndex === 5"
                         class="border-b-1 border border-gray-200 p-5 dark:border-gray-700 dark:bg-gray-900">
                         <p>
                             Конечно, если у вас остались вопросы, вы всегда можете
@@ -353,27 +374,32 @@
             </div>
         </x-mainpage.section>
 
-        <section class="mt-20">
-            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <h3 class="mb-8 text-center text-4xl font-extrabold text-gray-700 lg:text-5xl">
-                    Начните прямо сейчас!
-                </h3>
-                <h4 class="mb-16 text-center text-xl text-slate-600">
-                    <a href="/login" class="font-medium text-sky-700 underline">Войдите</a>
-                    или
-                    <a href="/register" class="font-medium text-sky-700 underline">зарегистрируйтесь</a>.
-                </h4>
-            </div>
-        </section>
+        <x-mainpage.section>
+            <x-mainpage.h2>
+                Начните прямо сейчас!
+            </x-mainpage.h2>
+            <x-mainpage.p-center>
+                <a href="/login" class="font-medium text-sky-700 underline">Войдите</a>
+                или
+                <a href="/register" class="font-medium text-sky-700 underline">зарегистрируйтесь</a>.
+            </x-mainpage.p-center>
+        </x-mainpage.section>
 
 
-        <div class="flex flex-col items-center justify-center selection:bg-[#FF2D20] selection:text-white">
+        <div class="flex flex-col items-center justify-center bg-slate-800">
             <div class="relative w-full max-w-2xl lg:max-w-6xl">
-                <footer class="py-16 text-center text-sm text-black dark:text-white/70">
-                    {{-- Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }}) --}}
-                    © 2025 Quatros
+                <footer
+                    class="flex flex-row justify-between py-16 text-center align-middle text-sm text-white dark:text-white/70">
+                    <div>
+                        <a href="{{ route('home') }}" class="flex flex-row items-center gap-1 text-2xl font-bold"
+                            title="На главную">
+                            <span>Quatros</span>
+                            <span class="text-sm text-sky-600">4</span>
+                        </a>
+                    </div>
+                    <p>© 2025 Quatros</p>
+                    <a href="mailto:smeta@ces.nnov.ru">support@quatros.ru</a>
                 </footer>
-
             </div>
         </div>
 
