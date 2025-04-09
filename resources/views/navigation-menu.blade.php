@@ -20,6 +20,9 @@
                     <x-nav-link href="{{ route('history') }}" wire:navigate :active="request()->routeIs('history')">
                         {{ __('История') }}
                     </x-nav-link>
+                    <x-nav-link href="{{ route('support') }}" wire:navigate :active="request()->routeIs('support')">
+                        {{ __('Техподдержка') }}
+                    </x-nav-link>
                 </div>
             </div>
 

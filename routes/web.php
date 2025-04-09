@@ -21,20 +21,15 @@ Route::middleware([
         return view('history');
     })->name('history');
 
+    Route::get('/support', function () {
+        return view('support');
+    })->name('support');
+
+
+
     Route::get('/html-report', function () {
         $data = session('reportData');
         return view('iul-html', ['data' => $data]);
     })->name('htmlreport');
 });
-
-
-// Route::post('/iul-submit', function (Request $request) {
-//     dd($request);
-// });
-
-// Route::get('role', function () {
-//     $user = Auth::user(); // Получаем текущего аутентифицированного пользователя
-//     $roles = $user->roles;
-//     return $roles; // Возвращаем пользователя
-// });
 

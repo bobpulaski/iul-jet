@@ -6,7 +6,6 @@ use App\Models\History;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Auth;
-use Barryvdh\Debugbar\Facades\Debugbar;
 use App\Services\ReportService;
 use Illuminate\Support\Facades\Crypt;
 use Laravel\Jetstream\InteractsWithBanner;

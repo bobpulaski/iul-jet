@@ -200,19 +200,19 @@
                 <div class="mt-4 flex flex-row gap-4">
                     <input id="algorithm-radio-md5" wire:model="algorithm" type="radio" value="md5"
                         name="algorithm-radio"
-                        class="h-4 w-4 border-gray-300 bg-gray-100 text-sky-600 focus:ring-2 focus:ring-sky-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-sky-600">
+                        class="h-4 w-4 border-gray-300 bg-gray-100 text-sky-600 focus:ring-1 focus:ring-sky-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-sky-600">
                     <label for="algorithm-radio-md5"
                         class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">MD5</label>
 
                     <input id="algorithm-radio-crc32" wire:model="algorithm" type="radio" value="crc32"
                         name="algorithm-radio"
-                        class="h-4 w-4 border-gray-300 bg-gray-100 text-sky-600 focus:ring-2 focus:ring-sky-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-sky-600">
+                        class="h-4 w-4 border-gray-300 bg-gray-100 text-sky-600 focus:ring-1 focus:ring-sky-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-sky-600">
                     <label for="algorithm-radio-crc32"
                         class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">CRC32</label>
 
                     <input id="algorithm-radio-sha1" wire:model="algorithm" type="radio" value="sha1"
                         name="algorithm-radio"
-                        class="h-4 w-4 border-gray-300 bg-gray-100 text-sky-600 focus:ring-2 focus:ring-sky-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-sky-600" />
+                        class="h-4 w-4 border-gray-300 bg-gray-100 text-sky-600 focus:ring-1 focus:ring-sky-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-sky-600" />
                     <label for="algorithm-radio-sha1"
                         class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">SHA1</label>
                 </div>
@@ -404,96 +404,9 @@
                 fileData: fileData
             });
         }
-
-
-        // let currentAlgorithm = '{{ $algorithm }}'; // Получаю значение по умолчанию
-
-        // const fileSelector = document.getElementById("inputFile");
-        // const resultElement = document.getElementById("loadButton");
-        // const algorithmRadios = document.querySelectorAll('input[name="algorithm-radio"]');
-
-        // // Обработчик изменения радиокнопок
-        // algorithmRadios.forEach((radio) => {
-        //     radio.addEventListener('change', (event) => {
-        //         currentAlgorithm = event.target.value; // Обновляем текущий алгоритм
-        //         update();
-        //     });
-        // });
-
-        // fileSelector.addEventListener("change", async (event) => {
-        //     await update();
-        // });
-
-        // async function update() {
-        //     const file = event.target.files[0];
-        //     let fileData = null;
-
-        //     resultElement.innerHTML = "Loading...";
-        //     const start = Date.now();
-
-        //     const hash = await readFile(file, currentAlgorithm); // Передаем текущий алгоритм
-        //     const end = Date.now();
-
-        //     const duration = end - start;
-        //     const fileSizeMB = file.size / 1024 / 1024;
-        //     const throughput = fileSizeMB / (duration / 1000);
-        //     const fileSize = file.size;
-        //     const fileName = file.name;
-        //     const fileType = file.type;
-        //     const fileModifiedDate = new Date(file.lastModified); // Создаем объект Date из lastModified
-        //     const options = {
-        //         year: 'numeric',
-        //         month: 'long',
-        //         day: 'numeric',
-        //         hour: 'numeric',
-        //         minute: 'numeric',
-        //         second: 'numeric',
-        //         hour12: false // Установите false, если хотите 24-часовой формат
-        //     };
-
-        //     const formattedDate = fileModifiedDate.toLocaleString('ru-RU',
-        //         options); // Форматируем дату для лучшей читаемости
-
-        //     console.log(`
-    //         Hash: ${currentAlgorithm} - ${hash}
-    //         FileName: ${fileName}
-    //         fileSize: ${fileSize}
-    //         fileType: ${fileType}
-    //         formattedDate: ${formattedDate}
-    //         Throughput: ${throughput.toFixed(2)} MB/s
-    //         Duration: ${duration} ms
-    //     `);
-
-        //     resultElement.innerHTML = "Сформировать";
-
-        //     fileData = {
-        //         fileName: fileName,
-        //         fileSize: fileSize,
-        //         hash: hash
-        //     };
-
-        //     console.log(fileData);
-
-        //     Livewire.dispatch('compose', {
-        //         fileData: fileData
-        //     });
-        // }
     </script>
 
-
-    {{--
-    <script>
-        document.getElementById('inputFile').addEventListener('change', function () {
-            var filename = this.files[0].name;
-            document.getElementById('file-label').innerText = filename;
-        });
-    </script> --}}
-
     <style>
-        input {
-            box-shadow: none !important;
-        }
-
         input[type=file]::file-selector-button {
             margin-right: 20px;
             border: none;
@@ -503,6 +416,8 @@
             color: #fff;
             cursor: pointer;
             transition: background .2s ease-in-out;
+            letter-spacing: .1rem;
+            line-height: 1rem;
         }
 
         input[type=file]::file-selector-button:hover {
