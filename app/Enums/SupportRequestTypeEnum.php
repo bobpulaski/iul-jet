@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Enums;
-enum SupportRequestType: string
+enum SupportRequestTypeEnum: string
 {
     case QUESTION = 'Вопрос';
     case ERROR = 'Ошибка';

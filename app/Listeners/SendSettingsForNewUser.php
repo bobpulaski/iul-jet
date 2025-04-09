@@ -35,7 +35,6 @@ class SendSettingsForNewUser
         $signarures->user_id = $event->user->id;
         $signarures->save();
 
-        // dd(request());
         $email = request('email');
         $userIp = request()->ip();
         Mail::to('mynameisempty@yandex.ru')->send(new UserRegisteredMail($userIp, $email));

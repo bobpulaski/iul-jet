@@ -33,8 +33,8 @@
                                     $id = $item->id * 52;
                                 @endphp
                                 <div class="flex flex-row items-center gap-2">
-                                    <x-dropdown-link wire:click="reportEdit({{ $id }})"
-                                        href="javascript:void(0);" class="flex items-center">
+                                    <x-dropdown-link wire:click="reportEdit({{ $id }})" href="javascript:void(0);"
+                                        class="flex items-center">
                                         <x-ui.icons.edit-icon />
                                         <span class="ml-2">Редактировать</span>
                                     </x-dropdown-link>
@@ -48,9 +48,8 @@
 
                                 <div class="border-t border-gray-200 dark:border-gray-600"></div>
 
-                                <x-dropdown-link wire:click="confirmHistoryDeletion({{ $id }})"
-                                    wire:loading.attr="disabled" href="javascript:void(0);"
-                                    class="flex items-center text-red-400">
+                                <x-dropdown-link wire:click="confirmHistoryDeletion({{ $id }})" wire:loading.attr="disabled"
+                                    href="javascript:void(0);" class="flex items-center text-red-400">
                                     <x-ui.icons.trash-icon />
                                     <span class="ml-2 text-red-400">Удалить</span>
                                 </x-dropdown-link>
@@ -80,7 +79,7 @@
                 <div class="flex flex-row gap-4 pb-4">
                     <div class="flex flex-row gap-1 rounded-md bg-sky-100 p-2">
                         <x-ui.p>№ п/п:</x-ui.p>
-                        <x-ui.p class="x-ui.pfont-semibold">{{ $item->order_number }}</x-ui.p>
+                        <x-ui.p class="font-semibold">{{ $item->order_number }}</x-ui.p>
                     </div>
                     <div class="flex flex-row gap-1 rounded-md bg-sky-100 p-2">
                         <x-ui.p>№ версии:</x-ui.p>

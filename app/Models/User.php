@@ -13,7 +13,8 @@ use App\Models\Role;
 use App\Models\Settings;
 use App\Models\Signature;
 
-class User extends Authenticatable implements MustVerifyEmail
+// class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable
 {
     use HasApiTokens;
 
