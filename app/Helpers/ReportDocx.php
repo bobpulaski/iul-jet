@@ -118,7 +118,7 @@ class ReportDocx
     } else {
       foreach ($data['responsiblePersons'] as $item) {
 
-        if ($item['signdate'] === '') { // Используем оператор сравнения
+        if ($item['signdate'] === null) { // Используем оператор сравнения
           $signFormattedDate = '';
         } else {
           $signFormattedDate = $item['signdate'];

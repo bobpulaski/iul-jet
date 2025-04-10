@@ -150,8 +150,17 @@ class IulFormComponent extends Component
 
         $this->validate($this->rules(), $this->messages());
 
-        $signdates = array_column($this->responsiblePersons, 'signdate');
-        dd($signdates); // Это выведет массив всех signdate
+        // $signdates = array_column($this->responsiblePersons, 'signdate');
+        $this->responsiblePersons = array_map(function ($person) {
+            return [
+                'kind' => $person['kind'] ?? '',
+                'surname' => $person['surname'] ?? '',
+                'signdate' => !empty($person['signdate']) ? $person['signdate'] : null,
+            ];
+        }, $this->responsiblePersons);
+
+
+        // dd($this->responsiblePersons); // Это выведет массив всех signdate
 
         // Данные для формирования отчета
         $data = [

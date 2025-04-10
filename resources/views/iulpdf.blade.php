@@ -138,7 +138,7 @@
                     $signFormattedDate = '';
 
                     // Проверяем, есть ли дата
-                    if ($item['signdate'] !== '') {
+                    if ($item['signdate'] !== null) {
                         // Форматируем дату
                         $dateTime = new DateTime($item['signdate']);
                         $signFormattedDate = $dateTime->format('d.m.Y'); // Форматируем дату в DD.MM.YYYY
@@ -149,7 +149,7 @@
                     <td style="width: 25%;">{{ $item['kind'] }}</td>
                     <td style="width: 25%;">{{ $item['surname'] }}</td>
                     <td style="width: 20%;"></td>
-                    <td style="width: 30%;">{{ $signFormattedDate }}</td>
+                    <td style="width: 30%; height: 2rem;">{{ $signFormattedDate }}</td>
                 </tr>
             @endforeach
         @endif

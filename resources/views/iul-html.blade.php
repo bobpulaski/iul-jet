@@ -162,7 +162,7 @@
                     <td style="width: 25%;">{{ $item['kind'] }}</td>
                     <td style="width: 25%;">{{ $item['surname'] }}</td>
                     <td style="width: 20%;"></td>
-                    <td style="width: 30%;">{{ $signFormattedDate }}</td>
+                    <td style="width: 30%; height: 2rem;">{{ $signFormattedDate }}</td>
                 </tr>
             @endforeach
         @endif
