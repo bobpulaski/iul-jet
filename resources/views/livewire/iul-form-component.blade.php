@@ -98,29 +98,16 @@
 
                 <div>
                     <div x-data="{
-                        {{-- rows: [{ kind: '', surname: '', signdate: '' }], --}}
                         rows: $wire.entangle('responsiblePersons'),
                     
-                            addRow() {
-                                this.rows.push({ kind: '', surname: '', signdate: '' });
-                                {{-- this.updateLivewireArray(); --}}
-                            },
+                        addRow() {
+                            this.rows.push({ kind: '', surname: '', signdate: null });
+                        },
                     
-                            deleteRow(index) {
-                                this.rows.splice(index, 1);
-                                {{-- this.updateLivewireArray(); --}}
-                            },
-                            {{--
-                            updateLivewireArray() {
-                                @this.set('responsiblePersons', this.rows);
-                            } --}}
+                        deleteRow(index) {
+                            this.rows.splice(index, 1);
+                        },
                     }">
-
-
-                        {{-- TODO: @input="updateLivewireArray()" надо переделать, а то на каждое нажатие в поле ввода
-                        реагирует.
-                        Сделал так, потому-что первая строка подписей не попадает в массив, пока не добавишь новую
-                        строку --}}
                         <template x-for="(row, index) in rows" :key="index">
 
                             <div class="">
@@ -152,11 +139,6 @@
                                                     d="M15 12H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                             </svg>
                                         </x-danger-button>
-
-                                        <!-- <div class="tooltip">Hover over me
-                                                    <span class="tooltiptext">Добавить подпись</span>
-                                                </div> -->
-
                                     </div>
                                 </div>
                             </div>

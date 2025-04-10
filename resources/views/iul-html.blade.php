@@ -151,7 +151,7 @@
                     $signFormattedDate = '';
 
                     // Проверяем, есть ли дата
-                    if ($item['signdate'] !== '') {
+                    if ($item['signdate'] !== null) {
                         // Форматируем дату
                         $dateTime = new DateTime($item['signdate']);
                         $signFormattedDate = $dateTime->format('d.m.Y'); // Форматируем дату в DD.MM.YYYY

@@ -150,6 +150,9 @@ class IulFormComponent extends Component
 
         $this->validate($this->rules(), $this->messages());
 
+        $signdates = array_column($this->responsiblePersons, 'signdate');
+        dd($signdates); // Это выведет массив всех signdate
+
         // Данные для формирования отчета
         $data = [
             'name' => $this->name,
