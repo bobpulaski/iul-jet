@@ -237,7 +237,7 @@ class IulFormComponent extends Component
             $this->historyService->createHistory($historyData);
 
             // Сохраняем подписи ответственных лиц
-            if ($this->isRememberSignatures) {
+            if ($this->isRememberSignatures === true) {
                 $this->signtaturesService->createSigntatures($this->responsiblePersons);
             }
 
@@ -245,6 +245,10 @@ class IulFormComponent extends Component
             // Сохраняем настройки
             $this->settingsService->updateSettings($settingsData);
             $this->historyService->createHistory($historyData);
+
+            if ($this->isRememberSignatures === true) {
+                $this->signtaturesService->createSigntatures($this->responsiblePersons);
+            }
 
             // Если это не HTML, то возвращаем результат, например, для загрузки
 

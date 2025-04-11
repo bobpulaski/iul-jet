@@ -10,7 +10,7 @@
                     <x-label for="request-type" value="{{ __('Выберите тип обращения') }}" />
 
 
-                    <select id="request-type" wire:model="requestType"
+                    <select id="request-type" wire:model="requestType" autofocus
                         class="mt-1 rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-sky-600 dark:focus:ring-sky-600">
                         @foreach ($requestTypes as $requestType)
                             <option value="{{ $requestType->value }}">{{ $requestType->value }}</option>
@@ -55,7 +55,7 @@
 <script>
     window.addEventListener('show-banner-and-redirect', event => {
         setTimeout(() => {
-            window.location.href = '{{ route("dashboard") }}';
+            window.location.href = '{{ route('dashboard') }}';
         }, 3000); // Подождите 3 секунды перед переходом
     });
 </script>

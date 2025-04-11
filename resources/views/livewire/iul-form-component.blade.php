@@ -109,11 +109,9 @@
                         },
                     }">
                         <template x-for="(row, index) in rows" :key="index">
-
                             <div class="">
                                 <div
                                     class="mb-2 mt-2 flex flex-col items-center gap-4 rounded-md bg-sky-100 p-4 md:flex-row">
-
                                     <div class="md:full basis-4/12">
                                         <x-input x-model="row.kind" type="text" class="block w-full"
                                             placeholder="Характер работы" />
@@ -127,8 +125,6 @@
                                     <div class="md:full basis-3/12">
                                         <x-input x-model="row.signdate" class="block w-full" type="date" />
                                     </div>
-
-
 
                                     <div class="md:full basis-1/12">
                                         <x-danger-button x-show="index > 0" @click="deleteRow(index)"

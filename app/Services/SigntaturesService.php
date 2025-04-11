@@ -19,6 +19,7 @@ class SigntaturesService
 
     //Проверяем, есть ли уже записи
     if ($user->signatures()->exists()) {
+
       $user->signatures()->delete();
     }
 

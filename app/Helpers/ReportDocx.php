@@ -17,6 +17,8 @@ class ReportDocx
 
   public function reportGenerate($data)
   {
+
+
     // Создаем новый объект PhpWord
     $phpWord = new PhpWord();
 
@@ -128,18 +130,37 @@ class ReportDocx
           $signFormattedDate = $dateTime->format('d.m.Y'); // Форматируем дату в DD.MM.YYYY
         }
 
+        // $section->addImage(asset('/images/fax.png'));
+
         $row2 = $table2->addRow();
         $row2->addCell(2900, $cellStyle)->addText($item['kind'], $fontStyle, $pStyle);
         $row2->addCell(3000, $cellStyle)->addText($item['surname'], $fontStyle, $pStyle);
         $row2->addCell(2900, $cellStyle)->addText('', $fontStyle, $pStyle);
+
+        // $row2->addCell(2900, $cellStyle)->addImage(asset('images/iul-history.jpg'));
+
+        // $imageSrc = 'D:\Laravel\iul-jet\public\images\fax.png';
+        // $imageCell = $row2->addCell(2900, $cellStyle);
+        // $imageCell->addImage($imageSrc, array(
+        //   'width' => 100,
+        //   'height' => 50,
+        //   'align' => 'center'
+        // ));
+
+
+        // Вставка изображения в ячейку
+        // $imageCell->addImage(asset('images/fax.png'), array(
+        //   'width' => 100,  // Установите ширину изображения
+        //   'height' => 100, // Установите высоту изображения
+        //   'align' => 'center' // Выравнивание изображения по центру
+        // ));
+
+
         $row2->addCell(3000, $cellStyle)->addText($signFormattedDate, $fontStyle, $pStyle);
       }
     }
 
-
     //Подвал
-
-
     if ($data['isFooter']) {
       $table3 = $section->addTable([
         'borderSize' => 6, // Размер границы таблицы
@@ -164,44 +185,6 @@ class ReportDocx
       $row2->addCell(1500)->addText($data['pages'], $fontStyle, $pStyle);
     }
 
-
-
-
-
-    // dd($data['responsiblePersons']);
-
-
-
-    /* $text = $section->addText($data['documentName']);
-    $text = $section->addText($data['currentAlgorithm']);
-
-    foreach ($data['fileData'] as $item) {
-      // Проверяем, является ли элемент массивом
-      if (is_array($item)) {
-        foreach ($item as $subItem) {
-          // Теперь $subItem - это значение из вложенного массива
-          $section->addText($subItem); // Здесь добавляем текст
-        }
-      } else {
-        // Если $item не массив, просто добавляем текст
-        $section->addText($item);
-      }
-    }
-
-
-    foreach ($data['responsiblePersons'] as $item) {
-      // Проверяем, является ли элемент массивом
-      if (is_array($item)) {
-        foreach ($item as $subItem) {
-          // Теперь $subItem - это значение из вложенного массива
-          $section->addText($subItem); // Здесь добавляем текст
-        }
-      } else {
-        // Если $item не массив, просто добавляем текст
-        $section->addText($item);
-      }
-    } */
-
     //Формирование имени файла
     $randomString = Str::random(9); // Генерация случайной строки длиной 15 символов
 
@@ -212,39 +195,6 @@ class ReportDocx
     $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
     $objWriter->save($filePath);
     return $filePath;
-
-
-
-    // switch ($data['fileType']) {
-    //   case 'docx':
-    //     $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
-    //     $objWriter->save($filePath);
-    //     return $filePath;
-
-    //   case 'odt':
-    //     $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'ODText');
-    //     $objWriter->save($filePath);
-    //     return $filePath;
-
-    //   case 'html':
-    //     $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'HTML');
-    //     $objWriter->save($filePath);
-    //     return $filePath;
-
-    //   case 'pdf':
-    //     // $htmlContent = '<h1>' . htmlspecialchars($data['documentName']) . '</h1>';
-    //     // Сохраняем HTML в буфер
-    //     ob_start(); // Начинаем каптуру выходных данных
-    //     $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'HTML');
-    //     $objWriter->save('php://output'); // Сохраняем в поток вывода
-    //     $htmlContent = ob_get_clean(); // Получаем содержимое буфера и очищаем его
-
-    //     // Теперь создаем PDF из полученного HTML
-    //     $pdf = Pdf::loadHTML($htmlContent);
-    //     $pdf->save($filePath);
-
-    //     return $filePath;
-    // }
 
   }
 }
