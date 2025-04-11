@@ -19,8 +19,8 @@ class IulSignsListComponent extends Component
 
     public function render()
     {
-        $results = Auth::user()->signslist();
-
+        $results = Auth::user()->signslists()->get();
+        // dd($results);
         return view('livewire.iul-signs-list-component', [
             'signsData' => $results,
         ]);

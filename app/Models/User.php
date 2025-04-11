@@ -83,7 +83,7 @@ class User extends Authenticatable
         return $this->hasMany(History::class);
     }
 
-    public function signslist()
+    public function signslists()
     {
         return $this->hasMany(SignsList::class);
     }
