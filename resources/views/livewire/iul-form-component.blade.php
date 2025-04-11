@@ -95,7 +95,7 @@
                     </div>
                 </div>
 
-
+                
                 <div>
                     <div x-data="{
                         rows: $wire.entangle('responsiblePersons'),
@@ -293,7 +293,7 @@
     </form>
 
 
-    @livewire('progress-modal-component')
+    {{-- @livewire('progress-modal-component') --}}
 
 
 

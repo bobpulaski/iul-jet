@@ -115,7 +115,7 @@
         </x-slot>
         <x-slot name="footer">
             <x-secondary-button wire:click="$toggle('confirmingHistoryDeletion')" wire:loading.attr="disabled">
-                {{ __('Отменить') }}
+                {{ __('Отмена') }}
             </x-secondary-button>
 
             <x-danger-button class="ms-3" wire:click="deleteHistory" wire:loading.attr="disabled">

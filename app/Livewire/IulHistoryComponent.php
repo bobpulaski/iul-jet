@@ -29,7 +29,6 @@ class IulHistoryComponent extends Component
     {
         $this->confirmingHistoryDeletion = true;
         $this->historyId = $id / 52;
-
     }
 
     public function deleteHistory()

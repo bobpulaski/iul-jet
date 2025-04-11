@@ -17,6 +17,10 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 
+    Route::get('/signs', function () {
+        return view('signs-list');
+    })->name('signs');
+
     Route::get('/history', function () {
         return view('history');
     })->name('history');
