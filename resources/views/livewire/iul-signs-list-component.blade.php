@@ -1,5 +1,5 @@
 <div>
-    <div class="mb-4 flex flex-row items-center justify-end">
+    <div class="mb-4 flex flex-row items-center justify-between">
         @if ($signsData->isEmpty())
             <x-ui.p>У вас не добавлено ни одной подписи.</x-ui.p>
         @endif
@@ -30,35 +30,34 @@
             {{ __('Добавление подписи') }}
         </x-slot>
         <x-slot name="content">
-            <form wire:submit="start">
+            <form wire:submit="save">
                 @csrf
 
                 <div class="flex flex-col gap-4">
                     <div class="full">
-                        <x-label for="kind" value="{{ __('Характер работы или должность*') }}" />
-                        <x-input wire:model="kind" type="text" required autofocus class="mt-1 block w-full" />
+                        <x-label for="kind" value="{{ __('Характер работы или должность*') }}"/>
+                        <x-input id="kind" wire:model="kind" type="text" required autofocus class="mt-1 block w-full" name="kind" />
                         <div>
                             @error('kind')
-                                <x-ui.form-validation-error-message :message="$message" />
+                            <x-ui.form-validation-error-message :message="$message"/>
                             @enderror
                         </div>
                     </div>
                     <div class="full">
-                        <x-label for="surname" value="{{ __('Фамилия лица, подписавший документ*') }}" />
-                        <x-input wire:model="surname" type="text" required class="mt-1 block w-full" />
+                        <x-label for="surname" value="{{ __('Фамилия лица, подписавший документ*') }}"/>
+                        <x-input id="surname" wire:model="surname" type="text" required class="mt-1 block w-full" name="surname"/>
                         <div>
                             @error('surname')
-                                <x-ui.form-validation-error-message :message="$message" />
+                            <x-ui.form-validation-error-message :message="$message"/>
                             @enderror
                         </div>
                     </div>
                     <div class="full">
-                        <x-label for="signImageFile" value="{{ __('Подпись') }}" />
-                        <x-input wire:model="signImageFile" type="file" class="mt-1 block w-full"
-                            placeholder="Подпись" />
+                        <x-label for="signImageFile" value="{{ __('Подпись') }}"/>
+                        <x-input id="signImageFile" wire:model="signImageFile" type="file" class="mt-1 block w-full" name="signImageFile"/>
                         <div>
                             @error('signImageFile')
-                                <x-ui.form-validation-error-message :message="$message" />
+                            <x-ui.form-validation-error-message :message="$message"/>
                             @enderror
                         </div>
                     </div>

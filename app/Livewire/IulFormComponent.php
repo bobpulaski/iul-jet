@@ -64,6 +64,11 @@ class IulFormComponent extends Component
         Debugbar::info($this->responsiblePersons);
     }
 
+    public function showSignsListModal()
+    {
+        $this->isSignsListModalOpen = true;
+    }
+
     public function remove($index)
     {
         unset($this->responsiblePersons[$index]);
@@ -130,7 +135,7 @@ class IulFormComponent extends Component
     }
 
     // Правила валидации
-    protected function rules()
+    protected function rules(): array
     {
         return [
             'name' => 'required|min:3|max:255',
@@ -142,7 +147,7 @@ class IulFormComponent extends Component
     }
 
     // Сообщения об ошибках
-    protected function messages()
+    protected function messages(): array
     {
         return [
             'name.required' => 'Поле обязательно для заполнения.',
@@ -165,7 +170,7 @@ class IulFormComponent extends Component
         ];
     }
 
-    //Основной алгоритм формирования очета
+    //Основной алгоритм формирования отчета
     public function start(UserSettingsService $settingsService, SigntaturesService $signtaturesService, HistoryService $historyService)
     {
         $this->validate($this->rules(), $this->messages());

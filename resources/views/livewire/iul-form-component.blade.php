@@ -96,7 +96,7 @@
                 </div>
 
                 <div class="flex flex-row">
-                    <x-info-button title="Добавить подпись">
+                    <x-info-button title="Добавить подпись" wire:click.prevent="showSignsListModal()">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -335,7 +335,7 @@
         </x-slot>
         <x-slot name="footer">
             <div>
-                <x-secondary-button wire:click="$toggle('isShowAddNewSignModal')" wire:loading.attr="disabled">
+                <x-secondary-button wire:click="$toggle('isSignsListModalOpen')" wire:loading.attr="disabled">
                     {{ __('Отмена') }}
                 </x-secondary-button>
             </div>
