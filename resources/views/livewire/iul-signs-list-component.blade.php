@@ -1,5 +1,5 @@
 <div>
-    <div class="mb-4 flex flex-row items-center justify-between">
+    <div class="mb-4 flex flex-row items-center justify-end">
         @if ($signsData->isEmpty())
             <x-ui.p>У вас не добавлено ни одной подписи.</x-ui.p>
         @endif
@@ -12,11 +12,11 @@
             <div class="flex flex-row justify-between gap-4 items-center">
                 <div class="flex flex-col justify-between">
                     <div class="flex flex-row items-center justify-start pb-3 gap-2">
-                        <x-ui.p>Характер работы:</x-ui.p>
+                        <x-ui.p>Характер работы или должность:</x-ui.p>
                         <x-ui.p class="font-semibold">{{ $item->kind }}</x-ui.p>
                     </div>
                     <div class="flex flex-row items-center justify-start pb-3 gap-2">
-                        <x-ui.p>ФИО:</x-ui.p>
+                        <x-ui.p>Фамилия лица, подписавший документ:</x-ui.p>
                         <x-ui.p class="font-semibold">{{ $item->surname }}</x-ui.p>
                     </div>
                 </div>
@@ -35,8 +35,8 @@
 
                 <div class="flex flex-col gap-4">
                     <div class="full">
-                        <x-input wire:model="kind" type="text" required autofocus class="mt-1 block w-full"
-                            placeholder="Характер работы" />
+                        <x-label for="kind" value="{{ __('Характер работы или должность*') }}" />
+                        <x-input wire:model="kind" type="text" required autofocus class="mt-1 block w-full" />
                         <div>
                             @error('kind')
                                 <x-ui.form-validation-error-message :message="$message" />
@@ -44,8 +44,8 @@
                         </div>
                     </div>
                     <div class="full">
-                        <x-input wire:model="surname" type="text" required class="mt-1 block w-full"
-                            placeholder="Фамилия" />
+                        <x-label for="surname" value="{{ __('Фамилия лица, подписавший документ*') }}" />
+                        <x-input wire:model="surname" type="text" required class="mt-1 block w-full" />
                         <div>
                             @error('surname')
                                 <x-ui.form-validation-error-message :message="$message" />
@@ -53,6 +53,7 @@
                         </div>
                     </div>
                     <div class="full">
+                        <x-label for="signImageFile" value="{{ __('Подпись') }}" />
                         <x-input wire:model="signImageFile" type="file" class="mt-1 block w-full"
                             placeholder="Подпись" />
                         <div>
@@ -78,5 +79,24 @@
 
         </x-slot>
     </x-dialog-modal>
+
+    <style>
+        input[type=file]::file-selector-button {
+            margin-right: 20px;
+            border: none;
+            background: #1f2937;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            color: #fff;
+            cursor: pointer;
+            transition: background .2s ease-in-out;
+            letter-spacing: .1rem;
+            line-height: 1rem;
+        }
+
+        input[type=file]::file-selector-button:hover {
+            background: #374151;
+        }
+    </style>
 
 </div>

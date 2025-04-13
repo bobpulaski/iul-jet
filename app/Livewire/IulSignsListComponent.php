@@ -27,7 +27,7 @@ class IulSignsListComponent extends Component
         return [
             'kind' => 'required|min:3|max:50',
             'surname' => 'required|min:3|max:50',
-            'signImageFile' => 'required|image|mimes:jpg,jpeg,png,bmp|max:2048',
+            'signImageFile' => 'nullable|mimes:jpg,jpeg,png,bmp|max:2048',
         ];
     }
 
@@ -42,8 +42,8 @@ class IulSignsListComponent extends Component
             'surname.min' => 'Поле должно содержать не менее 3 символов.',
             'surname.max' => 'Поле не должно содержать более 50 символов.',
 
-            'signImageFile.required' => 'Пожалуйста, загрузите файл',
-            'signImageFile.image' => 'Загрузите корректный файл. Разрешены только файлы в форматах jpg, jpeg, png, bmp.',
+            // 'signImageFile.required' => 'Пожалуйста, загрузите файл',
+            // 'signImageFile.image' => 'Загрузите корректный файл. Разрешены только файлы в форматах jpg, jpeg, png, bmp.',
             'signImageFile.mimes' => 'Загрузите файл в одном из разрешенных форматов: jpg, jpeg, png, bmp.',
             'signImageFile.max' => 'Размер файла не должен превышать 2 MB',
         ];
@@ -53,6 +53,8 @@ class IulSignsListComponent extends Component
     {
         $this->validate($this->rules(), $this->messages());
 
+        // dd($this->validate());
+
         try {
             $user = Auth::user();
             $user->signslists()->create([
@@ -61,7 +63,7 @@ class IulSignsListComponent extends Component
             ]);
             $this->banner('Подпись успешно сохранена.');
         } catch (\Throwable $th) {
-            $this->dangerBanner('Подпись успешно сохранена.');
+            $this->dangerBanner('Ошибка сохранения подписи.');
         }
 
         $this->resetErrorBag();

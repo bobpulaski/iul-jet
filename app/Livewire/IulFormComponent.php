@@ -45,16 +45,42 @@ class IulFormComponent extends Component
     public $headerType = 'regular';
 
 
+
     protected $settingsService;
     protected $signtaturesService;
     protected $historyService;
 
     private $settings;
     private $signtatures;
+
+
+    public $signsList = [];
+    public $isSignsListModalOpen = false;
+
+    public function suka()
+    {
+        $this->responsiblePersons[] = ['kind' => 'ГИП', 'surname' => 'Иванов Иван', 'signdate' => '2022-01-01'];
+
+        Debugbar::info($this->responsiblePersons);
+    }
+
+    public function remove($index)
+    {
+        unset($this->responsiblePersons[$index]);
+        // Переиндексация массива
+        $this->responsiblePersons = array_values($this->responsiblePersons);
+
+        Debugbar::info($this->responsiblePersons);
+    }
+
     public function mount(UserSettingsService $settingsService, SigntaturesService $signtaturesService)
     {
-        // Если форма вызвана из Истории (есть id записи из таблицы истории)
+        $user = Auth::user();
+        $this->signsList = $user->signslists()->select('kind', 'surname')->get()->toArray();
 
+        // dd($this->signsList);
+
+        // Если форма вызвана из Истории (есть id записи из таблицы истории)
         if (request()->id) {
             $user = Auth::user();
             $fromHistory = $user->histories->where('id', request()->id / 52)->first();
@@ -83,7 +109,6 @@ class IulFormComponent extends Component
                 abort(403, 'Unauthorized.');
             }
         } else {
-
             //Получаем настройки пользователя
             $this->settingsService = $settingsService;
             $settings = $this->settingsService->getSettings();
@@ -103,8 +128,6 @@ class IulFormComponent extends Component
             $this->responsiblePersons = $signtatures->toArray();
         }
     }
-
-
 
     // Правила валидации
     protected function rules()
@@ -142,13 +165,12 @@ class IulFormComponent extends Component
         ];
     }
 
-
-
     //Основной алгоритм формирования очета
     public function start(UserSettingsService $settingsService, SigntaturesService $signtaturesService, HistoryService $historyService)
     {
-
         $this->validate($this->rules(), $this->messages());
+
+        // dd($this->responsiblePersons);
 
         // $signdates = array_column($this->responsiblePersons, 'signdate');
         $this->responsiblePersons = array_map(function ($person) {
@@ -158,7 +180,6 @@ class IulFormComponent extends Component
                 'signdate' => !empty($person['signdate']) ? $person['signdate'] : null,
             ];
         }, $this->responsiblePersons);
-
 
         // dd($this->responsiblePersons); // Это выведет массив всех signdate
 
@@ -240,7 +261,6 @@ class IulFormComponent extends Component
             if ($this->isRememberSignatures === true) {
                 $this->signtaturesService->createSigntatures($this->responsiblePersons);
             }
-
         } else {
             // Сохраняем настройки
             $this->settingsService->updateSettings($settingsData);
@@ -254,13 +274,13 @@ class IulFormComponent extends Component
 
             return $result; // это будет response()->download($filePath);
         }
-
     }
 
     #[On('changeSignDateEvent')]
     public function changeSignDate($signDateFromFront)
     {
-        if ($signDateFromFront === '') { // Используем оператор сравнения
+        if ($signDateFromFront === '') {
+            // Используем оператор сравнения
             $this->signFormattedDate = '';
         } else {
             $this->signDate = $signDateFromFront;
@@ -282,5 +302,4 @@ class IulFormComponent extends Component
     {
         return view('livewire.iul-form-component');
     }
-
 }

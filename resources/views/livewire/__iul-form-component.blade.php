@@ -84,43 +84,6 @@
         {{-- Подписи ответственных лиц --}}
         <div class="mt-3 overflow-hidden bg-white shadow-md sm:rounded-lg dark:bg-gray-800">
             <div class="flex flex-col p-8">
-                <div class="flex flex-row items-center justify-between">
-                    <x-ui.h3>{{ __('Подписи ответственных лиц') }}</x-ui.h3>
-                    <div class="flex flex-row gap-4 align-middle">
-                        <p class="text-sm font-medium text-gray-700 dark:text-gray-300">Запомнить</p>
-                        <x-ui.toggle wire:model="isRememberSignatures">
-                            {{ __('Запомнить') }}
-                        </x-ui.toggle>
-                    </div>
-
-                </div>
-
-                <div class="flex flex-row">
-                    <x-info-button title="Добавить подпись">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                        </svg>
-                    </x-info-button>
-                </div>
-            </div>
-
-            <button type="button" wire:click.prevent="suka()">Добавить</button>
-
-            <ul>
-                @foreach ($responsiblePersons as $index => $person)
-                    <li>
-                        {{ $person['kind'] }} - {{ $person['surname'] }}
-                        <button type="button" wire:click.prevent="remove({{ $index }})">Удалить</button>
-                    </li>
-                @endforeach
-            </ul>
-        </div>
-
-
-        {{-- <div class="mt-3 overflow-hidden bg-white shadow-md sm:rounded-lg dark:bg-gray-800">
-            <div class="flex flex-col p-8">
 
                 <div class="flex flex-row items-center justify-between">
                     <x-ui.h3>{{ __('Подписи ответственных лиц') }}</x-ui.h3>
@@ -191,7 +154,7 @@
                 </div>
 
             </div>
-        </div> --}}
+        </div>
 
 
         {{-- Файл --}}
@@ -215,19 +178,19 @@
                 <div class="mt-4 flex flex-row gap-4">
                     <input id="algorithm-radio-md5" wire:model="algorithm" type="radio" value="md5"
                         name="algorithm-radio"
-                        class="h-4 w-4 border-gray-300 bg-gray-100 text-sky-600 focus:ring-2 focus:ring-sky-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-sky-600">
+                        class="h-4 w-4 border-gray-300 bg-gray-100 text-sky-600 focus:ring-1 focus:ring-sky-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-sky-600">
                     <label for="algorithm-radio-md5"
                         class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">MD5</label>
 
                     <input id="algorithm-radio-crc32" wire:model="algorithm" type="radio" value="crc32"
                         name="algorithm-radio"
-                        class="h-4 w-4 border-gray-300 bg-gray-100 text-sky-600 focus:ring-2 focus:ring-sky-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-sky-600">
+                        class="h-4 w-4 border-gray-300 bg-gray-100 text-sky-600 focus:ring-1 focus:ring-sky-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-sky-600">
                     <label for="algorithm-radio-crc32"
                         class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">CRC32</label>
 
                     <input id="algorithm-radio-sha1" wire:model="algorithm" type="radio" value="sha1"
                         name="algorithm-radio"
-                        class="h-4 w-4 border-gray-300 bg-gray-100 text-sky-600 focus:ring-2 focus:ring-sky-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-sky-600" />
+                        class="h-4 w-4 border-gray-300 bg-gray-100 text-sky-600 focus:ring-1 focus:ring-sky-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-sky-600" />
                     <label for="algorithm-radio-sha1"
                         class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">SHA1</label>
                 </div>
@@ -291,6 +254,7 @@
                             class="mt-1 rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-sky-600 dark:focus:ring-sky-600">
                             <option value="pdf">PDF</option>
                             <option value="docx" selected>DOCX</option>
+                            {{-- <option value="odt">ODT</option> --}}
                             <option value="html">HTML</option>
                         </select>
                     </div>
@@ -314,40 +278,22 @@
 
         {{-- Сформировать --}}
         <div class="align-items-center mt-6 flex flex-row justify-end">
+            {{-- <x-button x-show="!uploading">Сформировать</x-button> --}}
             <x-button id="loadButton">Сформировать</x-button>
+
+
+
+            {{-- <template x-if="!uploading">
+                <x-button>Сформировать</x-button>
+            </template> --}}
+            {{-- <x-button :disabled="uploading" x-bind:class="{ 'opacity-50 cursor-not-allowed': uploading }"> --}}
+
         </div>
 
     </form>
 
 
-    <x-dialog-modal wire:model.live="isSignsListModalOpen">
-        <x-slot name="title">
-            {{ __('Выберите подпись') }}
-        </x-slot>
-        <x-slot name="content">
-
-            <ul>
-                @foreach ($responsiblePersons as $person)
-                    <li>{{ $person['kind'] }} - {{ $person['surname'] }}</li>
-                @endforeach
-            </ul>
-
-        </x-slot>
-        <x-slot name="footer">
-            <div>
-                <x-secondary-button wire:click="$toggle('isShowAddNewSignModal')" wire:loading.attr="disabled">
-                    {{ __('Отмена') }}
-                </x-secondary-button>
-            </div>
-            <div>
-                <x-button wire:click="save()" class="ml-2">
-                    {{ __('OK') }}
-                </x-button>
-            </div>
-
-        </x-slot>
-    </x-dialog-modal>
-
+    {{-- @livewire('progress-modal-component') --}}
 
 
 
