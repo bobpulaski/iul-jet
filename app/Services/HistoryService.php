@@ -7,14 +7,9 @@ use Illuminate\Support\Facades\Auth;
 
 class HistoryService
 {
-  public function createHistory($historyData)
-  {
-    $user = Auth::user();
-    // Debugbar::info($historyData);
-
-
-    $user->histories()->create($historyData);
-
-
-  }
+    public function createHistory($historyData)
+    {
+        $user = Auth::user();
+        $user->histories()->create($historyData);
+    }
 }

@@ -95,15 +95,15 @@
                     </div>
                 </div>
 
-                
+
                 <div>
                     <div x-data="{
                         rows: $wire.entangle('responsiblePersons'),
-                    
+
                         addRow() {
                             this.rows.push({ kind: '', surname: '', signdate: null });
                         },
-                    
+
                         deleteRow(index) {
                             this.rows.splice(index, 1);
                         },
@@ -162,7 +162,7 @@
             <div class="flex flex-col p-8">
                 <x-ui.h3>{{ __('Файл') }}</x-ui.h3>
                 <input id="inputFile" class="block w-full text-sm text-sky-700" type="file" accept=""
-                    name="inputFile" required autofocus />
+                    name="inputFile" required />
                 <div>
                     @error('inputFile')
                         <span class="error">{{ $message }}</span>
@@ -216,7 +216,7 @@
                             x-bind:class="{ 'opacity-30': !isFooterEnabled, 'opacity-100': isFooterEnabled }" />
                         <x-input id="description" wire:model="description" x-bind:disabled="!isFooterEnabled"
                             x-bind:class="{ 'opacity-30': !isFooterEnabled, 'opacity-100': isFooterEnabled }"
-                            class="mt-1 block w-full" type="text" name="description" autofocus
+                            class="mt-1 block w-full" type="text" name="description"
                             autocomplete="description" />
                     </div>
                     <div class="basis-2/12">

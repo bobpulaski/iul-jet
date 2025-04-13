@@ -14,6 +14,7 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-10 sm:-my-px sm:ms-10 sm:flex">
+
                     <x-nav-link href="{{ route('dashboard') }}" wire:navigate :active="request()->routeIs('dashboard')">
                         <div class="flex flex-row items-center justify-between gap-2">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
