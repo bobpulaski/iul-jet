@@ -29,7 +29,7 @@ class IulSignsListComponent extends Component
         return [
             'kind' => 'required|min:3|max:50',
             'surname' => 'required|min:3|max:50',
-            'signImageFile' => 'nullable|mimes:jpg,jpeg,png,bmp|max:2048',
+            // 'signImageFile' => 'nullable|mimes:jpg,jpeg,png,bmp|max:2048',
         ];
     }
 
@@ -44,8 +44,8 @@ class IulSignsListComponent extends Component
             'surname.min' => 'Поле должно содержать не менее 3 символов.',
             'surname.max' => 'Поле не должно содержать более 50 символов.',
 
-             'signImageFile.required' => 'Пожалуйста, загрузите файл',
-             'signImageFile.image' => 'Загрузите корректный файл. Разрешены только файлы в форматах jpg, jpeg, png, bmp.',
+            'signImageFile.required' => 'Пожалуйста, загрузите файл',
+            'signImageFile.image' => 'Загрузите корректный файл. Разрешены только файлы в форматах jpg, jpeg, png, bmp.',
             'signImageFile.mimes' => 'Загрузите файл в одном из разрешенных форматов: jpg, jpeg, png, bmp.',
             'signImageFile.max' => 'Размер файла не должен превышать 2 MB',
         ];
@@ -59,14 +59,23 @@ class IulSignsListComponent extends Component
 
 
 
-//        if (!$this->validate(['signImageFile'])) {
-//            Debugbar::info($this->signImageFile);
-//        }
+        // Сначала валидируем остальные поля
+        $this->validate($this->rules(), $this->messages());
 
-//        dd($this->validate());
+        // Проверяем, есть ли файл signImageFile
+        if ($this->signImageFile) {
+            // Если файл есть, валидируем его отдельно
+            $this->validate([
+                'signImageFile' => 'required|file|mimes:jpg,jpeg,png,bmp|max:2048',  // Ваши правила валидации
+            ]);
 
-//        $folderName = Auth::user()->id . Auth::user()->email;
-//        $this->signImageFile->store('signsfiles/' . $folderName);
+            Debugbar::info('here' . $this->signImageFile);
+
+            $folderName = Auth::user()->id . Auth::user()->email;
+            $this->signImageFile->store('signsfiles/' . $folderName);
+        } else {
+            Debugbar::info('File not provided, skipping validation.');
+        }
 
 
         try {
@@ -80,7 +89,6 @@ class IulSignsListComponent extends Component
             $this->dangerBanner('Ошибка сохранения подписи.');
         }
 
-        Debugbar::info('reset');
         $this->resetErrorBag();
         $this->reset();
     }

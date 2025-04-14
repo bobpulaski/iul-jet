@@ -20,8 +20,8 @@
 
                 <div class="relative flex flex-row items-center justify-between gap-4">
                     <div class="w-full">
-                        <x-input id="name" wire:model="name" class="mt-1 block w-full" type="text" name="name"
-                            required autofocus autocomplete="name" />
+                        <x-input id="name" wire:model="name" class="mt-1 block w-full" type="text" name="name" required
+                            autofocus autocomplete="name" />
                         @error('name')
                             <x-ui.form-validation-error-message :message="$message" />
                         @enderror
@@ -198,8 +198,8 @@
         <div class="mt-3 overflow-hidden bg-white shadow-md sm:rounded-lg dark:bg-gray-800">
             <div class="flex flex-col p-8">
                 <x-ui.h3>{{ __('Файл') }}</x-ui.h3>
-                <input id="inputFile" class="block w-full text-sm text-sky-700" type="file" accept=""
-                    name="inputFile" required />
+                <input id="inputFile" class="block w-full text-sm text-sky-700" type="file" accept="" name="inputFile"
+                    required />
                 <div>
                     @error('inputFile')
                         <span class="error">{{ $message }}</span>
@@ -253,24 +253,21 @@
                             x-bind:class="{ 'opacity-30': !isFooterEnabled, 'opacity-100': isFooterEnabled }" />
                         <x-input id="description" wire:model="description" x-bind:disabled="!isFooterEnabled"
                             x-bind:class="{ 'opacity-30': !isFooterEnabled, 'opacity-100': isFooterEnabled }"
-                            class="mt-1 block w-full" type="text" name="description"
-                            autocomplete="description" />
+                            class="mt-1 block w-full" type="text" name="description" autocomplete="description" />
                     </div>
                     <div class="basis-2/12">
                         <x-label for="page" value="{{ __('Лист') }}" x-bind:disabled="!isFooterEnabled"
                             x-bind:class="{ 'opacity-30': !isFooterEnabled, 'opacity-100': isFooterEnabled }" />
                         <x-input id="page" wire:model="page" x-bind:disabled="!isFooterEnabled"
                             x-bind:class="{ 'opacity-30': !isFooterEnabled, 'opacity-100': isFooterEnabled }"
-                            class="mt-1 block w-full" type="number" min="0" name="page"
-                            autocomplete="page" />
+                            class="mt-1 block w-full" type="number" min="0" name="page" autocomplete="page" />
                     </div>
                     <div class="basis-2/12">
                         <x-label for="pages" value="{{ __('Листов') }}" x-bind:disabled="!isFooterEnabled"
                             x-bind:class="{ 'opacity-30': !isFooterEnabled, 'opacity-100': isFooterEnabled }" />
                         <x-input id="pages" wire:model="pages" x-bind:disabled="!isFooterEnabled"
                             x-bind:class="{ 'opacity-30': !isFooterEnabled, 'opacity-100': isFooterEnabled }"
-                            class="mt-1 block w-full" type="number" min="0" name="pages"
-                            autocomplete="pages" />
+                            class="mt-1 block w-full" type="number" min="0" name="pages" autocomplete="pages" />
                     </div>
                 </div>
             </div>
