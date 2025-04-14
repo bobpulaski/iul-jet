@@ -9,7 +9,7 @@ class SignsList extends Model
     protected $fillable = [
         'kind',
         'surname',
-        'src',
+        'file_src',
     ];
 
     public function user()

@@ -21,15 +21,16 @@ class IulSignsListComponent extends Component
 
     public string $kind = '';
     public string $surname = '';
-
     public $signImageFile = null;
+
+    public string $filePath = '';
 
     protected function rules(): array
     {
         return [
             'kind' => 'required|min:3|max:50',
             'surname' => 'required|min:3|max:50',
-            // 'signImageFile' => 'nullable|mimes:jpg,jpeg,png,bmp|max:2048',
+            // 'signImageFile' => 'nullable|c',
         ];
     }
 
@@ -53,12 +54,6 @@ class IulSignsListComponent extends Component
 
     public function save(): void
     {
-
-
-        $this->validate($this->rules(), $this->messages());
-
-
-
         // Сначала валидируем остальные поля
         $this->validate($this->rules(), $this->messages());
 
@@ -66,15 +61,30 @@ class IulSignsListComponent extends Component
         if ($this->signImageFile) {
             // Если файл есть, валидируем его отдельно
             $this->validate([
-                'signImageFile' => 'required|file|mimes:jpg,jpeg,png,bmp|max:2048',  // Ваши правила валидации
+                'signImageFile' => 'required|mimes:jpg,jpeg,png,bmp|max:2048',  // Ваши правила валидации
             ]);
 
-            Debugbar::info('here' . $this->signImageFile);
+            $folderName = Auth::user()->id . '-' . Auth::user()->email;
+            // Сохраняем файл и получаем полный путь
+            $this->filePath = $this->signImageFile->store('signs-files/' . $folderName, 'public');
+            Debugbar::info('$filePath:' . $this->filePath);
 
-            $folderName = Auth::user()->id . Auth::user()->email;
-            $this->signImageFile->store('signsfiles/' . $folderName);
+            // Извлекаем имя файла из полного пути
+            $savedFileName = basename($this->filePath);
+            Debugbar::info('$savedFileName' . $savedFileName);
+
+            // Верный путь для asset
+            $relativePath = 'storage/signs-files/' . $folderName . '/' . $savedFileName;
+            Debugbar::info('Saved file name:' . asset($relativePath));
+
+            // Формируем полный путь к файлу
+            $fullFilePath = storage_path('app/' . $this->filePath);
+            Debugbar::alert($fullFilePath);
+
+
         } else {
             Debugbar::info('File not provided, skipping validation.');
+            $this->reset();
         }
 
 
@@ -83,6 +93,8 @@ class IulSignsListComponent extends Component
             $user->signslists()->create([
                 'kind' => $this->kind,
                 'surname' => $this->surname,
+                'file_src' => $this->filePath,
+
             ]);
             $this->banner('Подпись успешно сохранена.');
         } catch (\Throwable $th) {
@@ -97,9 +109,6 @@ class IulSignsListComponent extends Component
     {
         $this->resetErrorBag();
         $this->reset();
-
-        $this->signImageFile = null;
-        Debugbar::info('res');
 
         $this->isShowAddNewSignModal = true;
     }

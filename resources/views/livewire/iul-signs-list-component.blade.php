@@ -30,7 +30,7 @@
             {{ __('Добавление подписи') }}
         </x-slot>
         <x-slot name="content">
-            <form wire:submit="save">
+            <form wire:submit="save" enctype="multipart/form-data">
                 @csrf
 
                 <div class="flex flex-col gap-4">
@@ -54,7 +54,7 @@
                     </div>
                     <div class="full">
                         <x-label for="signImageFile" value="{{ __('Подпись') }}"/>
-                        <x-input id="signImageFile" wire:model="signImageFile" type="file" class="mt-1 block w-full" name="signImageFile"/>
+                        <x-input id="signImageFile" wire:model="signImageFile" type="file" accept="image/png, image/jpeg, image/bmp, image/jpg" class="mt-1 block w-full" name="signImageFile"/>
                         <div>
                             @error('signImageFile')
                             <x-ui.form-validation-error-message :message="$message"/>

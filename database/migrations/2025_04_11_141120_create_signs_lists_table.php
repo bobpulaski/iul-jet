@@ -19,7 +19,7 @@ return new class extends Migration {
 
             $table->string('kind')->nullable()->default(''); // Характер работы
             $table->string('surname')->nullable()->default(''); // Фамилия
-            $table->string('src')->nullable()->default(''); // Путь к изображению подписи
+            $table->string('file_src')->nullable()->default(''); // Путь к изображению подписи
         });
     }
 
