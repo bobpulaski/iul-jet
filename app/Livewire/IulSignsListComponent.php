@@ -10,12 +10,21 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\WithFileUploads;
 use Livewire\Attributes\Validate;
 use Laravel\Jetstream\InteractsWithBanner;
+use Illuminate\Support\Facades\Log;
 
 
 class IulSignsListComponent extends Component
 {
     use WithFileUploads;
     use InteractsWithBanner;
+
+    // protected $logger;
+    // public function __construct(LoggerService $logger)
+    // {
+    //     $this->logger = $logger;
+    // }
+
+
 
     public bool $isShowAddNewSignModal = false;
 
@@ -94,11 +103,17 @@ class IulSignsListComponent extends Component
                 'kind' => $this->kind,
                 'surname' => $this->surname,
                 'file_src' => $this->filePath,
-
             ]);
             $this->banner('Подпись успешно сохранена.');
         } catch (\Throwable $th) {
             $this->dangerBanner('Ошибка сохранения подписи.');
+            // Получаем имя класса и метода
+            $className = __CLASS__; // Текущий класс
+            $methodName = __FUNCTION__; // Текущий метод
+            $message = $th->getMessage();
+
+            // Логируем или отображаем информацию
+            Log::channel('my_log_channel')->error("Ошибка в классе: {$className}, методе: {$methodName}. Сообщение: {$message}");
         }
 
         $this->resetErrorBag();
