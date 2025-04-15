@@ -18,19 +18,13 @@ class IulSignsListComponent extends Component
     use WithFileUploads;
     use InteractsWithBanner;
 
-    // protected $logger;
-    // public function __construct(LoggerService $logger)
-    // {
-    //     $this->logger = $logger;
-    // }
-
-
-
     public bool $isShowAddNewSignModal = false;
 
     public string $kind = '';
     public string $surname = '';
-    public $signImageFile = null;
+
+    #[Validate('nullable|image|extensions:jpg, jpeg, png, bmp|max:2048')]
+    public $signImageFile;
 
     public string $filePath = '';
 
@@ -39,7 +33,6 @@ class IulSignsListComponent extends Component
         return [
             'kind' => 'required|min:3|max:50',
             'surname' => 'required|min:3|max:50',
-            // 'signImageFile' => 'nullable|c',
         ];
     }
 
@@ -56,65 +49,81 @@ class IulSignsListComponent extends Component
 
             'signImageFile.required' => 'Пожалуйста, загрузите файл',
             'signImageFile.image' => 'Загрузите корректный файл. Разрешены только файлы в форматах jpg, jpeg, png, bmp.',
-            'signImageFile.mimes' => 'Загрузите файл в одном из разрешенных форматов: jpg, jpeg, png, bmp.',
+            'signImageFile.extensions' => 'Загрузите файл в одном из разрешенных форматов: jpg, jpeg, png, bmp.',
             'signImageFile.max' => 'Размер файла не должен превышать 2 MB',
         ];
     }
 
     public function save(): void
     {
-        // Сначала валидируем остальные поля
         $this->validate($this->rules(), $this->messages());
 
-        // Проверяем, есть ли файл signImageFile
+        dd($this->validate());
+
         if ($this->signImageFile) {
-            // Если файл есть, валидируем его отдельно
-            $this->validate([
-                'signImageFile' => 'required|mimes:jpg,jpeg,png,bmp|max:2048',  // Ваши правила валидации
-            ]);
-
             $folderName = Auth::user()->id . '-' . Auth::user()->email;
-            // Сохраняем файл и получаем полный путь
             $this->filePath = $this->signImageFile->store('signs-files/' . $folderName, 'public');
-            Debugbar::info('$filePath:' . $this->filePath);
-
-            // Извлекаем имя файла из полного пути
-            $savedFileName = basename($this->filePath);
-            Debugbar::info('$savedFileName' . $savedFileName);
-
-            // Верный путь для asset
-            $relativePath = 'storage/signs-files/' . $folderName . '/' . $savedFileName;
-            Debugbar::info('Saved file name:' . asset($relativePath));
-
-            // Формируем полный путь к файлу
-            $fullFilePath = storage_path('app/' . $this->filePath);
-            Debugbar::alert($fullFilePath);
-
-
+            $validated['signImageFile'] = $this->signImageFile->store($this->filePath . $folderName, 'public');
         } else {
-            Debugbar::info('File not provided, skipping validation.');
-            $this->reset();
+            $validated['signImageFile'] = null;
         }
 
+        $user = Auth::user();
+        $user->signslists()->create($validated);
+        $this->banner('Подпись успешно сохранена.');
 
-        try {
-            $user = Auth::user();
-            $user->signslists()->create([
-                'kind' => $this->kind,
-                'surname' => $this->surname,
-                'file_src' => $this->filePath,
-            ]);
-            $this->banner('Подпись успешно сохранена.');
-        } catch (\Throwable $th) {
-            $this->dangerBanner('Ошибка сохранения подписи.');
-            // Получаем имя класса и метода
-            $className = __CLASS__; // Текущий класс
-            $methodName = __FUNCTION__; // Текущий метод
-            $message = $th->getMessage();
+        // Извлекаем имя файла из полного пути
+        // $savedFileName = basename($this->filePath);
+        // Debugbar::info('$savedFileName' . $savedFileName);
 
-            // Логируем или отображаем информацию
-            Log::channel('my_log_channel')->error("Ошибка в классе: {$className}, методе: {$methodName}. Сообщение: {$message}");
-        }
+
+        // Проверяем, есть ли файл signImageFile
+        // if ($this->signImageFile) {
+        //     // Если файл есть, валидируем его отдельно
+        //     $this->validate([
+        //         'signImageFile' => 'required|mimes:jpg,jpeg,png,bmp|max:2048',  // Ваши правила валидации
+        //     ]);
+
+        //     $folderName = Auth::user()->id . '-' . Auth::user()->email;
+        //     // Сохраняем файл и получаем полный путь
+        //     $this->filePath = $this->signImageFile->store('signs-files/' . $folderName, 'public');
+        //     Debugbar::info('$filePath:' . $this->filePath);
+
+        //     // Извлекаем имя файла из полного пути
+        //     $savedFileName = basename($this->filePath);
+        //     Debugbar::info('$savedFileName' . $savedFileName);
+
+        //     // Верный путь для asset
+        //     $relativePath = 'storage/signs-files/' . $folderName . '/' . $savedFileName;
+        //     Debugbar::info('Saved file name:' . asset($relativePath));
+
+        //     // Формируем полный путь к файлу
+        //     $fullFilePath = storage_path('app/' . $this->filePath);
+        //     Debugbar::alert($fullFilePath);
+
+
+        // } else {
+        //     Debugbar::info('File not provided, skipping validation.');
+        //     $this->reset();
+        // }
+
+        // try {
+        //     $user = Auth::user();
+        //     $user->signslists()->create([
+        //         'kind' => $this->kind,
+        //         'surname' => $this->surname,
+        //         'file_src' => $this->filePath,
+        //     ]);
+        //     $this->banner('Подпись успешно сохранена.');
+        // } catch (\Throwable $th) {
+        //     $this->dangerBanner('Ошибка сохранения подписи.');
+
+        //     // Получаем имя класса и метода
+        //     $className = __CLASS__; // Текущий класс
+        //     $methodName = __FUNCTION__; // Текущий метод
+        //     $message = $th->getMessage();
+        //     Log::channel('my_log_channel')->error("Ошибка в классе: {$className}, методе: {$methodName}. Сообщение: {$message}");
+        // }
 
         $this->resetErrorBag();
         $this->reset();
