@@ -23,7 +23,7 @@ class IulSignsListComponent extends Component
     public string $kind = '';
     public string $surname = '';
 
-    #[Validate('nullable|image|extensions:jpg, jpeg, png, bmp|max:2048')]
+    // #[Validate('nullable|image|extensions:jpg, jpeg, png, bmp|max:2048')]
     public $signImageFile;
 
     public string $filePath = '';
@@ -33,6 +33,7 @@ class IulSignsListComponent extends Component
         return [
             'kind' => 'required|min:3|max:50',
             'surname' => 'required|min:3|max:50',
+            'signImageFile' => 'nullable|image|mimes:jpg,jpeg,png,bmp|max:2048',
         ];
     }
 
@@ -54,11 +55,29 @@ class IulSignsListComponent extends Component
         ];
     }
 
+    public function suka(): void
+    {
+        $this->signImageFile = null;
+    }
+
     public function save(): void
     {
+
         $this->validate($this->rules(), $this->messages());
 
-        dd($this->validate());
+        // Если валидация прошла без ошибок, проверяем, был ли загружен файл
+        if (!$this->signImageFile) {
+            // Присваиваем null, если файл не загружен
+            $this->signImageFile = null;
+            dd('Файла нет, либо валидация с ошибкой');
+        } else {
+            // Логика загрузки файла (например, сохранение на сервер)
+            // $this->signImageFile->store('path/to/save');
+            dd('Файл хороший!');
+        }
+
+        dd($this->kind, $this->surname, $this->signImageFile);
+
 
         if ($this->signImageFile) {
             $folderName = Auth::user()->id . '-' . Auth::user()->email;
@@ -133,6 +152,7 @@ class IulSignsListComponent extends Component
     {
         $this->resetErrorBag();
         $this->reset();
+        Debugbar::info('reseted on show or close');
 
         $this->isShowAddNewSignModal = true;
     }
