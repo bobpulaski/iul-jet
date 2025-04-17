@@ -81,7 +81,7 @@ class IulFormComponent extends Component
     public function mount(UserSettingsService $settingsService, SigntaturesService $signtaturesService)
     {
         $user = Auth::user();
-        $this->signsList = $user->signslists()->select('kind', 'surname')->get()->toArray();
+        $this->signsList = $user->signslists()->select('kind', 'surname', 'file_src')->get()->toArray();
 
         // dd($this->signsList);
 

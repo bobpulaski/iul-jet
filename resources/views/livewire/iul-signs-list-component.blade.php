@@ -8,7 +8,6 @@
 
     @foreach ($signsData as $item)
         <div class="mb-3 overflow-hidden bg-white p-8 shadow-md sm:rounded-lg dark:bg-gray-800">
-
             <div class="flex flex-row items-center justify-between gap-4">
                 <div class="flex flex-col justify-between">
                     <div class="flex flex-row items-center justify-start gap-2 pb-3">

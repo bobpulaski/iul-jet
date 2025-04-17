@@ -20,8 +20,8 @@
 
                 <div class="relative flex flex-row items-center justify-between gap-4">
                     <div class="w-full">
-                        <x-input id="name" wire:model="name" class="mt-1 block w-full" type="text" name="name" required
-                            autofocus autocomplete="name" />
+                        <x-input id="name" wire:model="name" class="mt-1 block w-full" type="text" name="name"
+                            required autofocus autocomplete="name" />
                         @error('name')
                             <x-ui.form-validation-error-message :message="$message" />
                         @enderror
@@ -198,8 +198,8 @@
         <div class="mt-3 overflow-hidden bg-white shadow-md sm:rounded-lg dark:bg-gray-800">
             <div class="flex flex-col p-8">
                 <x-ui.h3>{{ __('Файл') }}</x-ui.h3>
-                <input id="inputFile" class="block w-full text-sm text-sky-700" type="file" accept="" name="inputFile"
-                    required />
+                <input id="inputFile" class="block w-full text-sm text-sky-700" type="file" accept=""
+                    name="inputFile" required />
                 <div>
                     @error('inputFile')
                         <span class="error">{{ $message }}</span>
@@ -253,21 +253,24 @@
                             x-bind:class="{ 'opacity-30': !isFooterEnabled, 'opacity-100': isFooterEnabled }" />
                         <x-input id="description" wire:model="description" x-bind:disabled="!isFooterEnabled"
                             x-bind:class="{ 'opacity-30': !isFooterEnabled, 'opacity-100': isFooterEnabled }"
-                            class="mt-1 block w-full" type="text" name="description" autocomplete="description" />
+                            class="mt-1 block w-full" type="text" name="description"
+                            autocomplete="description" />
                     </div>
                     <div class="basis-2/12">
                         <x-label for="page" value="{{ __('Лист') }}" x-bind:disabled="!isFooterEnabled"
                             x-bind:class="{ 'opacity-30': !isFooterEnabled, 'opacity-100': isFooterEnabled }" />
                         <x-input id="page" wire:model="page" x-bind:disabled="!isFooterEnabled"
                             x-bind:class="{ 'opacity-30': !isFooterEnabled, 'opacity-100': isFooterEnabled }"
-                            class="mt-1 block w-full" type="number" min="0" name="page" autocomplete="page" />
+                            class="mt-1 block w-full" type="number" min="0" name="page"
+                            autocomplete="page" />
                     </div>
                     <div class="basis-2/12">
                         <x-label for="pages" value="{{ __('Листов') }}" x-bind:disabled="!isFooterEnabled"
                             x-bind:class="{ 'opacity-30': !isFooterEnabled, 'opacity-100': isFooterEnabled }" />
                         <x-input id="pages" wire:model="pages" x-bind:disabled="!isFooterEnabled"
                             x-bind:class="{ 'opacity-30': !isFooterEnabled, 'opacity-100': isFooterEnabled }"
-                            class="mt-1 block w-full" type="number" min="0" name="pages" autocomplete="pages" />
+                            class="mt-1 block w-full" type="number" min="0" name="pages"
+                            autocomplete="pages" />
                     </div>
                 </div>
             </div>
@@ -317,18 +320,52 @@
     </form>
 
 
-    <x-dialog-modal wire:model.live="isSignsListModalOpen">
+    <x-dialog-modal wire:model.live="isSignsListModalOpen" maxWidth="3xl">
         <x-slot name="title">
             {{ __('Выберите подпись') }}
         </x-slot>
         <x-slot name="content">
+            <table class="w-full table-auto text-left text-sm text-gray-500 rtl:text-right dark:text-gray-400">
+                <thead
+                    class="rounded-md bg-gray-50 text-left text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-3 py-2">
+                            Характер
+                        </th>
+                        <th scope="col" class="px-3 py-2">
+                            ФИО
+                        </th>
+                        <th scope="col" class="px-3 py-2">Image</th>
+                        <th scope="col" class="px-3 py-2">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($signsList as $item)
+                        <tr class="border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
+                            <td class="px-3 py-2">{{ $item['kind'] }}</td>
+                            <td class="px-3 py-2">{{ $item['surname'] }}</td>
+                            <td class="px-3 py-2">
+                                @if (!$item['file_src'])
+                                    Нет изображения
+                                @else
+                                    <img src="{{ asset('storage/' . $item['file_src']) }}" alt=""
+                                        width="75" height="50">
+                                @endif
+                            </td>
+                            <td class="px-3 py-2">
+                                <x-info-button title="Добавить подпись" wire:click.prevent="showSignsListModal()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="size-4">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                    </svg>
+                                </x-info-button>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
 
-            <ul>
-                @foreach ($responsiblePersons as $person)
-                    <li>{{ $person['kind'] }} - {{ $person['surname'] }}</li>
-                @endforeach
-            </ul>
-
+            </table>
         </x-slot>
         <x-slot name="footer">
             <div>

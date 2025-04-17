@@ -64,8 +64,6 @@ class IulSignsListComponent extends Component
 
         $this->validate($this->rules(), $this->messages());
 
-//        dd($this->validate(['signImageFile']));
-
         if (!$this->signImageFile) {
             Debugbar::info('Файла с изображением не указан');
         } else {
