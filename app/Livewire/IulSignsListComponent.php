@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use Barryvdh\Debugbar\Facades\Debugbar;
+use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use Livewire\WithFileUploads;
@@ -28,9 +29,9 @@ class IulSignsListComponent extends Component
     protected function rules(): array
     {
         return [
-            'kind' => 'required|min:3|max:50',
-            'surname' => 'required|min:3|max:50',
-            'signImageFile' => 'nullable|image|mimes:jpg,jpeg,png,bmp|max:2048',
+            'kind' => 'required|min:1|max:50',
+            'surname' => 'required|min:1|max:50',
+            'signImageFile' => 'bail|nullable|image|mimes:jpg,jpeg,png,bmp|max:2048',
         ];
     }
 
@@ -48,7 +49,7 @@ class IulSignsListComponent extends Component
             'signImageFile.required' => 'Пожалуйста, загрузите файл',
             'signImageFile.image' => 'Загрузите корректный файл. Разрешены только файлы в форматах jpg, jpeg, png, bmp.',
             'signImageFile.extensions' => 'Загрузите файл в одном из разрешенных форматов: jpg, jpeg, png, bmp.',
-            'signImageFile.max' => 'Размер файла не должен превышать 2 MB',
+            'signImageFile.max' => 'Размер файла не должен превышать 2 MB (компонет)',
         ];
     }
 
@@ -67,10 +68,32 @@ class IulSignsListComponent extends Component
         if (!$this->signImageFile) {
             Debugbar::info('Файла с изображением не указан');
         } else {
-            // Логика загрузки файла (например, сохранение на сервер)
-            Debugbar::info('Файл хороший!');
-            $folderName = Auth::user()->id . '-' . Auth::user()->email;
-            $this->filePath = $this->signImageFile->store('signs-files/' . $folderName, 'public');
+
+            // Валидация файла
+            try {
+                $this->validate([
+                    'signImageFile' => 'nullable|image|mimes:jpg,jpeg,png,bmp|max:2048', // Настройте правила валидации по необходимости
+                ]);
+
+                // Сохранение файла
+                $folderName = Auth::user()->id . '-' . Auth::user()->email;
+                $this->filePath = $this->signImageFile->store('signs-files/' . $folderName, 'public');
+
+            } catch (ValidationException $e) {
+                // Если валидация не прошла, удалить временный файл
+                if ($this->signImageFile) {
+                    @unlink($this->signImageFile->getRealPath());
+                    // Можно также выбросить ошибку или вывести сообщение
+//                    $this->addError('signImageFile', 'Файл не прошел валидацию.');
+                    Debugbar::alert($e->getMessage());
+                }
+
+            }
+
+            /* // Логика загрузки файла (например, сохранение на сервер)
+             Debugbar::info('Файл хороший!');
+             $folderName = Auth::user()->id . '-' . Auth::user()->email;
+             $this->filePath = $this->signImageFile->store('signs-files/' . $folderName, 'public');*/
         }
 
         try {

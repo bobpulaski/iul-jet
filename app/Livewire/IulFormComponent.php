@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\User;
+use JetBrains\PhpStorm\NoReturn;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use Barryvdh\Debugbar\Facades\Debugbar;
@@ -57,14 +58,25 @@ class IulFormComponent extends Component
     public $signsList = [];
     public $isSignsListModalOpen = false;
 
+
     public function suka()
     {
-        $this->responsiblePersons[] = ['kind' => 'ГИП', 'surname' => 'Иванов Иван', 'signdate' => '2022-01-01'];
+        $this->responsiblePersons[] = ['kind' => 'ГИП', 'surname' => 'Иванов Иван', 'signdate' => ''];
+//        Debugbar::info($this->responsiblePersons);
+    }
+
+    public function addToResponsiblePersons($kind, $surname, $file_src): void
+    {
+        $this->responsiblePersons[] = [
+        'kind' => $kind,
+        'surname' => $surname,
+        'file_src' => $file_src,
+    ];
 
         Debugbar::info($this->responsiblePersons);
     }
 
-    public function showSignsListModal()
+    public function showSignsListModal(): void
     {
         $this->isSignsListModalOpen = true;
     }
@@ -175,7 +187,7 @@ class IulFormComponent extends Component
     {
         $this->validate($this->rules(), $this->messages());
 
-        // dd($this->responsiblePersons);
+//        dd($this->responsiblePersons);
 
         // $signdates = array_column($this->responsiblePersons, 'signdate');
         $this->responsiblePersons = array_map(function ($person) {
