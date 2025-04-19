@@ -24,7 +24,7 @@
                                 class="font-light text-slate-400">(MSK)</span></x-ui.p>
                     </div>
                     <div>
-                        <x-ui.dropdown-history-action>
+                        <x-ui.dropdown-action>
                             <x-slot name="content">
                                 <div class="block px-4 py-2 text-xs text-gray-400">
                                     {{ __('Действия') }}
@@ -55,7 +55,7 @@
                                     <span class="ml-2 text-red-400">Удалить</span>
                                 </x-dropdown-link>
                             </x-slot>
-                        </x-ui.dropdown-history-action>
+                            </x-ui.dropdown-history-action>
                     </div>
                 </div>
 
@@ -111,7 +111,7 @@
             {{ __('Удаление записи') }}
         </x-slot>
         <x-slot name="content">
-            {{ __('Вы действительно хотите удалить запись?') }}
+            {{ __('Вы действительно хотите удалить запись из истории?') }}
         </x-slot>
         <x-slot name="footer">
             <x-secondary-button wire:click="$toggle('confirmingHistoryDeletion')" wire:loading.attr="disabled">
