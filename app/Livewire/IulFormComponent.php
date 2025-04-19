@@ -59,17 +59,12 @@ class IulFormComponent extends Component
     public $isSignsListModalOpen = false;
 
 
-    public function suka()
-    {
-        $this->responsiblePersons[] = ['kind' => 'ГИП', 'surname' => 'Иванов Иван', 'signdate' => ''];
-//        Debugbar::info($this->responsiblePersons);
-    }
-
     public function addToResponsiblePersons($kind, $surname, $file_src): void
     {
         $this->responsiblePersons[] = [
         'kind' => $kind,
         'surname' => $surname,
+        'signdate' => null,
         'file_src' => $file_src,
     ];
 
@@ -92,10 +87,9 @@ class IulFormComponent extends Component
 
     public function mount(UserSettingsService $settingsService, SigntaturesService $signtaturesService)
     {
+
         $user = Auth::user();
         $this->signsList = $user->signslists()->select('kind', 'surname', 'file_src')->get()->toArray();
-
-        // dd($this->signsList);
 
         // Если форма вызвана из Истории (есть id записи из таблицы истории)
         if (request()->id) {
@@ -194,6 +188,7 @@ class IulFormComponent extends Component
             return [
                 'kind' => $person['kind'] ?? '',
                 'surname' => $person['surname'] ?? '',
+                'file_src' => $person['file_src'] ?? '',
                 'signdate' => !empty($person['signdate']) ? $person['signdate'] : null,
             ];
         }, $this->responsiblePersons);

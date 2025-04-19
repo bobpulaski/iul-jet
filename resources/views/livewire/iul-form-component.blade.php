@@ -103,37 +103,44 @@
                         </svg>
                     </x-info-button>
                 </div>
+
+
+                @foreach ($responsiblePersons as $index => $person)
+                    @php
+                        // dd($responsiblePersons);
+                    @endphp
+                    <div class="mb-2 mt-2 flex flex-row items-center gap-4 rounded-md bg-sky-100 p-4 md:flex-row">
+                        <div class="md:full basis-4/12">
+                            <x-input type="text" class="block w-full"
+                                wire:model="responsiblePersons.{{ $index }}.kind"
+                                value="{{ $person['kind'] }}" />
+                        </div>
+                        <div class="md:full basis-4/12">
+                            <x-input type="text" class="block w-full"
+                                wire:model="responsiblePersons.{{ $index }}.surname"
+                                value="{{ $person['surname'] }}" />
+                        </div>
+                        <div class="md:full basis-4/12">
+                            <x-input type="date" class="block w-full"
+                                wire:model="responsiblePersons.{{ $index }}.signdate" />
+                        </div>
+                        <div class="md:full basis-4/12">
+                            @if (!$person['file_src'])
+                                <x-ui.p>Нет изображения</x-ui.p>
+                            @else
+                                <img class="rounded-md" src="{{ asset('storage/' . $person['file_src']) }}"
+                                    alt="Подпись для {{ $person['surname'] }}" width="75" height="50">
+                            @endif
+                        </div>
+
+
+                        <button type="button" wire:click.prevent="remove({{ $index }})">Удалить</button>
+                    </div>
+                @endforeach
             </div>
 
-            <button type="button" wire:click.prevent="suka()">Добавить подпись1</button>
 
-            @foreach ($responsiblePersons as $index => $person)
-                <div class="mb-2 mt-2 flex flex-row items-center gap-4 rounded-md bg-sky-100 p-4 md:flex-row">
-                    <div class="md:full basis-4/12">
-                        <x-input type="text" class="block w-full"
-                            wire:model="responsiblePersons.{{ $index }}.kind" value="{{ $person['kind'] }}" />
-                    </div>
-                    <div class="md:full basis-4/12">
-                        <x-input type="text" class="block w-full"
-                            wire:model="responsiblePersons.{{ $index }}.surname"
-                            value="{{ $person['surname'] }}" />
-                    </div>
-                    <div class="md:full basis-4/12">
-                        <x-input type="date" class="block w-full"
-                            wire:model="responsiblePersons.{{ $index }}.signdate" />
-                    </div>
-                    <div class="md:full basis-4/12">
-                        {{--                        <x-input type="text" class="block w-full">{{ $person['file_src'] }}</x-input> --}}
-                    </div>
-
-
-                    <button type="button" wire:click.prevent="remove({{ $index }})">Удалить</button>
-                </div>
-            @endforeach
-        </div>
-
-
-        {{-- <div class="mt-3 overflow-hidden bg-white shadow-md sm:rounded-lg dark:bg-gray-800">
+            {{-- <div class="mt-3 overflow-hidden bg-white shadow-md sm:rounded-lg dark:bg-gray-800">
             <div class="flex flex-col p-8">
 
                 <div class="flex flex-row items-center justify-between">
@@ -204,8 +211,8 @@
                     </div>
                 </div>
 
-            </div>
-        </div> --}}
+            </div> --}}
+        </div>
 
 
         {{-- Файл --}}
@@ -349,8 +356,8 @@
                         <th scope="col" class="px-3 py-2">
                             ФИО
                         </th>
-                        <th scope="col" class="px-3 py-2">Image</th>
-                        <th scope="col" class="px-3 py-2">Action</th>
+                        <th scope="col" class="px-3 py-2">Факсимиле</th>
+                        <th scope="col" class="px-3 py-2"></th>
                     </tr>
                 </thead>
                 <tbody>

@@ -55,7 +55,8 @@
 
                                     <div class="border-t border-gray-200 dark:border-gray-600"></div>
 
-                                    <x-dropdown-link wire:click="" wire:loading.attr="disabled"
+                                    <x-dropdown-link wire:click="showConfirmingSignDeletion({{ $item->id }})"
+                                        wire:loading.attr="disabled"
                                         class="flex items-center cursor-pointer text-red-400">
                                         <x-ui.icons.trash-icon />
                                         <span class="ml-2 text-red-400">Удалить</span>
@@ -153,7 +154,7 @@
         </x-ui.dialog-modal-for-form>
 
         <!-- Delete Sign From List Confirmation Modal -->
-        <x-dialog-modal wire:model.live="confirmingSignDeletion">
+        <x-dialog-modal wire:model.live="isShowConfirmingSignDeletionModal">
             <x-slot name="title">
                 {{ __('Удаление подписи') }}
             </x-slot>
@@ -161,12 +162,13 @@
                 {{ __('Вы действительно хотите удалить подпись?') }}
             </x-slot>
             <x-slot name="footer">
-                <x-secondary-button wire:click="$toggle('confirmingHistoryDeletion')" wire:loading.attr="disabled">
+                <x-secondary-button wire:click="$toggle('isShowConfirmingSignDeletionModal')"
+                    wire:loading.attr="disabled">
                     {{ __('Отмена') }}
                 </x-secondary-button>
 
-                <x-danger-button class="ms-3" wire:click="deleteHistory" wire:loading.attr="disabled">
-                    {{ __('Удалить подпись') }}
+                <x-danger-button class="ms-3" wire:click="deleteSign" wire:loading.attr="disabled">
+                    {{ __('Удалить') }}
                 </x-danger-button>
             </x-slot>
         </x-dialog-modal>
@@ -174,8 +176,8 @@
 
         <script>
             /*  window.onload = function () {
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          document.getElementById("sign-image-file").onchange = checkFileSizeAndType;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      };*/
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  document.getElementById("sign-image-file").onchange = checkFileSizeAndType;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              };*/
         </script>
 
 

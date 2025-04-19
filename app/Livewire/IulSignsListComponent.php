@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\WithFileUploads;
 use Laravel\Jetstream\InteractsWithBanner;
 use Illuminate\Support\Facades\Log;
+use App\Models\SignsList;
 
 
 class IulSignsListComponent extends Component
@@ -17,6 +18,7 @@ class IulSignsListComponent extends Component
     use InteractsWithBanner;
 
     public bool $isShowAddNewSignModal = false;
+    public bool $isShowConfirmingSignDeletionModal = false;
 
     public string $kind = '';
     public string $surname = '';
@@ -25,6 +27,11 @@ class IulSignsListComponent extends Component
     public $signImageFile;
 
     public string $filePath = '';
+
+    public int $signId;
+
+
+
 
     protected function rules(): array
     {
@@ -127,9 +134,25 @@ class IulSignsListComponent extends Component
         $this->reset();
         $this->signImageFile = null;
 
-        Debugbar::info('reseted on show or close');
-
         $this->isShowAddNewSignModal = true;
+    }
+
+    public function showConfirmingSignDeletion($id) {
+        $this->signId = $id;
+        $this->isShowConfirmingSignDeletionModal = true;
+    }
+
+    public function deleteSign() {
+
+        $sign = SignsList::find($this->signId);
+
+        if ($sign) {
+            $sign->delete();
+            $this->isShowConfirmingSignDeletionModal = false;
+            $this->banner('Подпись успешно удалена.');
+        } else {
+            $this->dangerBanner('Подпись не найдена. Удаление не возможно.');
+        }
     }
 
     public function render()

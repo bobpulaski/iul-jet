@@ -9,6 +9,7 @@ class Signature extends Model
     protected $fillable = [
         'kind',
         'surname',
+        'file_src',
         'signdate',
     ];
 

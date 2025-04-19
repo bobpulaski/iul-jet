@@ -119,7 +119,7 @@
             </x-secondary-button>
 
             <x-danger-button class="ms-3" wire:click="deleteHistory" wire:loading.attr="disabled">
-                {{ __('Удалить запись') }}
+                {{ __('Удалить') }}
             </x-danger-button>
         </x-slot>
     </x-dialog-modal>
