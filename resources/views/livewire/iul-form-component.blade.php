@@ -374,7 +374,7 @@
                                 @endif
                             </td>
                             <td class="px-3 py-2">
-                                <x-info-button title="Добавить подпись"
+                                <x-info-button title="Добавить подпись1"
                                     wire:click.prevent="addToResponsiblePersons('{{ $item['kind'] }}', '{{ $item['surname'] }}', '{{ $item['file_src'] }}', {{ $item['id'] }})">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-4">
@@ -484,7 +484,7 @@
                 fileSize: fileSize,
             };
 
-            console.log(fileData);
+            // console.log(fileData);
 
             Livewire.dispatch('compose', {
                 fileData: fileData

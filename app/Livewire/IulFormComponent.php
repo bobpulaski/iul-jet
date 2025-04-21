@@ -14,10 +14,8 @@ use App\Services\SigntaturesService;
 use App\Services\UserSettingsService;
 use App\Services\HistoryService;
 
-use App\Models\History;
 use App\Models\SignsList;
 
-use DateTime;
 use Laravel\Jetstream\InteractsWithBanner;
 
 class IulFormComponent extends Component
@@ -46,8 +44,6 @@ class IulFormComponent extends Component
     public string $fileType = 'docx';
     public $headerType = 'regular';
 
-
-
     protected $settingsService;
     protected $signtaturesService;
     protected $historyService;
@@ -55,41 +51,11 @@ class IulFormComponent extends Component
     private $settings;
     private $signtatures;
 
-
     public $signsList = [];
     public $isSignsListModalOpen = false;
 
-
-    public function addToResponsiblePersons($kind, $surname, $file_src, $id): void
+    public function mount(UserSettingsService $settingsService, SigntaturesService $signtaturesService): void
     {
-        $this->responsiblePersons[] = [
-            'kind' => $kind,
-            'surname' => $surname,
-            'signdate' => null,
-            'file_src' => $file_src,
-            'signs_lists_id' => $id,
-        ];
-
-        Debugbar::info($this->responsiblePersons);
-    }
-
-    public function showSignsListModal(): void
-    {
-        $this->isSignsListModalOpen = true;
-    }
-    // Удалять? Переработан функционал добавление подписей
-    public function remove($index)
-    {
-        unset($this->responsiblePersons[$index]);
-        // Переиндексация массива
-        $this->responsiblePersons = array_values($this->responsiblePersons);
-
-        Debugbar::info($this->responsiblePersons);
-    }
-
-    public function mount(UserSettingsService $settingsService, SigntaturesService $signtaturesService)
-    {
-
         $user = Auth::user();
         $this->signsList = $user->signslists()->select('kind', 'surname', 'file_src', 'id')->get()->toArray();
 
@@ -107,8 +73,6 @@ class IulFormComponent extends Component
                 $this->versionNumber = $fromHistory->version_number;
 
                 $this->isRememberSignatures = $fromHistory->remember_signatures;
-
-
 
                 //TODO Думаю, это нужно вынести в отдельный метод
                 // При редактировании листа ИУЛ из истории удаляю подписи из масива, которых
@@ -160,7 +124,6 @@ class IulFormComponent extends Component
         }
     }
 
-    // Правила валидации
     protected function rules(): array
     {
         return [
@@ -172,7 +135,6 @@ class IulFormComponent extends Component
         ];
     }
 
-    // Сообщения об ошибках
     protected function messages(): array
     {
         return [
@@ -196,7 +158,6 @@ class IulFormComponent extends Component
         ];
     }
 
-    //Основной алгоритм формирования отчета
     public function start(UserSettingsService $settingsService, SigntaturesService $signtaturesService, HistoryService $historyService)
     {
         $this->validate($this->rules(), $this->messages());
@@ -305,20 +266,54 @@ class IulFormComponent extends Component
         }
     }
 
-    #[On('changeSignDateEvent')]
-    public function changeSignDate($signDateFromFront)
+    public function addToResponsiblePersons($kind, $surname, $file_src, $id): void
     {
-        if ($signDateFromFront === '') {
-            // Используем оператор сравнения
-            $this->signFormattedDate = '';
-        } else {
-            $this->signDate = $signDateFromFront;
-            // Форматируем дату YYYY-MM-DD
-            $date = $this->signDate; // Пример даты в формате YYYY-MM-DD
-            $dateTime = new DateTime($date);
-            $this->signFormattedDate = $dateTime->format('d.m.Y'); // Форматируем дату в DD.MM.YYYY
-        }
+        $this->responsiblePersons[] = [
+            'kind' => $kind,
+            'surname' => $surname,
+            'signdate' => null,
+            'file_src' => $file_src,
+            'signs_lists_id' => $id,
+        ];
+        Debugbar::info($this->responsiblePersons);
     }
+
+    public function showSignsListModal(): void
+    {
+        $this->isSignsListModalOpen = true;
+    }
+
+    // Удалять? Переработан функционал добавление подписей
+    public function remove($index)
+    {
+        unset($this->responsiblePersons[$index]);
+        // Переиндексация массива
+        $this->responsiblePersons = array_values($this->responsiblePersons);
+
+        Debugbar::info($this->responsiblePersons);
+    }
+
+
+
+
+
+
+
+    // TODO Убрать этот метод. Похоже, что дата у меня приходит с фронта уже форматированная
+    // #[On('changeSignDateEvent')]
+    // public function changeSignDate($signDateFromFront)
+    // {
+    //     if ($signDateFromFront === '') {
+    //         // Используем оператор сравнения
+    //         $this->signFormattedDate = '';
+    //     } else {
+    //         $this->signDate = $signDateFromFront;
+    //         // Форматируем дату YYYY-MM-DD
+    //         $date = $this->signDate; // Пример даты в формате YYYY-MM-DD
+    //         $dateTime = new DateTime($date);
+    //         $this->signFormattedDate = $dateTime->format('d.m.Y'); // Форматируем дату в DD.MM.YYYY
+    //     }
+    // }
 
     //Слушатель события получения информации о файле с Frontend
     #[On('compose')]
