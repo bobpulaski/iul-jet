@@ -15,6 +15,7 @@ use App\Services\UserSettingsService;
 use App\Services\HistoryService;
 
 use App\Models\History;
+use App\Models\SignsList;
 
 use DateTime;
 use Laravel\Jetstream\InteractsWithBanner;
@@ -59,14 +60,15 @@ class IulFormComponent extends Component
     public $isSignsListModalOpen = false;
 
 
-    public function addToResponsiblePersons($kind, $surname, $file_src): void
+    public function addToResponsiblePersons($kind, $surname, $file_src, $id): void
     {
         $this->responsiblePersons[] = [
-        'kind' => $kind,
-        'surname' => $surname,
-        'signdate' => null,
-        'file_src' => $file_src,
-    ];
+            'kind' => $kind,
+            'surname' => $surname,
+            'signdate' => null,
+            'file_src' => $file_src,
+            'signs_lists_id' => $id,
+        ];
 
         Debugbar::info($this->responsiblePersons);
     }
@@ -75,7 +77,7 @@ class IulFormComponent extends Component
     {
         $this->isSignsListModalOpen = true;
     }
-
+    // Удалять? Переработан функционал добавление подписей
     public function remove($index)
     {
         unset($this->responsiblePersons[$index]);
@@ -89,7 +91,7 @@ class IulFormComponent extends Component
     {
 
         $user = Auth::user();
-        $this->signsList = $user->signslists()->select('kind', 'surname', 'file_src')->get()->toArray();
+        $this->signsList = $user->signslists()->select('kind', 'surname', 'file_src', 'id')->get()->toArray();
 
         // Если форма вызвана из Истории (есть id записи из таблицы истории)
         if (request()->id) {
@@ -105,7 +107,25 @@ class IulFormComponent extends Component
                 $this->versionNumber = $fromHistory->version_number;
 
                 $this->isRememberSignatures = $fromHistory->remember_signatures;
+
+
+
+                //TODO Думаю, это нужно вынести в отдельный метод
+                // При редактировании листа ИУЛ из истории удаляю подписи из масива, которых
+                // УЖЕ нет в справочнике подписей
                 $this->responsiblePersons = json_decode($fromHistory->responsible_persons, true);
+                // Получаем все ID записей из таблицы signs_lists
+                $validSignIds = SignsList::pluck('id')->toArray();
+
+                // Фильтруем массив ответственных лиц, оставляя только валидные записи
+                $this->responsiblePersons = array_filter($this->responsiblePersons, function ($person) use ($validSignIds) {
+                    return in_array($person['signs_lists_id'], $validSignIds);
+                });
+
+                // Если необходимо, вы можете перезаписать JSON в базу данных
+                $fromHistory->responsible_persons = json_encode(array_values($this->responsiblePersons));
+                $fromHistory->save();
+                //******************************************* */
 
                 $this->algorithm = $fromHistory->algorithm;
 
@@ -181,15 +201,13 @@ class IulFormComponent extends Component
     {
         $this->validate($this->rules(), $this->messages());
 
-//        dd($this->responsiblePersons);
-
-        // $signdates = array_column($this->responsiblePersons, 'signdate');
         $this->responsiblePersons = array_map(function ($person) {
             return [
                 'kind' => $person['kind'] ?? '',
                 'surname' => $person['surname'] ?? '',
                 'file_src' => $person['file_src'] ?? '',
                 'signdate' => !empty($person['signdate']) ? $person['signdate'] : null,
+                'signs_lists_id' => !empty($person['signs_lists_id']) ? $person['signs_lists_id'] : null,
             ];
         }, $this->responsiblePersons);
 
@@ -216,7 +234,6 @@ class IulFormComponent extends Component
             'isTitle' => $this->isTitle,
             'headerType' => $this->headerType,
             'isFooter' => $this->isFooter,
-            // 'signDate' => $this->signFormattedDate,
         ];
 
         $reportService = new ReportService();

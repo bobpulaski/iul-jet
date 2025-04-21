@@ -30,10 +30,12 @@ class SendSettingsForNewUser
         $settings->user_id = $event->user->id;
         $settings->save();
 
+        //TODO Пока закомментировал, возможно понадобиться
         // Создание записи в таблице Signatures со значениями по умолчанию
-        $signarures = new Signature();
-        $signarures->user_id = $event->user->id;
-        $signarures->save();
+        
+        // $signarures = new Signature();
+        // $signarures->user_id = $event->user->id;
+        // $signarures->save();
 
         $email = request('email');
         $userIp = request()->ip();

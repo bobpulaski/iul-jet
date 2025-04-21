@@ -9,17 +9,17 @@ class SigntaturesService
   public function getSigntatures()
   {
     $user = Auth::user();
-    $signtatures = $user->signatures()->select('kind', 'surname', 'signdate', 'file_src')->get();
+    $signtatures = $user->signatures()->select('kind', 'surname', 'signdate', 'file_src', 'signs_lists_id')->get();
     return $signtatures;
   }
 
   public function createSigntatures($responsiblePersons)
   {
+    // dd($responsiblePersons);
     $user = Auth::user();
 
     //Проверяем, есть ли уже записи
     if ($user->signatures()->exists()) {
-
       $user->signatures()->delete();
     }
 

@@ -9,7 +9,7 @@
         @endif
     </div>
 
-    <div class="mb-3 {{-- overflow-hidden --}} bg-white p-8 shadow-md sm:rounded-lg dark:bg-gray-800">
+    <div class="{{-- overflow-hidden --}} mb-3 bg-white p-8 shadow-md sm:rounded-lg dark:bg-gray-800">
         <x-ui.table>
             <x-ui.thead>
                 <x-ui.th>Характер работы</x-ui.th>
@@ -41,13 +41,13 @@
                         <x-ui.td class="text-end">
                             <x-ui.dropdown-action class="z-50">
                                 <x-slot name="content">
-                                    <div class="block px-4 py-2 text-xs text-gray-400 text-left">
+                                    <div class="block px-4 py-2 text-left text-xs text-gray-400">
                                         {{ __('Действия') }}
                                     </div>
 
                                     <div class="flex flex-row items-center gap-2">
 
-                                        <x-dropdown-link wire:click="" class="flex items-center cursor-pointer">
+                                        <x-dropdown-link wire:click="" class="flex cursor-pointer items-center">
                                             <x-ui.icons.edit-icon />
                                             <span class="ml-2">Редактировать</span>
                                         </x-dropdown-link>
@@ -57,9 +57,9 @@
 
                                     <x-dropdown-link wire:click="showConfirmingSignDeletion({{ $item->id }})"
                                         wire:loading.attr="disabled"
-                                        class="flex items-center cursor-pointer text-red-400">
+                                        class="flex cursor-pointer items-center text-red-600">
                                         <x-ui.icons.trash-icon />
-                                        <span class="ml-2 text-red-400">Удалить</span>
+                                        <span class="ml-2 text-red-600">Удалить</span>
                                     </x-dropdown-link>
                                 </x-slot>
                             </x-ui.dropdown-action>
@@ -74,7 +74,6 @@
 
             <x-slot name="title">
                 <div class="px-6 pt-4">
-
                     {{ __('Добавление подписи') }}
                 </div>
             </x-slot>
@@ -125,7 +124,7 @@
 
 
                     <div id="footer"
-                        class="flex flex-row justify-end px-6 py-4 bg-gray-100 dark:bg-gray-800 text-end mt-4">
+                        class="mt-4 flex flex-row justify-end bg-gray-100 px-6 py-4 text-end dark:bg-gray-800">
 
                         <div>
                             <x-secondary-button wire:click="$toggle('isShowAddNewSignModal')"
@@ -156,7 +155,16 @@
         <!-- Delete Sign From List Confirmation Modal -->
         <x-dialog-modal wire:model.live="isShowConfirmingSignDeletionModal">
             <x-slot name="title">
-                {{ __('Удаление подписи') }}
+                <div class="flex flex-row items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-6 text-red-600">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+                    </svg>
+                    <div>
+                        {{ __('Удаление подписи') }}
+                    </div>
+                </div>
             </x-slot>
             <x-slot name="content">
                 {{ __('Вы действительно хотите удалить подпись?') }}
@@ -176,8 +184,8 @@
 
         <script>
             /*  window.onload = function () {
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          document.getElementById("sign-image-file").onchange = checkFileSizeAndType;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      };*/
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          document.getElementById("sign-image-file").onchange = checkFileSizeAndType;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      };*/
         </script>
 
 
