@@ -1,4 +1,5 @@
 <div>
+
     @if ($historyData->isEmpty())
         <x-ui.p>Записей в истории пока нет. <x-nav-link href="{{ route('dashboard') }}" wire:navigate
                 :active="request()->routeIs('dashboard')">{{ __('Создайте свой первый лист.') }} </x-nav-link>
@@ -55,7 +56,7 @@
                                     <span class="ml-2 text-red-400">Удалить</span>
                                 </x-dropdown-link>
                             </x-slot>
-                            </x-ui.dropdown-history-action>
+                        </x-ui.dropdown-action>
                     </div>
                 </div>
 
@@ -111,7 +112,7 @@
             {{ __('Удаление записи') }}
         </x-slot>
         <x-slot name="content">
-            {{ __('Вы действительно хотите удалить запись из истории?') }}
+            <p>{{ __('Вы действительно хотите удалить запись из истории?') }}</p>
         </x-slot>
         <x-slot name="footer">
             <x-secondary-button wire:click="$toggle('confirmingHistoryDeletion')" wire:loading.attr="disabled">

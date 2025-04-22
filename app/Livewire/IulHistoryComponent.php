@@ -15,6 +15,10 @@ class IulHistoryComponent extends Component
     use WithPagination;
     use InteractsWithBanner;
 
+
+    //TODO Добавить функционал очистки всей истории
+
+
     //TODO Нужно сохранять последнее значение
     public $perPage = 10;
     public bool $confirmingHistoryDeletion = false;

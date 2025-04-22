@@ -39,7 +39,7 @@
                             </x-ui.td>
                         @endif
                         <x-ui.td class="text-end">
-                            <x-ui.dropdown-action class="z-50">
+                            <x-ui.dropdown-action>
                                 <x-slot name="content">
                                     <div class="block px-4 py-2 text-left text-xs text-gray-400">
                                         {{ __('Действия') }}
@@ -169,6 +169,9 @@
             <x-slot name="content">
                 {{ __('Вы действительно хотите удалить подпись?') }}
             </x-slot>
+            <x-slot name="description">
+                {{ __('Удаляя подпись из справочника «Подписи», она также будет удалена из всех связанных документов в разделе «История», а также из текущего отчета в «Конструкторе».') }}
+            </x-slot>
             <x-slot name="footer">
                 <x-secondary-button wire:click="$toggle('isShowConfirmingSignDeletionModal')"
                     wire:loading.attr="disabled">
@@ -180,14 +183,6 @@
                 </x-danger-button>
             </x-slot>
         </x-dialog-modal>
-
-
-        <script>
-            /*  window.onload = function () {
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          document.getElementById("sign-image-file").onchange = checkFileSizeAndType;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      };*/
-        </script>
-
 
         <style>
             input[type=file]::file-selector-button {

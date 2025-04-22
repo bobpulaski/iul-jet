@@ -81,7 +81,7 @@
 
 
         {{-- Подписи ответственных лиц --}}
-        <div class="mt-3 overflow-hidden bg-white shadow-md sm:rounded-lg dark:bg-gray-800">
+        <div class="{{-- overflow-hidden --}} mt-3 bg-white shadow-md sm:rounded-lg dark:bg-gray-800">
             <div class="flex flex-col p-8">
                 <div class="flex flex-row items-center justify-between">
                     <x-ui.h3>{{ __('Подписи ответственных лиц') }}</x-ui.h3>
@@ -95,13 +95,33 @@
                 </div>
 
                 <div class="flex flex-row">
-                    <x-info-button title="Добавить подпись" wire:click.prevent="showSignsListModal()">
+
+                    <x-ui.dropdown-action>
+                        <x-slot name="content">
+                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                {{ __('Добавить подпись') }}
+                            </div>
+                            <div class="flex flex-row items-center gap-2">
+                                <x-dropdown-link wire:click="" href="javascript:void(0);" class="flex items-center">
+                                    <x-ui.icons.edit-icon />
+                                    <span class="ml-2">Редактировать</span>
+                                </x-dropdown-link>
+                            </div>
+
+                            <x-dropdown-link wire:click="" href="javascript:void(0);" class="flex items-center">
+                                <x-ui.icons.download-icon />
+                                <span class="ml-2">Скачать</span>
+                            </x-dropdown-link>
+                        </x-slot>
+                    </x-ui.dropdown-action>
+
+                    {{-- <x-info-button title="Добавить подпись" wire:click.prevent="showSignsListModal()">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                         </svg>
-                    </x-info-button>
+                    </x-info-button> --}}
                 </div>
 
 
@@ -374,7 +394,7 @@
                                 @endif
                             </td>
                             <td class="px-3 py-2">
-                                <x-info-button title="Добавить подпись1"
+                                <x-info-button title="Добавить подпись"
                                     wire:click.prevent="addToResponsiblePersons('{{ $item['kind'] }}', '{{ $item['surname'] }}', '{{ $item['file_src'] }}', {{ $item['id'] }})">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-4">

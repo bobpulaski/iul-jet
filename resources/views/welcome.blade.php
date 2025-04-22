@@ -65,9 +65,9 @@
 
             <div class="mx-auto mt-4 max-w-screen-lg px-4 sm:px-6 lg:px-8">
                 <h1 class="flex flex-col text-center text-5xl font-extrabold">
-                    <span class="flex flex-col md:flex-row justify-center items-center gap-2">
+                    <span class="flex flex-col items-center justify-center gap-2 md:flex-row">
                         <span class="md:text-7xl">Конструктор</span>
-                        <span class="md:text-7xl mt-4 rounded-lg bg-sky-600 p-4 text-white">ИУЛ</span>
+                        <span class="mt-4 rounded-lg bg-sky-600 p-4 text-white md:text-7xl">ИУЛ</span>
                     </span>
                     <span class="mt-4 rounded-lg bg-slate-800 p-6 text-2xl text-white lg:text-3xl">для
                         проектно-сметной документации
@@ -82,7 +82,7 @@
                         требованиями <span class="font-bold">ГОСТа Р 21.101-2020.</span></h4>
 
                     <a href="{{ route('register') }}"
-                        class="flex flex-row justify-between items-center gap-2 rounded-md bg-pink-700 px-4 py-3 text-center font-semibold text-white transition duration-300 ease-in-out hover:bg-pink-600"><span>Начните
+                        class="flex flex-row items-center justify-between gap-2 rounded-md bg-pink-700 px-4 py-3 text-center font-semibold text-white transition duration-300 ease-in-out hover:bg-pink-600"><span>Начните
                             прямо сейчас</span>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-6">
@@ -103,8 +103,8 @@
                 Сервис Quatros акцентирует внимание на содержимом
                 информационно-удостоверяющих листов, а не на их оформлении.
             </x-mainpage.p-center>
-            <div class="flex flex-col p-4 gap-24 md:flex-row">
-                <div class="flex flex-col basis-1/2 justify-center">
+            <div class="flex flex-col gap-24 p-4 md:flex-row">
+                <div class="flex basis-1/2 flex-col justify-center">
                     <x-mainpage.h3>
                         Интуитивный интерфейс
                     </x-mainpage.h3>
@@ -132,7 +132,7 @@
         </x-mainpage.section>
 
         <x-mainpage.section>
-            <div class="flex flex-col-reverse p-4 gap-24 md:flex-row">
+            <div class="flex flex-col-reverse gap-24 p-4 md:flex-row">
                 <div class="flex basis-1/2">
                     <div class="relative">
                         <div
@@ -161,7 +161,7 @@
         </x-mainpage.section>
 
         <x-mainpage.section>
-            <div class="flex flex-col p-4 gap-24 md:flex-row">
+            <div class="flex flex-col gap-24 p-4 md:flex-row">
                 <div class="flex basis-1/2 flex-col justify-center">
                     <x-mainpage.h3>
                         Ничего не потеряется
@@ -214,17 +214,17 @@
             </x-mainpage.p-center>
             <x-mainpage.grid-3-col>
                 <div>
-                    <div class="w-14 h-3 mb-8 bg-sky-700 rounded-md"></div>
+                    <div class="mb-8 h-3 w-14 rounded-md bg-sky-700"></div>
                     <x-mainpage.h4>
                         Гибкая и простая настройка
                     </x-mainpage.h4>
                     <x-mainpage.p>
                         Настройте форму ИУЛ под ваши требования: заголовок, подвал, тип и
-                        начертания шрифта – всё сохраняется налету.
+                        начертания шрифта – всё сохраняется на лету.
                     </x-mainpage.p>
                 </div>
                 <div>
-                    <div class="w-14 h-3 mb-8 bg-sky-700 rounded-md"></div>
+                    <div class="mb-8 h-3 w-14 rounded-md bg-sky-700"></div>
                     <x-mainpage.h4>
                         Молниеносная загрузка файлов
                     </x-mainpage.h4>
@@ -235,7 +235,7 @@
                     </x-mainpage.p>
                 </div>
                 <div>
-                    <div class="w-14 h-3 mb-8 bg-sky-700 rounded-md"></div>
+                    <div class="mb-8 h-3 w-14 rounded-md bg-sky-700"></div>
                     <x-mainpage.h4>
                         История всегда под рукой
                     </x-mainpage.h4>
@@ -257,9 +257,9 @@
                 Поддержка нескольких типов файлов для выгрузки сформированного ИУЛ.
             </x-mainpage.p-center>
             <div class="flex flex-row justify-around">
-                <x-mainpage.export-format class="bg-sky-800 saturate-75">*.DOCX</x-mainpage.export-format>
-                <x-mainpage.export-format class="bg-rose-800 saturate-75">*.PDF</x-mainpage.export-format>
-                <x-mainpage.export-format class="bg-indigo-800 saturate-75">*.HTML</x-mainpage.export-format>
+                <x-mainpage.export-format class="saturate-75 bg-sky-800">*.DOCX</x-mainpage.export-format>
+                <x-mainpage.export-format class="saturate-75 bg-rose-800">*.PDF</x-mainpage.export-format>
+                <x-mainpage.export-format class="saturate-75 bg-indigo-800">*.HTML</x-mainpage.export-format>
             </div>
         </x-mainpage.section>
 
@@ -267,134 +267,131 @@
         <!-- Вопросы и ответы -->
         <x-mainpage.section>
             {{-- <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8"> --}}
-                <x-mainpage.h2>
-                    Вопросы и ответы
-                </x-mainpage.h2>
+            <x-mainpage.h2>
+                Вопросы и ответы
+            </x-mainpage.h2>
 
-                <div x-data="{ openIndex: null }">
-                    <!-- Аккордеон секция 1 -->
-                    <div class="mb-0">
-                        <button @click="openIndex === 1 ? openIndex = null : openIndex = 1"
-                            class="flex w-full items-center justify-between gap-3 rounded-t-xl border border-b-0 border-gray-200 p-5 font-medium text-gray-500 hover:bg-gray-100 focus:ring-1 focus:ring-gray-200 rtl:text-right dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
-                            <span class="font-semibold">Какие возможности и преимущества при использовании
-                                сервиса?</span>
-                            <svg class="h-5 w-5 transform" :class="openIndex === 1 ? 'rotate-180' : 'rotate-0'"
-                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M19 9l-7 7-7-7" />
-                            </svg>
-                        </button>
-                        <div x-show="openIndex === 1"
-                            class="border border-b-0 border-gray-200 p-5 dark:border-gray-700 dark:bg-gray-900">
-                            <p>
-                                Сокращение времени на подготовку и составление ИУЛ, исключение ошибок при оформлении
-                                документов, обновление, корректировка данных, сохранение истории и многое другое!
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Аккордеон секция 2 -->
-                    <div class="mb-0">
-                        <button @click="openIndex === 2 ? openIndex = null : openIndex = 2"
-                            class="flex w-full items-center justify-between gap-3 border border-b-0 border-gray-200 p-5 font-medium text-gray-500 hover:bg-gray-100 focus:ring-1 focus:ring-gray-200 rtl:text-right dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
-                            <span class="font-semibold">Как начать пользоваться конструктором?</span>
-                            <svg class="h-5 w-5 transform" :class="openIndex === 2 ? 'rotate-180' : 'rotate-0'"
-                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M19 9l-7 7-7-7" />
-                            </svg>
-                        </button>
-                        <div x-show="openIndex === 2"
-                            class="border border-b-0 border-gray-200 p-5 dark:border-gray-700 dark:bg-gray-900">
-                            <p>
-                                Чтобы начать пользоваться конструктором ИУЛ, вам необходимо
-                                зарегистрироваться. После регистрации на указанный вами email
-                                придёт письмо с подтверждением вашего электронного почтового
-                                ящика. Подтвердив свою учетную запись, вам будет доступен весь
-                                функционал сервиса.
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Аккордеон секция 3 -->
-                    <div class="mb-0">
-                        <button @click="openIndex === 3 ? openIndex = null : openIndex = 3"
-                            class="flex w-full items-center justify-between gap-3 border border-b-0 border-gray-200 p-5 font-medium text-gray-500 hover:bg-gray-100 focus:ring-1 focus:ring-gray-200 rtl:text-right dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
-                            <span class="font-semibold">Должен ли я что-то устанавливать на свой компьютер?</span>
-                            <svg class="h-5 w-5 transform" :class="openIndex === 3 ? 'rotate-180' : 'rotate-0'"
-                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M19 9l-7 7-7-7" />
-                            </svg>
-                        </button>
-                        <div x-show="openIndex === 3"
-                            class="border border-b-0 border-gray-200 p-5 dark:border-gray-700 dark:bg-gray-900">
-                            <p>
-                                Конструктор ИУЛ работает через веб-браузер, как любое
-                                SaaS-приложение. Это очень удобно, ведь вам не нужно
-                                беспокоиться о скачивании и установке программ. Просто зайдите в
-                                браузер, и вы готовы к работе из любой места, где есть интернет!
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Аккордеон секция 4 -->
-                    <div class="mb-0">
-                        <button @click="openIndex === 4 ? openIndex = null : openIndex = 4"
-                            class="flex w-full items-center justify-between gap-3 border border-b-0 border-gray-200 p-5 font-medium text-gray-500 hover:bg-gray-100 focus:ring-1 focus:ring-gray-200 rtl:text-right dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
-                            <span class="font-semibold">Соответствует ли выходная форма ИУЛ требованиям действующего
-                                законодательства?</span>
-                            <svg class="h-5 w-5 transform" :class="openIndex === 4 ? 'rotate-180' : 'rotate-0'"
-                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M19 9l-7 7-7-7" />
-                            </svg>
-                        </button>
-                        <div x-show="openIndex === 4"
-                            class="border border-b-0 border-gray-200 p-5 dark:border-gray-700 dark:bg-gray-900">
-                            <p>
-                                Да, соответствует. При формировании
-                                информационно-удостоверяющего листа (ИУЛ) приняты положения
-                                <i>ГОСТ Р 21.101-2020 «Система проектной документации для
-                                    строительства. Основные требования к проектной и рабочей
-                                    документации»</i>, действующего в настоящее время.
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Аккордеон секция 5 -->
-                    <div class="mb-0">
-                        <button @click="openIndex === 5 ? openIndex = null : openIndex = 5"
-                            class="border-b-1 flex w-full items-center justify-between gap-3 border border-gray-200 p-5 font-medium text-gray-500 hover:bg-gray-100 focus:ring-1 focus:ring-gray-200 rtl:text-right dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
-                            <span class="font-semibold">Если у меня остались вопросы?</span>
-                            <svg class="h-5 w-5 transform" :class="openIndex === 5 ? 'rotate-180' : 'rotate-0'"
-                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M19 9l-7 7-7-7" />
-                            </svg>
-                        </button>
-                        <div x-show="openIndex === 5"
-                            class="border-b-1 border border-gray-200 p-5 dark:border-gray-700 dark:bg-gray-900">
-                            <p>
-                                Конечно, если у вас остались вопросы, вы всегда можете
-                                обратиться за помощью! После регистрации вам будет доступен
-                                раздел «Техподдержка», где вы сможете задать вопрос, указать на
-                                ошибку или написать отзыв о работе конструктора. Мы всегда рады
-                                помочь!
-                            </p>
-                        </div>
+            <div x-data="{ openIndex: null }">
+                <!-- Аккордеон секция 1 -->
+                <div class="mb-0">
+                    <button @click="openIndex === 1 ? openIndex = null : openIndex = 1"
+                        class="flex w-full items-center justify-between gap-3 rounded-t-xl border border-b-0 border-gray-200 p-5 font-medium text-gray-500 hover:bg-gray-100 focus:ring-1 focus:ring-gray-200 rtl:text-right dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
+                        <span class="font-semibold">Какие возможности и преимущества при использовании
+                            сервиса?</span>
+                        <svg class="h-5 w-5 transform" :class="openIndex === 1 ? 'rotate-180' : 'rotate-0'"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div x-show="openIndex === 1"
+                        class="border border-b-0 border-gray-200 p-5 dark:border-gray-700 dark:bg-gray-900">
+                        <p>
+                            Сокращение времени на подготовку и составление ИУЛ, исключение ошибок при оформлении
+                            документов, обновление, корректировка данных, сохранение истории и многое другое!
+                        </p>
                     </div>
                 </div>
+
+                <!-- Аккордеон секция 2 -->
+                <div class="mb-0">
+                    <button @click="openIndex === 2 ? openIndex = null : openIndex = 2"
+                        class="flex w-full items-center justify-between gap-3 border border-b-0 border-gray-200 p-5 font-medium text-gray-500 hover:bg-gray-100 focus:ring-1 focus:ring-gray-200 rtl:text-right dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
+                        <span class="font-semibold">Как начать пользоваться конструктором?</span>
+                        <svg class="h-5 w-5 transform" :class="openIndex === 2 ? 'rotate-180' : 'rotate-0'"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div x-show="openIndex === 2"
+                        class="border border-b-0 border-gray-200 p-5 dark:border-gray-700 dark:bg-gray-900">
+                        <p>
+                            Чтобы начать пользоваться конструктором ИУЛ, вам необходимо
+                            зарегистрироваться. После регистрации на указанный вами email
+                            придёт письмо с подтверждением вашего электронного почтового
+                            ящика. Подтвердив свою учетную запись, вам будет доступен весь
+                            функционал сервиса.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Аккордеон секция 3 -->
+                <div class="mb-0">
+                    <button @click="openIndex === 3 ? openIndex = null : openIndex = 3"
+                        class="flex w-full items-center justify-between gap-3 border border-b-0 border-gray-200 p-5 font-medium text-gray-500 hover:bg-gray-100 focus:ring-1 focus:ring-gray-200 rtl:text-right dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
+                        <span class="font-semibold">Должен ли я что-то устанавливать на свой компьютер?</span>
+                        <svg class="h-5 w-5 transform" :class="openIndex === 3 ? 'rotate-180' : 'rotate-0'"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div x-show="openIndex === 3"
+                        class="border border-b-0 border-gray-200 p-5 dark:border-gray-700 dark:bg-gray-900">
+                        <p>
+                            Конструктор ИУЛ работает через веб-браузер, как любое
+                            SaaS-приложение. Это очень удобно, ведь вам не нужно
+                            беспокоиться о скачивании и установке программ. Просто зайдите в
+                            браузер, и вы готовы к работе из любой места, где есть интернет!
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Аккордеон секция 4 -->
+                <div class="mb-0">
+                    <button @click="openIndex === 4 ? openIndex = null : openIndex = 4"
+                        class="flex w-full items-center justify-between gap-3 border border-b-0 border-gray-200 p-5 font-medium text-gray-500 hover:bg-gray-100 focus:ring-1 focus:ring-gray-200 rtl:text-right dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
+                        <span class="font-semibold">Соответствует ли выходная форма ИУЛ требованиям действующего
+                            законодательства?</span>
+                        <svg class="h-5 w-5 transform" :class="openIndex === 4 ? 'rotate-180' : 'rotate-0'"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div x-show="openIndex === 4"
+                        class="border border-b-0 border-gray-200 p-5 dark:border-gray-700 dark:bg-gray-900">
+                        <p>
+                            Да, соответствует. При формировании
+                            информационно-удостоверяющего листа (ИУЛ) приняты положения
+                            <i>ГОСТ Р 21.101-2020 «Система проектной документации для
+                                строительства. Основные требования к проектной и рабочей
+                                документации»</i>, действующего в настоящее время.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Аккордеон секция 5 -->
+                <div class="mb-0">
+                    <button @click="openIndex === 5 ? openIndex = null : openIndex = 5"
+                        class="border-b-1 flex w-full items-center justify-between gap-3 border border-gray-200 p-5 font-medium text-gray-500 hover:bg-gray-100 focus:ring-1 focus:ring-gray-200 rtl:text-right dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
+                        <span class="font-semibold">Если у меня остались вопросы?</span>
+                        <svg class="h-5 w-5 transform" :class="openIndex === 5 ? 'rotate-180' : 'rotate-0'"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div x-show="openIndex === 5"
+                        class="border-b-1 border border-gray-200 p-5 dark:border-gray-700 dark:bg-gray-900">
+                        <p>
+                            Конечно, если у вас остались вопросы, вы всегда можете
+                            обратиться за помощью! После регистрации вам будет доступен
+                            раздел «Техподдержка», где вы сможете задать вопрос, указать на
+                            ошибку или написать отзыв о работе конструктора. Мы всегда рады
+                            помочь!
+                        </p>
+                    </div>
+                </div>
+            </div>
         </x-mainpage.section>
 
         <x-mainpage.section>
             <x-mainpage.h2
-                class="bg-gradient-to-r from-pink-700 via-indigo-500 to-sky-800 text-transparent bg-clip-text">
+                class="bg-gradient-to-r from-pink-700 via-indigo-500 to-sky-800 bg-clip-text text-transparent">
                 Начните прямо сейчас!
             </x-mainpage.h2>
             <x-mainpage.p-center>
