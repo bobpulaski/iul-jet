@@ -146,25 +146,19 @@
                             </div>
                             <div class="flex flex-row items-center gap-2">
                                 <x-dropdown-link wire:click="addEmptySignToResponsiblePerson"
-                                    class="flex items-center">
-                                    <span class="ml-6 flex cursor-pointer items-center">Пустую</span>
+                                    href="javascript:void(0);" class="flex items-center">
+                                    <span class="ml-6">Пустую</span>
                                 </x-dropdown-link>
                             </div>
 
-                            <x-dropdown-link wire:click="showSignsListModal" class="flex items-center">
+                            <x-dropdown-link wire:click="showSignsListModal" href="javascript:void(0);"
+                                class="flex items-center">
                                 <x-ui.icons.openbook-icon />
-                                <span class="ml-2 flex cursor-pointer items-center">Выбрать...</span>
+                                <span class="ml-2">Выбрать...</span>
                             </x-dropdown-link>
                         </x-slot>
-                        </x-ui.dropdown->
+                    </x-ui.dropdown-sign>
 
-                        {{-- <x-info-button title="Добавить подпись" wire:click.prevent="showSignsListModal()">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                    stroke="currentColor" class="size-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                </svg>
-                            </x-info-button> --}}
                 </div>
 
 

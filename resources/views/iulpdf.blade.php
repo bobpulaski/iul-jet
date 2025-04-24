@@ -125,34 +125,35 @@
             <td style="width: 30%; {{ $style }}">Дата подписания</td>
         </tr>
 
-        @if ($responsiblePersons === [])
+        @foreach ($responsiblePersons as $item)
+            @php
+                $signFormattedDate = '';
+
+                // Проверяем, есть ли дата
+                if ($item['signdate'] !== null) {
+                    // Форматируем дату
+                    $dateTime = new DateTime($item['signdate']);
+                    $signFormattedDate = $dateTime->format('d.m.Y'); // Форматируем дату в DD.MM.YYYY
+                }
+            @endphp
+
             <tr>
-                <td style="width: 25%; {{ $style }}"></td>
-                <td style="width: 25%; {{ $style }}"></td>
-                <td style="width: 20%; {{ $style }}"></td>
-                <td style="width: 30%; {{ $style }}"></td>
-            </tr>
-        @else
-            @foreach ($responsiblePersons as $item)
-                @php
-                    $signFormattedDate = '';
+                <td style="width: 25%;">{{ $item['kind'] }}</td>
+                <td style="width: 25%;">{{ $item['surname'] }}</td>
 
-                    // Проверяем, есть ли дата
-                    if ($item['signdate'] !== null) {
-                        // Форматируем дату
-                        $dateTime = new DateTime($item['signdate']);
-                        $signFormattedDate = $dateTime->format('d.m.Y'); // Форматируем дату в DD.MM.YYYY
-                    }
-                @endphp
 
-                <tr>
-                    <td style="width: 25%;">{{ $item['kind'] }}</td>
-                    <td style="width: 25%;">{{ $item['surname'] }}</td>
+                @if ($item['file_src'])
+                    <td style="width: 20%;">
+                        <img src="{{ storage_path('app/public/' . $item['file_src']) }}" width="100" height="50">
+                    </td>
+                @else
                     <td style="width: 20%;"></td>
-                    <td style="width: 30%; height: 2rem;">{{ $signFormattedDate }}</td>
-                </tr>
-            @endforeach
-        @endif
+                @endif
+
+
+                <td style="width: 30%; height: 2rem;">{{ $signFormattedDate }}</td>
+            </tr>
+        @endforeach
     </table>
 
     {{-- Footer --}}
