@@ -54,7 +54,7 @@ class IulFormComponent extends Component
     public $signsList = [];
     public $isSignsListModalOpen = false;
 
-    public function mount(UserSettingsService $settingsService, SigntaturesService $signtaturesService): void
+     public function mount(UserSettingsService $settingsService, SigntaturesService $signtaturesService): void
     {
         $user = Auth::user();
         $this->signsList = $user->signslists()->select('kind', 'surname', 'file_src', 'id')->get()->toArray();
@@ -82,9 +82,13 @@ class IulFormComponent extends Component
                 $validSignIds = SignsList::pluck('id')->toArray();
 
                 // Фильтруем массив ответственных лиц, оставляя только валидные записи
+
                 $this->responsiblePersons = array_filter($this->responsiblePersons, function ($person) use ($validSignIds) {
-                    return in_array($person['signs_lists_id'], $validSignIds);
+                    return is_null($person['signs_lists_id']) || in_array($person['signs_lists_id'], $validSignIds);
                 });
+                // $this->responsiblePersons = array_filter($this->responsiblePersons, function ($person) use ($validSignIds) {
+                //     return in_array($person['signs_lists_id'], $validSignIds);
+                // });
 
                 // Если необходимо, вы можете перезаписать JSON в базу данных
                 $fromHistory->responsible_persons = json_encode(array_values($this->responsiblePersons));
@@ -275,7 +279,17 @@ class IulFormComponent extends Component
             'file_src' => $file_src,
             'signs_lists_id' => $id,
         ];
-        Debugbar::info($this->responsiblePersons);
+    }
+
+    public function addEmptySignToResponsiblePerson()
+    {
+        $this->responsiblePersons[] = [
+            'kind' => '',
+            'surname' => '',
+            'signdate' => null,
+            'file_src' => '',
+            'signs_lists_id' => null,
+        ];
     }
 
     public function showSignsListModal(): void

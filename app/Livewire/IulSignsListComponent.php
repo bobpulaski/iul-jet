@@ -23,15 +23,12 @@ class IulSignsListComponent extends Component
     public string $kind = '';
     public string $surname = '';
 
-//     #[Validate('nullable|image|extensions:jpg, jpeg, png, bmp|max:2048')]
+    //     #[Validate('nullable|image|extensions:jpg, jpeg, png, bmp|max:2048')]
     public $signImageFile;
 
     public string $filePath = '';
 
     public int $signId;
-
-
-
 
     protected function rules(): array
     {
@@ -137,12 +134,14 @@ class IulSignsListComponent extends Component
         $this->isShowAddNewSignModal = true;
     }
 
-    public function showConfirmingSignDeletion($id) {
+    public function showConfirmingSignDeletion($id)
+    {
         $this->signId = $id;
         $this->isShowConfirmingSignDeletionModal = true;
     }
 
-    public function deleteSign() {
+    public function deleteSign()
+    {
 
         $sign = SignsList::find($this->signId);
 

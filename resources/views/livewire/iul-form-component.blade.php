@@ -80,159 +80,7 @@
         </div>
 
 
-        {{-- Подписи ответственных лиц --}}
-        <div class="{{-- overflow-hidden --}} mt-3 bg-white shadow-md sm:rounded-lg dark:bg-gray-800">
-            <div class="flex flex-col p-8">
-                <div class="flex flex-row items-center justify-between">
-                    <x-ui.h3>{{ __('Подписи ответственных лиц') }}</x-ui.h3>
-                    <div class="flex flex-row gap-4 align-middle">
-                        <p class="text-sm font-medium text-gray-700 dark:text-gray-300">Запомнить</p>
-                        <x-ui.toggle wire:model="isRememberSignatures">
-                            {{ __('Запомнить') }}
-                        </x-ui.toggle>
-                    </div>
 
-                </div>
-
-                <div class="flex flex-row">
-
-                    <x-ui.dropdown-action>
-                        <x-slot name="content">
-                            <div class="block px-4 py-2 text-xs text-gray-400">
-                                {{ __('Добавить подпись') }}
-                            </div>
-                            <div class="flex flex-row items-center gap-2">
-                                <x-dropdown-link wire:click="" href="javascript:void(0);" class="flex items-center">
-                                    <x-ui.icons.edit-icon />
-                                    <span class="ml-2">Редактировать</span>
-                                </x-dropdown-link>
-                            </div>
-
-                            <x-dropdown-link wire:click="" href="javascript:void(0);" class="flex items-center">
-                                <x-ui.icons.download-icon />
-                                <span class="ml-2">Скачать</span>
-                            </x-dropdown-link>
-                        </x-slot>
-                    </x-ui.dropdown-action>
-
-                    {{-- <x-info-button title="Добавить подпись" wire:click.prevent="showSignsListModal()">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                        </svg>
-                    </x-info-button> --}}
-                </div>
-
-
-                @foreach ($responsiblePersons as $index => $person)
-                    @php
-                        // dd($responsiblePersons);
-                    @endphp
-                    <div class="mb-2 mt-2 flex flex-row items-center gap-4 rounded-md bg-sky-100 p-4 md:flex-row">
-                        <div class="md:full basis-4/12">
-                            <x-input type="text" class="block w-full"
-                                wire:model="responsiblePersons.{{ $index }}.kind"
-                                value="{{ $person['kind'] }}" />
-                        </div>
-                        <div class="md:full basis-4/12">
-                            <x-input type="text" class="block w-full"
-                                wire:model="responsiblePersons.{{ $index }}.surname"
-                                value="{{ $person['surname'] }}" />
-                        </div>
-                        <div class="md:full basis-4/12">
-                            <x-input type="date" class="block w-full"
-                                wire:model="responsiblePersons.{{ $index }}.signdate" />
-                        </div>
-                        <div class="md:full basis-4/12">
-                            @if (!$person['file_src'])
-                                <x-ui.p>Нет изображения</x-ui.p>
-                            @else
-                                <img class="rounded-md" src="{{ asset('storage/' . $person['file_src']) }}"
-                                    alt="Подпись для {{ $person['surname'] }}" width="75" height="50">
-                            @endif
-                        </div>
-
-
-                        <button type="button" wire:click.prevent="remove({{ $index }})">Удалить</button>
-                    </div>
-                @endforeach
-            </div>
-
-
-            {{-- <div class="mt-3 overflow-hidden bg-white shadow-md sm:rounded-lg dark:bg-gray-800">
-            <div class="flex flex-col p-8">
-
-                <div class="flex flex-row items-center justify-between">
-                    <x-ui.h3>{{ __('Подписи ответственных лиц') }}</x-ui.h3>
-                    <div class="flex flex-row gap-4 align-middle">
-                        <p class="text-sm font-medium text-gray-700 dark:text-gray-300">Запомнить</p>
-                        <x-ui.toggle wire:model="isRememberSignatures">
-                            {{ __('Запомнить') }}
-                        </x-ui.toggle>
-                    </div>
-                </div>
-
-
-                <div>
-                    <div x-data="{
-                        rows: $wire.entangle('responsiblePersons'),
-
-                        addRow() {
-                            this.rows.push({ kind: '', surname: '', signdate: null });
-                        },
-
-                        deleteRow(index) {
-                            this.rows.splice(index, 1);
-                        },
-                    }">
-                        <template x-for="(row, index) in rows" :key="index">
-                            <div class="">
-                                <div
-                                    class="mb-2 mt-2 flex flex-col items-center gap-4 rounded-md bg-sky-100 p-4 md:flex-row">
-                                    <div class="md:full basis-4/12">
-                                        <x-input x-model="row.kind" type="text" class="block w-full"
-                                            placeholder="Характер работы" />
-                                    </div>
-
-                                    <div class="md:full basis-5/12">
-                                        <x-input x-model="row.surname" type="text" class="block w-full"
-                                            placeholder="Фамилия" />
-                                    </div>
-
-                                    <div class="md:full basis-3/12">
-                                        <x-input x-model="row.signdate" class="block w-full" type="date" />
-                                    </div>
-
-                                    <div class="md:full basis-1/12">
-                                        <x-danger-button x-show="index > 0" @click="deleteRow(index)"
-                                            title="Удалить подпись">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="size-6">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M15 12H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                            </svg>
-                                        </x-danger-button>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </template>
-
-                        <div class="mt-4">
-                            <x-info-button @click="addRow()" title="Добавить подпись"><svg
-                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="size-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                </svg>
-                            </x-info-button>
-                        </div>
-                    </div>
-                </div>
-
-            </div> --}}
-        </div>
 
 
         {{-- Файл --}}
@@ -272,6 +120,90 @@
                     <label for="algorithm-radio-sha1"
                         class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">SHA1</label>
                 </div>
+            </div>
+        </div>
+
+        {{-- Подписи ответственных лиц --}}
+        <div class="{{-- overflow-hidden --}} mt-3 bg-white shadow-md sm:rounded-lg dark:bg-gray-800">
+            <div class="flex flex-col p-8">
+                <div class="flex flex-row items-center justify-between">
+                    <x-ui.h3>{{ __('Подписи ответственных лиц') }}</x-ui.h3>
+                    <div class="flex flex-row gap-4 align-middle">
+                        <p class="text-sm font-medium text-gray-700 dark:text-gray-300">Запомнить</p>
+                        <x-ui.toggle wire:model="isRememberSignatures">
+                            {{ __('Запомнить') }}
+                        </x-ui.toggle>
+                    </div>
+
+                </div>
+
+                <div class="flex flex-row">
+
+                    <x-ui.dropdown-sign>
+                        <x-slot name="content">
+                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                {{ __('Добавить подпись') }}
+                            </div>
+                            <div class="flex flex-row items-center gap-2">
+                                <x-dropdown-link wire:click="addEmptySignToResponsiblePerson"
+                                    class="flex items-center">
+                                    <span class="ml-6 flex cursor-pointer items-center">Пустую</span>
+                                </x-dropdown-link>
+                            </div>
+
+                            <x-dropdown-link wire:click="showSignsListModal" class="flex items-center">
+                                <x-ui.icons.openbook-icon />
+                                <span class="ml-2 flex cursor-pointer items-center">Выбрать...</span>
+                            </x-dropdown-link>
+                        </x-slot>
+                        </x-ui.dropdown->
+
+                        {{-- <x-info-button title="Добавить подпись" wire:click.prevent="showSignsListModal()">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                    stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                </svg>
+                            </x-info-button> --}}
+                </div>
+
+
+                @foreach ($responsiblePersons as $index => $person)
+                    @php
+                        // dd($responsiblePersons);
+                    @endphp
+                    <div class="mb-2 mt-2 flex flex-row items-center gap-4 rounded-md bg-sky-100 p-4 md:flex-row">
+                        <div class="md:full basis-5/12">
+                            <x-input type="text" class="block w-full"
+                                wire:model="responsiblePersons.{{ $index }}.kind"
+                                value="{{ $person['kind'] }}" />
+                        </div>
+                        <div class="md:full basis-5/12">
+                            <x-input type="text" class="block w-full"
+                                wire:model="responsiblePersons.{{ $index }}.surname"
+                                value="{{ $person['surname'] }}" />
+                        </div>
+                        <div class="md:full basis-4/12">
+                            <x-input type="date" class="block w-full"
+                                wire:model="responsiblePersons.{{ $index }}.signdate" />
+                        </div>
+                        <div class="md:full basis-3/12">
+                            @if (!$person['file_src'])
+                                <x-ui.p class="text-sm">Нет изображения</x-ui.p>
+                            @else
+                                <img class="rounded-md p-2" src="{{ asset('storage/' . $person['file_src']) }}"
+                                    alt="" width="75" height="50">
+                            @endif
+                        </div>
+                        <x-danger-button wire:click.prevent="remove({{ $index }})" title="Удалить подпись">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M15 12H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>
+                        </x-danger-button>
+                    </div>
+                @endforeach
             </div>
         </div>
 
@@ -381,30 +313,37 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($signsList as $item)
-                        <tr class="border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
-                            <td class="px-3 py-2">{{ $item['kind'] }}</td>
-                            <td class="px-3 py-2">{{ $item['surname'] }}</td>
-                            <td class="px-3 py-2">
-                                @if (!$item['file_src'])
-                                    Нет изображения
-                                @else
-                                    <img src="{{ asset('storage/' . $item['file_src']) }}" alt=""
-                                        width="75" height="50">
-                                @endif
-                            </td>
-                            <td class="px-3 py-2">
-                                <x-info-button title="Добавить подпись"
-                                    wire:click.prevent="addToResponsiblePersons('{{ $item['kind'] }}', '{{ $item['surname'] }}', '{{ $item['file_src'] }}', {{ $item['id'] }})">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="size-4">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                    </svg>
-                                </x-info-button>
+                    @if (empty($signsList))
+                        <tr>
+                            <td colspan="4" class="px-3 py-2">Подписи отсутствуют. Добавьте в разделе «Подписи».
                             </td>
                         </tr>
-                    @endforeach
+                    @else
+                        @foreach ($signsList as $item)
+                            <tr class="border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
+                                <td class="px-3 py-2">{{ $item['kind'] }}</td>
+                                <td class="px-3 py-2">{{ $item['surname'] }}</td>
+                                <td class="px-3 py-2">
+                                    @if (!$item['file_src'])
+                                        Нет изображения
+                                    @else
+                                        <img src="{{ asset('storage/' . $item['file_src']) }}" alt=""
+                                            width="75" height="50">
+                                    @endif
+                                </td>
+                                <td class="px-3 py-2">
+                                    <x-info-button title="Выбрать подпись"
+                                        wire:click.prevent="addToResponsiblePersons('{{ $item['kind'] }}', '{{ $item['surname'] }}', '{{ $item['file_src'] }}', {{ $item['id'] }})">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="currentColor" class="size-4">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                        </svg>
+                                    </x-info-button>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endif
                 </tbody>
 
             </table>
@@ -412,14 +351,14 @@
         <x-slot name="footer">
             <div>
                 <x-secondary-button wire:click="$toggle('isSignsListModalOpen')" wire:loading.attr="disabled">
-                    {{ __('Отмена') }}
+                    {{ __('Закрыть') }}
                 </x-secondary-button>
             </div>
-            <div>
+            {{-- <div>
                 <x-button wire:click="save()" class="ml-2">
                     {{ __('OK') }}
                 </x-button>
-            </div>
+            </div> --}}
 
         </x-slot>
     </x-dialog-modal>
@@ -523,6 +462,7 @@
             cursor: pointer;
             transition: background .2s ease-in-out;
             letter-spacing: .1rem;
+            text-transform: uppercase;
             line-height: 1rem;
         }
 

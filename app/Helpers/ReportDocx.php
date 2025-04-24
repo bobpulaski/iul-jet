@@ -109,55 +109,34 @@ class ReportDocx
     $row1->addCell(3000, $cellStyle)->addText('Дата подписания', $headerFontStyle, $pStyle);
 
 
+    foreach ($data['responsiblePersons'] as $item) {
 
-
-    if ($data['responsiblePersons'] === []) {
-      $row2 = $table2->addRow();
-      $row2->addCell(2900, $cellStyle)->addText('', $fontStyle, $pStyle);
-      $row2->addCell(3000, $cellStyle)->addText('', $fontStyle, $pStyle);
-      $row2->addCell(2900, $cellStyle)->addText('', $fontStyle, $pStyle);
-      $row2->addCell(3000, $cellStyle)->addText('', $fontStyle, $pStyle);
-    } else {
-      foreach ($data['responsiblePersons'] as $item) {
-
-        if ($item['signdate'] === null) { // Используем оператор сравнения
-          $signFormattedDate = '';
-        } else {
-          $signFormattedDate = $item['signdate'];
-          // Форматируем дату YYYY-MM-DD
-          $date = $signFormattedDate; // Пример даты в формате YYYY-MM-DD
-          $dateTime = new DateTime($date);
-          $signFormattedDate = $dateTime->format('d.m.Y'); // Форматируем дату в DD.MM.YYYY
-        }
-
-        // $section->addImage(asset('/images/fax.png'));
-
-        $row2 = $table2->addRow();
-        $row2->addCell(2900, $cellStyle)->addText($item['kind'], $fontStyle, $pStyle);
-        $row2->addCell(3000, $cellStyle)->addText($item['surname'], $fontStyle, $pStyle);
-        $row2->addCell(2900, $cellStyle)->addText('', $fontStyle, $pStyle);
-
-        // $row2->addCell(2900, $cellStyle)->addImage(asset('images/iul-history.jpg'));
-
-        // $imageSrc = 'D:\Laravel\iul-jet\public\images\fax.png';
-        // $imageCell = $row2->addCell(2900, $cellStyle);
-        // $imageCell->addImage($imageSrc, array(
-        //   'width' => 100,
-        //   'height' => 50,
-        //   'align' => 'center'
-        // ));
-
-
-        // Вставка изображения в ячейку
-        // $imageCell->addImage(asset('images/fax.png'), array(
-        //   'width' => 100,  // Установите ширину изображения
-        //   'height' => 100, // Установите высоту изображения
-        //   'align' => 'center' // Выравнивание изображения по центру
-        // ));
-
-
-        $row2->addCell(3000, $cellStyle)->addText($signFormattedDate, $fontStyle, $pStyle);
+      if ($item['signdate'] === null) { // Используем оператор сравнения
+        $signFormattedDate = '';
+      } else {
+        $signFormattedDate = $item['signdate'];
+        // Форматируем дату YYYY-MM-DD
+        $date = $signFormattedDate; // Пример даты в формате YYYY-MM-DD
+        $dateTime = new DateTime($date);
+        $signFormattedDate = $dateTime->format('d.m.Y'); // Форматируем дату в DD.MM.YYYY
       }
+
+      $row2 = $table2->addRow('300');
+      $row2->addCell(2900, $cellStyle)->addText($item['kind'], $fontStyle, $pStyle);
+      $row2->addCell(3000, $cellStyle)->addText($item['surname'], $fontStyle, $pStyle);
+
+      if (!$item['file_src']) {
+        $row2->addCell(2900, $cellStyle)->addText('', $fontStyle, $pStyle);
+      } else {
+        $imageSrc = storage_path('app/public/' . $item['file_src']);
+        $imageCell = $row2->addCell(2900, $cellStyle);
+        $imageCell->addImage($imageSrc, array(
+          'width' => 100,
+          'height' => 50,
+          'align' => 'center'
+        ));
+      }
+      $row2->addCell(3000, $cellStyle)->addText($signFormattedDate, $fontStyle, $pStyle);
     }
 
     //Подвал

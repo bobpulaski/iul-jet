@@ -47,7 +47,7 @@
 
                                     <div class="flex flex-row items-center gap-2">
 
-                                        <x-dropdown-link wire:click="" class="flex cursor-pointer items-center">
+                                        <x-dropdown-link onclick="return false;" wire:click="" class="flex items-center text-d text-gray-400 cursor-not-allowed opacity-50">
                                             <x-ui.icons.edit-icon />
                                             <span class="ml-2">Редактировать</span>
                                         </x-dropdown-link>
