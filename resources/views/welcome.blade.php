@@ -63,7 +63,7 @@
                 </nav>
             </header>
 
-            <div class="mx-auto mt-4 max-w-screen-lg px-4 sm:px-6 lg:px-8">
+            <div class="mx-auto mt-20 max-w-screen-lg px-4 sm:px-6 lg:px-8">
                 <h1 class="flex flex-col text-center text-5xl font-extrabold">
                     <span class="flex flex-col items-center justify-center gap-2 md:flex-row">
                         <span class="md:text-7xl">Конструктор</span>
@@ -82,13 +82,41 @@
                         требованиями <span class="font-bold">ГОСТа Р 21.101-2020.</span></h4>
 
                     <a href="{{ route('register') }}"
-                        class="flex flex-row items-center justify-between gap-2 rounded-md bg-pink-700 px-4 py-3 text-center font-semibold text-white transition duration-300 ease-in-out hover:bg-pink-600"><span>Начните
+                        class="flex flex-row items-center justify-between gap-2 rounded-md bg-pink-700 px-4 py-3 text-center font-semibold text-white transition duration-300 ease-in-out hover:bg-pink-600 pulsing-div"><span>Начните
                             прямо сейчас</span>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
                         </svg>
                     </a>
+
+                    <div class="flex flex-col items-center mt-32">
+                        <div class="flex items-baseline space-x-1 pt-5 sm:ps-5 sm:pt-0">
+                            <div class="flex space-x-1"> <!-- Your star ratings -->
+
+                                <x-ui.icons.star-icon />
+                                <x-ui.icons.star-icon />
+                                <x-ui.icons.star-icon />
+                                <x-ui.icons.star-icon />
+                                <!-- Adding additional half-star --> <svg
+                                    class="h-4 w-4 text-yellow-500 dark:text-yellow-400" width="51" height="51"
+                                    viewBox="0 0 51 51" fill="none">
+                                    <path
+                                        d="M49.6867 20.0305C50.2889 19.3946 49.9878 18.1228 49.0846 18.1228L33.7306 15.8972C33.4296 15.8972 33.1285 15.8972 32.8275 15.2613L25.9032 0.317944C25.6021 0 25.3011 0 25 0V42.6046C25 42.6046 25.3011 42.6046 25.6021 42.6046L39.7518 49.9173C40.3539 50.2352 41.5581 49.5994 41.2571 48.6455L38.5476 32.4303C38.5476 32.1124 38.5476 31.7944 38.8486 31.4765L49.6867 20.0305Z"
+                                        fill="transparent"></path>
+                                    <path
+                                        d="M0.313299 20.0305C-0.288914 19.3946 0.0122427 18.1228 0.915411 18.1228L16.2694 15.8972C16.5704 15.8972 16.8715 15.8972 17.1725 15.2613L24.0968 0.317944C24.3979 0 24.6989 0 25 0V42.6046C25 42.6046 24.6989 42.6046 24.3979 42.6046L10.2482 49.9173C9.64609 50.2352 8.44187 49.5994 8.74292 48.6455L11.4524 32.4303C11.4524 32.1124 11.4524 31.7944 11.1514 31.4765L0.313299 20.0305Z"
+                                        fill="currentColor"></path>
+                                </svg>
+                            </div>
+                            <p class="text-neutral-400 dark:text-neutral-200"> <span class="font-bold">4.9</span> / 5
+                            </p>
+                        </div>
+                        {{-- <div class="text-[10px] text-neutral-400 dark:text-neutral-200 sm:ps-5">
+                            <p> Рейтинг на основании <span class="font-bold">799</span> оценок </p>
+                        </div> --}}
+                    </div>
+
                 </div>
             </div>
         </section>
@@ -298,7 +326,8 @@
                         class="flex w-full items-center justify-between gap-3 border border-b-0 border-gray-200 p-5 font-medium text-gray-500 hover:bg-gray-100 focus:ring-1 focus:ring-gray-200 rtl:text-right dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
                         <span class="font-semibold">Как начать пользоваться конструктором?</span>
                         <svg class="h-5 w-5 transform" :class="openIndex === 2 ? 'rotate-180' : 'rotate-0'"
-                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M19 9l-7 7-7-7" />
                         </svg>
@@ -424,6 +453,42 @@
     @stack('modals')
 
     @livewireScripts
+
+
+    <style>
+        .pulsing-div {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0% {
+                transform: scale(1);
+            }
+
+            5% {
+                transform: scale(1.01);
+                /* Первое "тук" */
+            }
+
+            80% {
+                transform: scale(1);
+                /* Пауза */
+            }
+
+            95% {
+                transform: scale(1.01);
+                /* Второе "тук" */
+            }
+
+            100% {
+                transform: scale(1);
+                /* Заканчиваем в исходном состоянии */
+            }
+        }
+    </style>
+
+
 </body>
 
 </html>
