@@ -5,15 +5,24 @@
                 :active="request()->routeIs('dashboard')">{{ __('Создайте свой первый лист.') }} </x-nav-link>
         </x-ui.p>
     @else
-        <div class="mb-4 flex flex-row items-center justify-end gap-2">
-            <x-ui.p>Записей на страницу: </x-ui.p>
-            <select id="per-page" wire:model.live="perPage"
-                class="mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-indigo-600 dark:focus:ring-indigo-600">
-                <option value="10" selected>10</option>
-                <option value="20">20</option>
-                <option value="35">35</option>
-                <option value="100">100</option>
-            </select>
+        <div class="mb-4 flex flex-row items-center justify-between">
+            <div class="">
+
+                <x-label wire:click="showConfirmingHistoryDisposalModal"
+                    class="cursor-pointer hover:text-red-600 transition duration-150 ease-in-out flex flex-row gap-2 items-center text-red-400"><x-ui.icons.exclamation-circle />
+                    Очистить
+                    историю</x-label>
+            </div>
+            <div class="flex flex-row items-center gap-2">
+                <x-ui.p>Записей на страницу: </x-ui.p>
+                <select id="per-page" wire:model.live="perPage"
+                    class="mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-indigo-600 dark:focus:ring-indigo-600">
+                    <option value="10" selected>10</option>
+                    <option value="20">20</option>
+                    <option value="35">35</option>
+                    <option value="100">100</option>
+                </select>
+            </div>
         </div>
         @foreach ($historyData as $item)
             <div class="mb-3 overflow-hidden bg-white p-8 shadow-md sm:rounded-lg dark:bg-gray-800">
@@ -106,10 +115,11 @@
 
     @endif
 
-    <!-- Delete History Confirmation Modal -->
-    <x-dialog-modal wire:model.live="confirmingHistoryDeletion">
+    {{-- Delete History Confirmation Modal --}}
+
+    <x-dialog-modal wire:model.live="confirmingHistoryDeletion"> // TODO Напрашивается вынести в отдельный компонент
         <x-slot name="title">
-            {{ __('Удаление записи') }}
+            {{ __('Удаление подписи') }}
         </x-slot>
         <x-slot name="content">
             <p>{{ __('Вы действительно хотите удалить запись из истории?') }}</p>
@@ -120,6 +130,29 @@
             </x-secondary-button>
 
             <x-danger-button class="ms-3" wire:click="deleteHistory" wire:loading.attr="disabled">
+                {{ __('Удалить') }}
+            </x-danger-button>
+        </x-slot>
+    </x-dialog-modal>
+
+    <!-- Clear History Confirmation Modal -->
+    <x-dialog-modal wire:model.live="isShowConfirmingHistoryDisposalModal">
+        <x-slot name="title">
+            {{ __('Удаление истории') }}
+        </x-slot>
+        <x-slot name="content">
+            <p>{{ __('Вы действительно хотите удалить все записи из истории?') }}</p>
+        </x-slot>
+        <x-slot name="description">
+            <p>{{ __('Данную операцию нельзя отменить.') }}</p>
+        </x-slot>
+        <x-slot name="footer">
+            <x-secondary-button wire:click="$toggle('isShowConfirmingHistoryDisposalModal')"
+                wire:loading.attr="disabled">
+                {{ __('Отмена') }}
+            </x-secondary-button>
+
+            <x-danger-button class="ms-3" wire:click="clearAllHistory" wire:loading.attr="disabled">
                 {{ __('Удалить') }}
             </x-danger-button>
         </x-slot>

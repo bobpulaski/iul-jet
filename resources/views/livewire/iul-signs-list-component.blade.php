@@ -47,7 +47,8 @@
 
                                     <div class="flex flex-row items-center gap-2">
 
-                                        <x-dropdown-link onclick="return false;" wire:click="" class="flex items-center text-d text-gray-400 cursor-not-allowed opacity-50">
+                                        <x-dropdown-link onclick="return false;" wire:click=""
+                                            class="flex items-center text-d text-gray-400 cursor-not-allowed opacity-50">
                                             <x-ui.icons.edit-icon />
                                             <span class="ml-2">Редактировать</span>
                                         </x-dropdown-link>
@@ -155,16 +156,7 @@
         <!-- Delete Sign From List Confirmation Modal -->
         <x-dialog-modal wire:model.live="isShowConfirmingSignDeletionModal">
             <x-slot name="title">
-                <div class="flex flex-row items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="size-6 text-red-600">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
-                    </svg>
-                    <div>
-                        {{ __('Удаление подписи') }}
-                    </div>
-                </div>
+                {{ __('Удаление подписи') }}
             </x-slot>
             <x-slot name="content">
                 {{ __('Вы действительно хотите удалить подпись?') }}

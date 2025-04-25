@@ -22,15 +22,32 @@ class IulHistoryComponent extends Component
     //TODO Нужно сохранять последнее значение
     public $perPage = 10;
     public bool $confirmingHistoryDeletion = false;
+    public bool $isShowConfirmingHistoryDisposalModal = false;
 
     public int $historyId;
 
-    public function mount(
-    ) {
 
+    public function showConfirmingHistoryDisposalModal()
+    {
+        $this->isShowConfirmingHistoryDisposalModal = true;
+    }
+
+    public function clearAllHistory()
+    {
+        $this->isShowConfirmingHistoryDisposalModal = false;
+        $user = Auth::user();
+        History::where("user_id", $user->id)->delete();
+
+        $this->banner('История очищена. Все записи удалены.');
     }
 
     public function confirmHistoryDeletion($id)
+    {
+        $this->confirmingHistoryDeletion = true;
+        $this->historyId = $id / 52;
+    }
+
+    public function clearAll($id)
     {
         $this->confirmingHistoryDeletion = true;
         $this->historyId = $id / 52;
