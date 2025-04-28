@@ -15,9 +15,6 @@
 
 
     <!-- Fonts -->
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
@@ -170,7 +167,7 @@
                         </div>
 
                         <img class="relative z-10 rounded-xl border border-slate-200"
-                            src="{{ asset('images/iul-signs.jpg') }}" />
+                            src="{{ asset('images/iul-signs.jpg') }}" alt="Подписи ИУЛ" />
                     </div>
                 </div>
                 <div class="flex basis-1/2 flex-col justify-center">
