@@ -6,13 +6,41 @@
         </x-ui.p>
     @else
         <div class="mb-4 flex flex-row items-center justify-between">
-            <div class="">
+            <!-- Clear History Confirmation Modal -->
 
-                <x-label wire:click="showConfirmingHistoryDisposalModal"
+            <div x-data="{ open: false }">
+
+                <x-label {{-- wire:click="showConfirmingHistoryDisposalModal" --}} x-on:click="open = ! open"
                     class="cursor-pointer hover:text-red-600 transition duration-150 ease-in-out flex flex-row gap-2 items-center text-red-400"><x-ui.icons.exclamation-circle />
                     Очистить
                     историю</x-label>
+
+                <div x-show="open">
+                    <x-dialog-modal {{-- wire:model.live="isShowConfirmingHistoryDisposalModal" --}}>
+                        <x-slot name="title">
+                            {{ __('Удаление истории') }}
+                        </x-slot>
+                        <x-slot name="content">
+                            <p>{{ __('Вы действительно хотите удалить все записи из истории?') }}</p>
+                        </x-slot>
+                        <x-slot name="description">
+                            <p>{{ __('Данную операцию нельзя отменить.') }}</p>
+                        </x-slot>
+                        <x-slot name="footer">
+                            <x-secondary-button x-on:click="open = false" {{-- wire:click="$toggle('isShowConfirmingHistoryDisposalModal')" --}}
+                                wire:loading.attr="disabled">
+                                {{ __('Отмена') }}
+                            </x-secondary-button>
+
+                            <x-danger-button class="ms-3" wire:click="clearAllHistory" wire:loading.attr="disabled">
+                                {{ __('Удалить') }}
+                            </x-danger-button>
+                        </x-slot>
+                    </x-dialog-modal>
+                </div>
+
             </div>
+
             <div class="flex flex-row items-center gap-2">
                 <x-ui.p>Записей на страницу: </x-ui.p>
                 <select id="per-page" wire:model.live="perPage"
@@ -50,8 +78,8 @@
                                     </x-dropdown-link>
                                 </div>
 
-                                <x-dropdown-link wire:click="reportSave({{ $id }})" href="javascript:void(0);"
-                                    class="flex items-center">
+                                <x-dropdown-link wire:click="reportSave({{ $id }})"
+                                    href="javascript:void(0);" class="flex items-center">
                                     <x-ui.icons.download-icon />
                                     <span class="ml-2">Скачать</span>
                                 </x-dropdown-link>
@@ -135,28 +163,17 @@
         </x-slot>
     </x-dialog-modal>
 
-    <!-- Clear History Confirmation Modal -->
-    <x-dialog-modal wire:model.live="isShowConfirmingHistoryDisposalModal">
-        <x-slot name="title">
-            {{ __('Удаление истории') }}
-        </x-slot>
-        <x-slot name="content">
-            <p>{{ __('Вы действительно хотите удалить все записи из истории?') }}</p>
-        </x-slot>
-        <x-slot name="description">
-            <p>{{ __('Данную операцию нельзя отменить.') }}</p>
-        </x-slot>
-        <x-slot name="footer">
-            <x-secondary-button wire:click="$toggle('isShowConfirmingHistoryDisposalModal')"
-                wire:loading.attr="disabled">
-                {{ __('Отмена') }}
-            </x-secondary-button>
 
-            <x-danger-button class="ms-3" wire:click="clearAllHistory" wire:loading.attr="disabled">
-                {{ __('Удалить') }}
-            </x-danger-button>
-        </x-slot>
-    </x-dialog-modal>
+
+
+    {{-- <div x-data="{ open: false }">
+        <button x-on:click="open = ! open">Toggle Dropdown</button>
+
+        <div x-show="open" x-transition>
+            Dropdown Contents...
+        </div>
+    </div> --}}
+
 
 
 </div>
