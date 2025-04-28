@@ -7,7 +7,7 @@
         content="Онлайн конструктор ИУЛ для оформления информационно-удостоверяющего листа для государственной и негосударственной экспертизы. Сформируйте и скачайте информационно-удостоверяющий лист с любого устройства на сайте Quartos.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/x-icon">
+    <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
 
 
     <!-- <title>{{ config('app.name', 'Laravel') }}</title> -->
