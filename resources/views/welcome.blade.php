@@ -5,9 +5,14 @@
     <meta charset="utf-8">
     <meta name="description"
         content="Онлайн конструктор ИУЛ для оформления информационно-удостоверяющего листа для государственной и негосударственной экспертизы. Сформируйте и скачайте информационно-удостоверяющий лист с любого устройства на сайте Quartos.">
+
+    <meta name="Keywords" content="конструктор иул, информационно-удостоверяющий лист, создать иул,  сервис иул, quatros">
+    <meta name="robots" content="all" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
+    <link rel="canonical" href="https://quatros.ru/">
 
 
     <!-- <title>{{ config('app.name', 'Laravel') }}</title> -->
@@ -76,9 +81,10 @@
                 <!-- +++ -->
                 <div class="mt-8 flex flex-col items-center justify-between gap-8">
 
-                    <h4 class="basis-2/3 text-center text-xl text-slate-600">Упростите создание
-                        информационно-удостоверяющих листов с помощью удобного сервиса, в соответствии с
-                        требованиями <span class="font-bold">ГОСТа Р 21.101-2020.</span></h4>
+                    Упростите создание
+                    информационно-удостоверяющих листов с помощью удобного сервиса, в соответствии с
+                    требованиями <span class="font-bold basis-2/3 text-center text-xl text-slate-600">ГОСТа Р
+                        21.101-2020.</span>
 
                     <a href="{{ route('register') }}"
                         class="flex flex-row items-center justify-between gap-2 rounded-md bg-pink-700 px-4 py-3 text-center font-semibold text-white transition duration-300 ease-in-out hover:bg-pink-600 pulsing-div"><span>Начните
@@ -152,7 +158,7 @@
                         </div>
 
                         <img class="relative z-10 rounded-xl border border-slate-200"
-                            src="{{ asset('images/iul-interface.jpg') }}" alt="ИУЛ Интерфейс" />
+                            src="{{ asset('images/iul-interface.jpg') }}" alt="ИУЛ Интерфейс" title="Интерфейс ИУЛ" />
                     </div>
                 </div>
             </div>
@@ -167,7 +173,7 @@
                         </div>
 
                         <img class="relative z-10 rounded-xl border border-slate-200"
-                            src="{{ asset('images/iul-signs.jpg') }}" alt="Подписи ИУЛ" />
+                            src="{{ asset('images/iul-signs.jpg') }}" alt="Подписи ИУЛ" title="Подписи ИУЛ" />
                     </div>
                 </div>
                 <div class="flex basis-1/2 flex-col justify-center">
@@ -209,7 +215,7 @@
                         </div>
 
                         <img class="relative z-10 rounded-xl border border-slate-200"
-                            src="{{ asset('images/iul-history.jpg') }}" alt="История ИУЛ" />
+                            src="{{ asset('images/iul-history.jpg') }}" alt="История ИУЛ" title="История ИУЛ" />
                     </div>
                 </div>
             </div>
@@ -307,7 +313,8 @@
                             сервиса?</span>
                         <svg class="h-5 w-5 transform" :class="openIndex === 1 ? 'rotate-180' : 'rotate-0'"
                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 9l-7 7-7-7" />
                         </svg>
                     </button>
                     <div x-show="openIndex === 1"
