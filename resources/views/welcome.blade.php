@@ -239,6 +239,11 @@
             <x-mainpage.p-center>
                 Исключите ошибки в оформлении и ускорьте процесс подачи документов в органы экспертизы.
             </x-mainpage.p-center>
+        </x-mainpage.section>
+
+
+        <x-mainpage.section>
+
             <x-mainpage.grid-3-col>
                 <div>
                     <div class="mb-8 h-3 w-14 rounded-md bg-sky-700"></div>
@@ -263,7 +268,7 @@
                 </div>
                 <div>
                     <div class="mb-8 h-3 w-14 rounded-md bg-sky-700"></div>
-                    <x-mainpage.h4>
+                    <x-mainpage.h4 class="text-sm">
                         История всегда под рукой
                     </x-mainpage.h4>
                     <x-mainpage.p>
@@ -302,7 +307,8 @@
                         <span class="font-semibold">Какие возможности и преимущества при использовании
                             сервиса?</span>
                         <svg class="h-5 w-5 transform" :class="openIndex === 1 ? 'rotate-180' : 'rotate-0'"
-                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M19 9l-7 7-7-7" />
                         </svg>
