@@ -15,8 +15,8 @@
     <link rel="canonical" href="https://quatros.ru/">
 
 
-    <!-- <title>{{ config('app.name', 'Laravel') }}</title> -->
-    <title>Конструктор ИУЛ проектной документации для экспертизы</title>
+    <title>{{ config('app.name', 'Конструктор ИУЛ проектной документации для экспертизы') }}</title>
+    {{-- <title>Конструктор ИУЛ проектной документации для экспертизы</title> --}}
 
 
     <!-- Fonts -->
@@ -117,9 +117,6 @@
                             <p class="text-neutral-400 dark:text-neutral-200"> <span class="font-bold">4.9</span> / 5
                             </p>
                         </div>
-                        {{-- <div class="text-[10px] text-neutral-400 dark:text-neutral-200 sm:ps-5">
-                            <p> Рейтинг на основании <span class="font-bold">799</span> оценок </p>
-                        </div> --}}
                     </div>
 
                 </div>
@@ -127,7 +124,6 @@
         </section>
 
 
-        <!-- Формирование ИУЛ стало проще -->
         <x-mainpage.section>
             <x-mainpage.h2>
                 Формирование ИУЛ стало проще
@@ -221,7 +217,6 @@
             </div>
         </x-mainpage.section>
 
-        <!-- Три алгоритма расчета контрольной суммы -->
         <x-mainpage.section>
             <x-mainpage.h2>
                 Три алгоритма расчета контрольной суммы
@@ -237,7 +232,6 @@
             </div>
         </x-mainpage.section>
 
-        <!-- Быстрый и удобный -->
         <x-mainpage.section>
             <x-mainpage.h2>
                 Быстрый, лёгкий и удобный
@@ -281,7 +275,6 @@
             </x-mainpage.grid-3-col>
         </x-mainpage.section>
 
-        <!-- Сохраняйте в удобном для вас формате -->
         <x-mainpage.section>
             <x-mainpage.h2>
                 Сохраняйте в удобном для вас формате
@@ -297,15 +290,12 @@
         </x-mainpage.section>
 
 
-        <!-- Вопросы и ответы -->
         <x-mainpage.section>
-            {{-- <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8"> --}}
             <x-mainpage.h2>
                 Вопросы и ответы
             </x-mainpage.h2>
 
             <div x-data="{ openIndex: null }">
-                <!-- Аккордеон секция 1 -->
                 <div class="mb-0">
                     <button @click="openIndex === 1 ? openIndex = null : openIndex = 1"
                         class="flex w-full items-center justify-between gap-3 rounded-t-xl border border-b-0 border-gray-200 p-5 font-medium text-gray-500 hover:bg-gray-100 focus:ring-1 focus:ring-gray-200 rtl:text-right dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
@@ -326,7 +316,6 @@
                     </div>
                 </div>
 
-                <!-- Аккордеон секция 2 -->
                 <div class="mb-0">
                     <button @click="openIndex === 2 ? openIndex = null : openIndex = 2"
                         class="flex w-full items-center justify-between gap-3 border border-b-0 border-gray-200 p-5 font-medium text-gray-500 hover:bg-gray-100 focus:ring-1 focus:ring-gray-200 rtl:text-right dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
@@ -350,7 +339,6 @@
                     </div>
                 </div>
 
-                <!-- Аккордеон секция 3 -->
                 <div class="mb-0">
                     <button @click="openIndex === 3 ? openIndex = null : openIndex = 3"
                         class="flex w-full items-center justify-between gap-3 border border-b-0 border-gray-200 p-5 font-medium text-gray-500 hover:bg-gray-100 focus:ring-1 focus:ring-gray-200 rtl:text-right dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
@@ -373,7 +361,6 @@
                     </div>
                 </div>
 
-                <!-- Аккордеон секция 4 -->
                 <div class="mb-0">
                     <button @click="openIndex === 4 ? openIndex = null : openIndex = 4"
                         class="flex w-full items-center justify-between gap-3 border border-b-0 border-gray-200 p-5 font-medium text-gray-500 hover:bg-gray-100 focus:ring-1 focus:ring-gray-200 rtl:text-right dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
@@ -398,7 +385,6 @@
                     </div>
                 </div>
 
-                <!-- Аккордеон секция 5 -->
                 <div class="mb-0">
                     <button @click="openIndex === 5 ? openIndex = null : openIndex = 5"
                         class="border-b-1 flex w-full items-center justify-between gap-3 border border-gray-200 p-5 font-medium text-gray-500 hover:bg-gray-100 focus:ring-1 focus:ring-gray-200 rtl:text-right dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
