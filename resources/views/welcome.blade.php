@@ -432,18 +432,27 @@
         <div class="flex flex-col items-center justify-center bg-slate-800">
             <div class="relative w-full max-w-2xl lg:max-w-6xl">
                 <footer
-                    class="flex flex-row justify-between py-16 text-center align-middle text-sm text-white dark:text-white/70">
+                    class="flex flex-row justify-between py-16 text-center items-center text-sm text-white dark:text-white/70">
                     <div>
-                        <a href="{{ route('home') }}" class="flex flex-row items-center gap-1 text-2xl font-bold"
+                        <a href="{{ route('home') }}" class="flex flex-row items-center gap-1 text-2xl font-bold mb-2"
                             title="На главную">
                             <span>Quatros</span>
                             <span class="text-sm text-sky-600">4</span>
                         </a>
                     </div>
-                    <p>© 2025 Quatros</p>
+                    <a href="/docs/intro/">Документация</a>
                     <a href="/terms.pdf" target="_blank">Пользовательское соглашение</a>
                     <a href="/policy.pdf" target="_blank">Политика конфиденциальности</a>
-                    <a href="mailto:smeta@ces.nnov.ru">support@quatros.ru</a>
+                    <a class="flex flex-row gap-2 items-center" href="mailto:smeta@ces.nnov.ru"><svg
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                            class="size-5">
+                            <path
+                                d="M3 4a2 2 0 0 0-2 2v1.161l8.441 4.221a1.25 1.25 0 0 0 1.118 0L19 7.162V6a2 2 0 0 0-2-2H3Z" />
+                            <path
+                                d="m19 8.839-7.77 3.885a2.75 2.75 0 0 1-2.46 0L1 8.839V14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.839Z" />
+                        </svg>
+                        support@quatros.ru</a>
+                    <p>© 2025 Quatros</p>
                 </footer>
             </div>
         </div>
