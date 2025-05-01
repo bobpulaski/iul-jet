@@ -442,6 +442,7 @@
                     </div>
                     <p>© 2025 Quatros</p>
                     <a href="/terms.pdf" target="_blank">Пользовательское соглашение</a>
+                    <a href="/policy.pdf" target="_blank">Политика конфиденциальности</a>
                     <a href="mailto:smeta@ces.nnov.ru">support@quatros.ru</a>
                 </footer>
             </div>
