@@ -83,11 +83,11 @@
 
                     Упростите создание
                     информационно-удостоверяющих листов с помощью удобного сервиса, в соответствии с
-                    требованиями <span class="font-bold basis-2/3 text-center text-xl text-slate-600">ГОСТа Р
+                    требованиями <span class="basis-2/3 text-center text-xl font-bold text-slate-600">ГОСТа Р
                         21.101-2020.</span>
 
                     <a href="{{ route('register') }}"
-                        class="flex flex-row items-center justify-between gap-2 rounded-md bg-pink-700 px-4 py-3 text-center font-semibold text-white transition duration-300 ease-in-out hover:bg-pink-600 pulsing-div"><span>Начните
+                        class="pulsing-div flex flex-row items-center justify-between gap-2 rounded-md bg-pink-700 px-4 py-3 text-center font-semibold text-white transition duration-300 ease-in-out hover:bg-pink-600"><span>Начните
                             прямо сейчас</span>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-6">
@@ -95,7 +95,7 @@
                         </svg>
                     </a>
 
-                    <div class="flex flex-col items-center mt-32">
+                    <div class="mt-32 flex flex-col items-center">
                         <div class="flex items-baseline space-x-1 pt-5 sm:ps-5 sm:pt-0">
                             <div class="flex space-x-1"> <!-- Your star ratings -->
 
@@ -432,9 +432,9 @@
         <div class="flex flex-col items-center justify-center bg-slate-800">
             <div class="relative w-full max-w-2xl lg:max-w-6xl">
                 <footer
-                    class="flex flex-row justify-between py-16 text-center items-center text-sm text-white dark:text-white/70">
+                    class="flex flex-row items-center justify-between py-16 text-center text-sm text-white dark:text-white/70">
                     <div>
-                        <a href="{{ route('home') }}" class="flex flex-row items-center gap-1 text-2xl font-bold mb-2"
+                        <a href="{{ route('home') }}" class="mb-2 flex flex-row items-center gap-1 text-2xl font-bold"
                             title="На главную">
                             <span>Quatros</span>
                             <span class="text-sm text-sky-600">4</span>
@@ -443,7 +443,7 @@
                     <a href="/docs/intro/">Документация</a>
                     <a href="/terms.pdf" target="_blank">Пользовательское соглашение</a>
                     <a href="/policy.pdf" target="_blank">Политика конфиденциальности</a>
-                    <a class="flex flex-row gap-2 items-center" href="mailto:smeta@ces.nnov.ru"><svg
+                    <a class="flex flex-row items-center gap-2" href="mailto:support@quatros.ru"><svg
                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                             class="size-5">
                             <path
