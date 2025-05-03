@@ -54,7 +54,7 @@ class IulFormComponent extends Component
     public $signsList = [];
     public $isSignsListModalOpen = false;
 
-     public function mount(UserSettingsService $settingsService, SigntaturesService $signtaturesService): void
+    public function mount(UserSettingsService $settingsService, SigntaturesService $signtaturesService): void
     {
         $user = Auth::user();
         $this->signsList = $user->signslists()->select('kind', 'surname', 'file_src', 'id')->get()->toArray();
@@ -161,6 +161,22 @@ class IulFormComponent extends Component
             'inputFile.max' => 'Размер файла не должен превышать 80 MB',
         ];
     }
+
+    #[On('document-designation-changed')]
+    public function handleDesignationChannged()
+    {
+        $this->description = $this->documentDesignation . ' УЛ';
+    }
+
+    // #[On('file-selected')]
+    // public function handleDescriptionByFileSelected($description)
+    // {
+    //     // Удаляем расширение из имени файла
+    //     $filename = pathinfo($description, PATHINFO_FILENAME);
+
+    //     // Переводим в верхний регистр и добавляем "-ИУЛ"
+    //     $this->description = strtoupper($filename) . ' УЛ';
+    // }
 
     public function start(UserSettingsService $settingsService, SigntaturesService $signtaturesService, HistoryService $historyService)
     {

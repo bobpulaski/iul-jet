@@ -1,7 +1,7 @@
 <div class="hidden text-md font-semibold sm:ms-6 sm:flex sm:items-center">
     @if (Route::has('login'))
         <nav class="flex flex-1 items-center justify-end gap-5">
-            <a href="/docs/intro/" class="transition duration-300 ease-in-out hover:text-slate-500 mr-8">
+            <a href="/docs/intro/" class="transition duration-300 ease-in-out hover:text-slate-500 mr-36">
                 Документация
             </a>
             @auth

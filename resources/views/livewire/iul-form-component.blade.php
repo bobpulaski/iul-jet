@@ -48,7 +48,8 @@
                     <div class="basis-10/12">
                         <x-label for="documentDesignation" value="{{ __('Обозначение документа*') }}" />
                         <x-input id="documentDesignation" wire:model="documentDesignation" class="mt-1 block w-full"
-                            type="text" name="documentDesignation" required autocomplete="documentDesignation" />
+                            @change="$dispatch('document-designation-changed')" type="text"
+                            name="documentDesignation" required autocomplete="documentDesignation" />
                         <div class="text-red-400">
                             @error('documentDesignation')
                                 <x-ui.form-validation-error-message :message="$message" />
@@ -87,8 +88,8 @@
         <div class="mt-3 overflow-hidden bg-white shadow-md sm:rounded-lg dark:bg-gray-800">
             <div class="flex flex-col p-8">
                 <x-ui.h3>{{ __('Файл') }}</x-ui.h3>
-                <input id="inputFile" class="block w-full text-sm text-sky-700" type="file" accept=""
-                    name="inputFile" required />
+                <input id="inputFile" {{-- @change="$dispatch('file-selected', { description: $event.target.files[0]?.name })" --}} class="block w-full text-sm text-sky-700" type="file"
+                    accept="" name="inputFile" required />
                 <div>
                     @error('inputFile')
                         <span class="error">{{ $message }}</span>
@@ -207,7 +208,7 @@
 
             <div x-data="{ isFooterEnabled: @entangle('isFooter') }" class="flex flex-col p-8">
                 <div class="flex flex-row items-center justify-between">
-                    <x-ui.h3>{{ __('Подвал') }}</x-ui.h3>
+                    <x-ui.h3>{{ __('Штамп') }}</x-ui.h3>
                     <div class="flex flex-row gap-4 align-middle">
                         <p class="text-sm font-medium text-gray-700 dark:text-gray-300">Печать</p>
                         <x-ui.toggle id="is-footer-toggle" x-model="isFooterEnabled" />
