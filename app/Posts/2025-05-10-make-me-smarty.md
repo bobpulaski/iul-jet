@@ -13,7 +13,15 @@ excerpt: Lorem Description
 
 ## h2
 
+<https://skillbox.ru/media/code/>
+
+[Skillbox Media](https://skillbox.ru/media/ "Всплывающая подсказка") с подсказкой
+
+
 ### h3
+
+![Изображение](https://fakeimg.pl/1350x1200/?text=World&font=lobster "Логотип Markdown")
+
 
 > Оформление цитатой
 последовательных строк
