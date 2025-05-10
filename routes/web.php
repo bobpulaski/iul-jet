@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
+use App\Services\Post;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -7,6 +9,17 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
+
+Route::get('/blog', function () {
+    $postClass = new Post;
+
+    $posts = $postClass->getLatest(5);
+
+    return view('blog', compact('posts'));
+
+});
+
+Route::get('blog/{slug}', [ArticleController::class, 'index'])->name('article');
 
 Route::middleware([
     'auth:sanctum',
@@ -28,7 +41,6 @@ Route::middleware([
     Route::get('/support', function () {
         return view('support');
     })->name('support');
-
 
 
     Route::get('/html-report', function () {
