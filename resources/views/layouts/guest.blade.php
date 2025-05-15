@@ -10,18 +10,15 @@
 
 
     @if (request()->routeIs('login'))
-        <title>Войти</title>
+        <title>Войти | Конструктор ИУЛ проектной документации для экспертизы</title>
     @elseif (request()->routeIs('register'))
-        <title>Регистрация</title>
+        <title>Регистрация | Конструктор ИУЛ проектной документации для экспертизы</title>
     @elseif (request()->routeIs('forgot-password'))
         <title>Восстановление пароля</title>
     @else
-        <title>{{ config('app.name', 'Quatros.ru') }}</title>
+        <title>Восстановление пароля | Конструктор ИУЛ проектной документации для экспертизы</title>
+        {{-- <title>{{ config('app.name', 'Quatros.ru') }}</title> --}}
     @endif
-
-    <!-- Fonts -->
-    {{-- <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" /> --}}
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
