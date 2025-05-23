@@ -10,14 +10,17 @@
 
 
     @if (request()->routeIs('login'))
+        <meta name="description" content="Страница входа">
         <title>Войти | Конструктор ИУЛ проектной документации для экспертизы</title>
     @elseif (request()->routeIs('register'))
+        <meta name="description" content="Страница регистрации">
         <title>Регистрация | Конструктор ИУЛ проектной документации для экспертизы</title>
     @elseif (request()->routeIs('forgot-password'))
+        <meta name="description" content="Страница восстановления пароля">
         <title>Восстановление пароля</title>
     @else
+        <meta name="description" content="Страница восстановления пароля">
         <title>Восстановление пароля | Конструктор ИУЛ проектной документации для экспертизы</title>
-        {{-- <title>{{ config('app.name', 'Quatros.ru') }}</title> --}}
     @endif
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
