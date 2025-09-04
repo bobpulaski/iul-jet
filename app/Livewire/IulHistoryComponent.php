@@ -41,7 +41,7 @@ class IulHistoryComponent extends Component
         $this->banner('История очищена. Все записи удалены.');
     }
 
-    public function confirmHistoryDeletion($id)
+    public function confirmHistoryItemDeletion($id): void
     {
         $this->confirmingHistoryDeletion = true;
         $this->historyId = $id / 52;

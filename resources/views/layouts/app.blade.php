@@ -60,29 +60,29 @@
 
 
 
-    {{-- <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const themeToggleButton = document.getElementById('theme-toggle');
+{{--    --}}{{-- <script>--}}
+{{--        document.addEventListener('DOMContentLoaded', () => {--}}
+{{--            const themeToggleButton = document.getElementById('theme-toggle');--}}
 
-            // Установка темы при загрузке страницы
-            const currentTheme = localStorage.getItem('theme') || 'light';
-            if (currentTheme === 'dark') {
-                document.documentElement.classList.add('dark');
-            }
+{{--            // Установка темы при загрузке страницы--}}
+{{--            const currentTheme = localStorage.getItem('theme') || 'light';--}}
+{{--            if (currentTheme === 'dark') {--}}
+{{--                document.documentElement.classList.add('dark');--}}
+{{--            }--}}
 
-            // Обработчик события для переключателя
-            themeToggleButton.addEventListener('click', () => {
-                document.documentElement.classList.toggle('dark');
+{{--            // Обработчик события для переключателя--}}
+{{--            themeToggleButton.addEventListener('click', () => {--}}
+{{--                document.documentElement.classList.toggle('dark');--}}
 
-                // Сохранение текущей темы в localStorage
-                if (document.documentElement.classList.contains('dark')) {
-                    localStorage.setItem('theme', 'dark');
-                } else {
-                    localStorage.setItem('theme', 'light');
-                }
-            });
-        });
-    </script> --}}
+{{--                // Сохранение текущей темы в localStorage--}}
+{{--                if (document.documentElement.classList.contains('dark')) {--}}
+{{--                    localStorage.setItem('theme', 'dark');--}}
+{{--                } else {--}}
+{{--                    localStorage.setItem('theme', 'light');--}}
+{{--                }--}}
+{{--            });--}}
+{{--        });--}}
+{{--    </script> --}}
 
 </body>
 

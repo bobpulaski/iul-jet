@@ -5,41 +5,41 @@
                 :active="request()->routeIs('dashboard')">{{ __('Создайте свой первый лист.') }} </x-nav-link>
         </x-ui.p>
     @else
-        <div class="mb-4 flex flex-row items-center justify-between">
+        <div class="mb-4 flex flex-row items-center justify-end">
             <!-- Clear History Confirmation Modal -->
 
-            <div x-data="{ open: false }">
+{{--            <div x-data="{ open: false }">--}}
 
-                <x-label {{-- wire:click="showConfirmingHistoryDisposalModal" --}} x-on:click="open = ! open"
-                    class="cursor-pointer hover:text-red-600 transition duration-150 ease-in-out flex flex-row gap-2 items-center text-red-400"><x-ui.icons.exclamation-circle />
-                    Очистить
-                    историю</x-label>
+{{--                <x-label --}}{{-- wire:click="showConfirmingHistoryDisposalModal" --}}{{-- x-on:click="open = ! open"--}}
+{{--                    class="cursor-pointer hover:text-red-600 transition duration-150 ease-in-out flex flex-row gap-2 items-center text-red-400"><x-ui.icons.exclamation-circle />--}}
+{{--                    Очистить--}}
+{{--                    историю</x-label>--}}
 
-                <div x-show="open">
-                    <x-dialog-modal {{-- wire:model.live="isShowConfirmingHistoryDisposalModal" --}}>
-                        <x-slot name="title">
-                            {{ __('Удаление истории') }}
-                        </x-slot>
-                        <x-slot name="content">
-                            <p>{{ __('Вы действительно хотите удалить все записи из истории?') }}</p>
-                        </x-slot>
-                        <x-slot name="description">
-                            <p>{{ __('Данную операцию нельзя отменить.') }}</p>
-                        </x-slot>
-                        <x-slot name="footer">
-                            <x-secondary-button x-on:click="open = false" {{-- wire:click="$toggle('isShowConfirmingHistoryDisposalModal')" --}}
-                                wire:loading.attr="disabled">
-                                {{ __('Отмена') }}
-                            </x-secondary-button>
+{{--                <div x-show="open">--}}
+{{--                    <x-dialog-modal --}}{{-- wire:model.live="isShowConfirmingHistoryDisposalModal" --}}{{-->--}}
+{{--                        <x-slot name="title">--}}
+{{--                            {{ __('Удаление истории') }}--}}
+{{--                        </x-slot>--}}
+{{--                        <x-slot name="content">--}}
+{{--                            <p>{{ __('Вы действительно хотите удалить все записи из истории?') }}</p>--}}
+{{--                        </x-slot>--}}
+{{--                        <x-slot name="description">--}}
+{{--                            <p>{{ __('Данную операцию нельзя отменить.') }}</p>--}}
+{{--                        </x-slot>--}}
+{{--                        <x-slot name="footer">--}}
+{{--                            <x-secondary-button x-on:click="open = false" --}}{{-- wire:click="$toggle('isShowConfirmingHistoryDisposalModal')" --}}
+{{--                                wire:loading.attr="disabled">--}}
+{{--                                {{ __('Отмена') }}--}}
+{{--                            </x-secondary-button>--}}
 
-                            <x-danger-button class="ms-3" wire:click="clearAllHistory" wire:loading.attr="disabled">
-                                {{ __('Удалить') }}
-                            </x-danger-button>
-                        </x-slot>
-                    </x-dialog-modal>
-                </div>
+{{--                            <x-danger-button class="ms-3" wire:click="clearAllHistory" wire:loading.attr="disabled">--}}
+{{--                                {{ __('Удалить') }}--}}
+{{--                            </x-danger-button>--}}
+{{--                        </x-slot>--}}
+{{--                    </x-dialog-modal>--}}
+{{--                </div>--}}
 
-            </div>
+{{--            </div>--}}
 
             <div class="flex flex-row items-center gap-2">
                 <x-ui.p>Записей на страницу: </x-ui.p>
@@ -86,7 +86,7 @@
 
                                 <div class="border-t border-gray-200 dark:border-gray-600"></div>
 
-                                <x-dropdown-link wire:click="confirmHistoryDeletion({{ $id }})"
+                                <x-dropdown-link wire:click="confirmHistoryItemDeletion({{ $id }})"
                                     wire:loading.attr="disabled" href="javascript:void(0);"
                                     class="flex items-center text-red-400">
                                     <x-ui.icons.trash-icon />
@@ -147,7 +147,7 @@
 
     <x-dialog-modal wire:model.live="confirmingHistoryDeletion"> // TODO Напрашивается вынести в отдельный компонент
         <x-slot name="title">
-            {{ __('Удаление подписи') }}
+            {{ __('Удаление записи') }}
         </x-slot>
         <x-slot name="content">
             <p>{{ __('Вы действительно хотите удалить запись из истории?') }}</p>
