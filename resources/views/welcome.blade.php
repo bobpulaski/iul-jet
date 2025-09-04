@@ -431,14 +431,13 @@
     <footer
         class=" bg-slate-800 items-center py-16 text-center text-sm text-white dark:text-white/70">
 
-        <div class="flex flex-col my-[8rem] px-4 sm:px-6 lg:px-8 justify-around items-center gap-2 md:flex-row md:gap-2">
+        <div class="flex flex-col my-[2rem] px-4 sm:px-6 lg:px-8 justify-center items-center gap-2 md:flex-row md:gap-8">
 
             <a href="{{ route('home') }}" class="mb-2 flex flex-row items-center gap-1 text-2xl font-bold"
                title="На главную">
                 <span>Quatros</span>
                 <span class="text-sm text-sky-600">4</span>
             </a>
-
             <a href="/docs/intro/">Документация</a>
             <a href="/terms.pdf" target="_blank">Пользовательское соглашение</a>
             <a href="/policy.pdf" target="_blank">Политика конфиденциальности</a>
@@ -453,6 +452,12 @@
                 </svg>
                 support@quatros.ru</a>
             <p>© 2025 Quatros</p>
+
+        </div>
+        <div class="flex flex-col my-[2rem] px-4 sm:px-6 lg:px-8 justify-center items-center gap-2 md:flex-row md:gap-2 text-slate-500">
+
+            <p>ОГРНИП 325580000040783</p>
+
         </div>
     </footer>
 </div>
