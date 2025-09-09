@@ -456,7 +456,7 @@
         </div>
         <div class="flex flex-col my-[2rem] px-4 sm:px-6 lg:px-8 justify-center items-center gap-2 md:flex-row md:gap-2 text-slate-500">
 
-            <p>ОГРНИП 325580000040783</p>
+            <p>ИНН 583601302278 | ОГРНИП 325580000040783</p>
 
         </div>
     </footer>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\ThanksController;
 use App\Services\Post;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
@@ -20,6 +21,7 @@ Route::get('/blog', function () {
 });
 
 Route::get('blog/{slug}', [ArticleController::class, 'index'])->name('article');
+Route::get('thanks', [ThanksController::class, 'index'])->name('thanks');
 
 Route::middleware([
     'auth:sanctum',
@@ -41,6 +43,10 @@ Route::middleware([
     Route::get('/support', function () {
         return view('support');
     })->name('support');
+
+//    Route::get('/thanks', function () {
+//        return view('thanks');
+//    })->name('thanks');
 
 
     Route::get('/html-report', function () {
