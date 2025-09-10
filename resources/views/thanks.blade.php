@@ -82,74 +82,7 @@
         </div>
 
 
-        <section>
-            <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-2 lg:px-6">
-
-                <div class="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
-                    <h2 class="mb-4 text-3xl tracking-tight font-bold text-gray-700 dark:text-white">Выберите удобную для вас сумму</h2>
-
-                </div>
-
-                <div class="space-y-8 md:grid md:grid-cols-3 sm:gap-6 xl:gap-10 lg:space-y-0">
-                    <!-- Pricing Card -->
-                    <div class="flex flex-col p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white">
-                        <h3 class="mb-4 text-2xl font-semibold">На кофе</h3>
-                        <p class="font-light text-gray-500 sm:text-lg dark:text-gray-400">В нашей команде тоже любят горячие напитки.</p>
-                        <div class="flex justify-center items-baseline my-8">
-                            <span class="mr-2 text-5xl font-bold text-sky-500">500 ₽</span>
-                        </div>
-
-                        <a href="#" class="text-white bg-slate-600 hover:bg-green-600 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white  dark:focus:ring-primary-900">Поддержать</a>
-                    </div>
-                    <!-- Pricing Card -->
-                    <div class="flex flex-col p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white">
-                        <h3 class="mb-4 text-2xl font-semibold">Супер-поддержка!</h3>
-                        <p class="font-light text-gray-500 sm:text-lg dark:text-gray-400">Наймём дизайнера на полный рабочий день.</p>
-                        <div class="flex justify-center items-baseline my-8">
-                            <span class="mr-2 text-5xl font-bold text-sky-600">1000 ₽</span>
-                        </div>
-
-                        <a href="#" class="text-white bg-slate-600 hover:bg-green-600 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white  dark:focus:ring-primary-900">Поддержать</a>
-                    </div>
-                    <!-- Pricing Card -->
-                    <div class="flex flex-col p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white">
-                        <h3 class="mb-4 text-2xl font-semibold">Просто нет слов...</h3>
-                        <p class="font-light text-gray-500 sm:text-lg dark:text-gray-400">Отдельное спасибо за такой уровень. Ещё раз спасибо!</p>
-                        <div class="flex justify-center items-baseline my-8">
-                            <span class="mr-2 text-5xl font-bold text-sky-700">2000 ₽</span>
-                        </div>
-
-                        <a href="#" class="text-white bg-slate-600 hover:bg-green-600 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white  dark:focus:ring-primary-900">Поддержать</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="py-8 px-4 mx-auto max-w-screen-xl lg:py-12 lg:px-6">
-            @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
-                <div class="mt-2">
-                    <x-label for="terms">
-                        <div class="flex items-center">
-                            <div class="ms-2">
-                                {!! __(
-                                    'Нажимая на кнопку «Поддержать» я соглашаюсь с :Пользовательским соглашением и :Политикой конфиденциальности',
-                                    [
-                                        'Пользовательским соглашением' =>
-                                            '<a href="/terms.pdf" target="_blank" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">' .
-                                            __('Пользовательским соглашением') .
-                                            '</a>',
-                                        'Политикой конфиденциальности' =>
-                                            '<a href="/policy.pdf" target="_blank" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">' .
-                                            __('Политикой конфиденциальности') .
-                                            '</a>',
-                                    ],
-                                ) !!}
-                            </div>
-                        </div>
-                    </x-label>
-                </div>
-            @endif
-        </section>
+        @livewire('thanks-component')
 
     </section>
 
