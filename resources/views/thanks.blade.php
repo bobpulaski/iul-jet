@@ -36,7 +36,7 @@
 
 <div class="text-black/80 dark:bg-black dark:text-white/50">
 
-    <section id="hero" class="md:h-screen bg-gradient-to-r from-indigo-200 via-sky-200 to-red-200">
+    <section id="hero" class="md:h-screen bg-gradient-to-r from-indigo-50 via-sky-200 to-red-100">
 
         <header>
             <nav x-data="{ open: false }">
