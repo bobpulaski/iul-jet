@@ -38,8 +38,28 @@ class PaymentController extends Controller
                 'user_name' => $user_name,
                 'user_email' => $user_email
             ],
+
+            'receipt' => array(
+                'customer' => array(
+                    'email' => $user_email,
+                ),
+                'items' => array(
+                    array(
+                        'description' => 'Поддержка проекта формирования ИУЛ Quatros.ru',
+                        'quantity' => 1.000,
+                        'amount' => array(
+                            'value' => $amount,
+                            'currency' => 'RUB'
+                        ),
+                        'vat_code' => 1,
+                        'payment_mode' => 'full_payment',
+                        'payment_subject' => 'commodity',
+                    ),
+                )
+            ),
+
             'capture' => true,
-            'description' => 'Тестовый платеж',
+            'description' => 'Платеж донат',
             'test' => config('services.yookassa.test_mode', true),
         ], uniqid('', true));
 

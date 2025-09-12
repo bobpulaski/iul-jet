@@ -22,7 +22,7 @@ Route::get('/blog', function () {
 });
 
 Route::get('blog/{slug}', [ArticleController::class, 'index'])->name('article');
-Route::get('thanks', [ThanksController::class, 'index'])->name('thanks');
+
 
 
 // Создание платежа
@@ -62,6 +62,8 @@ Route::middleware([
     Route::get('/support', function () {
         return view('support');
     })->name('support');
+
+    Route::get('thanks', [ThanksController::class, 'index'])->name('thanks');
 
 //    Route::get('/thanks', function () {
 //        return view('thanks');

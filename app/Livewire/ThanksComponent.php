@@ -9,6 +9,7 @@ use Livewire\Component;
 class ThanksComponent extends Component
 {
     public int $amount;
+    public int $freeAmount;
 
     protected $rules = [
         'amount' => 'required|numeric|min:1',
@@ -17,25 +18,24 @@ class ThanksComponent extends Component
     public function donateFix($fixAmount)
     {
         $this->amount = $fixAmount;
-        $this->createPayment($this->amount);
+        $this->createPayment();
     }
 
 
     public function donateFree()
     {
-        $this->createPayment($this->amount);
+        $this->amount = $this->freeAmount;
+        $this->createPayment();
     }
 
-    public function createPayment($amount)
+    public function createPayment()
     {
-        $this->validate();
-
         // Редирект на создание платежа
         // Простой редирект с параметрами
         return redirect()->route('payment.create', [
             'amount' => $this->amount,
             'user_name' => Auth::user()->name ?? 'Гость',
-            'user_email' => Auth::user()->email ?? '@Гость'
+            'user_email' => Auth::user()->email ?? 'mynameisempty@yandex.ru'
         ]);
     }
 

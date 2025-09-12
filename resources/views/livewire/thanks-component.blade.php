@@ -72,7 +72,7 @@
 
                     <form wire:submit.prevent="donateFree">
                         <div class="flex justify-center items-baseline my-9">
-                            <x-input wire:model="amount" name="amount" type="number" placeholder="Например, 500"
+                            <x-input wire:model="freeAmount" name="amount" type="number" placeholder="Например, 500"
                                      required class="mt-7"/>
                         </div>
 
@@ -93,8 +93,8 @@
         @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
             <div class="mt-2">
                 <x-label for="terms">
-                    <div class="flex items-center">
-                        <div class="ms-2">
+                    <div class="flex flex-col justify-between">
+                        <div class="">
                             {!! __(
                                 'Нажимая на кнопку «Поддержать» вы соглашаетесь с :Пользовательским соглашением и :Политикой конфиденциальности',
                                 [
@@ -104,10 +104,14 @@
                                         '</a>',
                                     'Политикой конфиденциальности' =>
                                         '<a href="/policy.pdf" target="_blank" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">' .
-                                        __('Политикой конфиденциальности') .
+                                        __('Политикой конфиденциальности').
                                         '</a>',
                                 ],
                             ) !!}
+                        </div>
+                        <p>Электронный чек будет вам отправлен на указанный при регистрации адрес электронной почты.</p>
+                        <div class="mt-4">
+                            <p>Платежный шлюз предоставлен <a class="underline text-sky-600" href="https://yookassa.ru/" target="_blank">Сервисом для работы с платежами в интернете — ЮKassa.</a></p>
                         </div>
                     </div>
                 </x-label>
