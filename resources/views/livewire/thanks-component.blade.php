@@ -70,10 +70,9 @@
                     <h3 class="mb-4 text-xl font-semibold">Произвольная сумма</h3>
                     <p class="font-light text-gray-500 sm:text-lg dark:text-gray-400">Как вам будет удобно.</p>
 
-                    <form wire:submit="donateFree">
-
+                    <form wire:submit.prevent="donateFree">
                         <div class="flex justify-center items-baseline my-9">
-                            <x-input wire:model="freeSum" id="free-sum" type="number" placeholder="Например, 500"
+                            <x-input wire:model="amount" name="amount" type="number" placeholder="Например, 500"
                                      required class="mt-7"/>
                         </div>
 

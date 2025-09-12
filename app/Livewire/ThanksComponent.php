@@ -3,26 +3,42 @@
 namespace App\Livewire;
 
 use Illuminate\Support\Facades\Auth;
-use Livewire\Attributes\Validate;
 use Livewire\Component;
+
 
 class ThanksComponent extends Component
 {
-    public int $sum;
+    public int $amount;
 
-    #[Validate('required|integer')]
-    public int $freeSum;
+    protected $rules = [
+        'amount' => 'required|numeric|min:1',
+    ];
 
-    public function donateFix($sum)
+    public function donateFix($fixAmount)
     {
-        dd(Auth::user()->name . ' ' . Auth::user()->email . ' ' . $sum);
+        $this->amount = $fixAmount;
+        $this->createPayment($this->amount);
     }
+
 
     public function donateFree()
     {
-        $this->validate();
-        dd($this->only(['freeSum']));
+        $this->createPayment($this->amount);
     }
+
+    public function createPayment($amount)
+    {
+        $this->validate();
+
+        // Редирект на создание платежа
+        // Простой редирект с параметрами
+        return redirect()->route('payment.create', [
+            'amount' => $this->amount,
+            'user_name' => Auth::user()->name ?? 'Гость',
+            'user_email' => Auth::user()->email ?? '@Гость'
+        ]);
+    }
+
 
     public function render()
     {

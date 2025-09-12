@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ThanksController;
 use App\Services\Post;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +23,24 @@ Route::get('/blog', function () {
 
 Route::get('blog/{slug}', [ArticleController::class, 'index'])->name('article');
 Route::get('thanks', [ThanksController::class, 'index'])->name('thanks');
+
+
+// Создание платежа
+Route::get('/payment/create', [PaymentController::class, 'create'])
+    ->name('payment.create');
+
+// Webhook endpoint для YooKassa
+Route::post('/webhook/yookassa', [PaymentController::class, 'webhook'])
+    ->name('webhook.yookassa');
+
+// Страницы успеха и ошибки
+Route::get('/payment/success', [PaymentController::class, 'success'])
+    ->name('payment.success');
+
+Route::get('/payment/failure', [PaymentController::class, 'failure'])
+    ->name('payment.failure');
+
+
 
 Route::middleware([
     'auth:sanctum',
