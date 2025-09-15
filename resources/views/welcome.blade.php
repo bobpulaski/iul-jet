@@ -36,7 +36,7 @@
 
 <div class="text-black/80 dark:bg-black dark:text-white/50">
 
-    <section id="hero" class="h-screen bg-gradient-to-r from-indigo-50 via-sky-50 to-red-50">
+    <section id="hero" class="2xl:h-screen bg-gradient-to-r from-indigo-50 via-sky-50 to-red-50">
 
         <header>
             <nav x-data="{ open: false }">
@@ -94,7 +94,7 @@
                     </svg>
                 </a>
 
-                <div class="mt-32 flex flex-col items-center">
+                <div class="my-12 flex flex-col items-center">
                     <div class="flex items-baseline space-x-1 pt-5 sm:ps-5 sm:pt-0">
                         <div class="flex space-x-1">
                             <x-ui.icons.star-icon/>

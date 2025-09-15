@@ -36,7 +36,7 @@
 
 <div class="text-black/80 dark:bg-black dark:text-white/50">
 
-    <section id="hero" class="md:h-screen">
+    <section id="hero" class="2xl:h-screen">
 
         <header>
             <nav x-data="{ open: false }">
