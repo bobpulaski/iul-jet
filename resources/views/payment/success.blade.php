@@ -36,7 +36,7 @@
 
 <div class="text-black/80 dark:bg-black dark:text-white/50">
 
-    <section id="hero" class="md:h-screen">
+    <section id="hero" class="2xl:h-screen">
 
         <header>
             <nav x-data="{ open: false }">
@@ -68,16 +68,16 @@
         </header>
 
         <div class="mx-auto max-w-screen-lg px-4 sm:px-6 lg:px-8">
-            <h1 class="flex flex-col text-center text-9xl font-extrabold mt-12 text-cyan-800">
+            <h1 class="flex flex-col text-center text-6xl 2xl:text-9xl font-extrabold mt-12 text-cyan-800">
                 Спасибо!
             </h1>
 
             <!-- +++ -->
-            <div class="mt-8 flex flex-col items-center justify-between gap-8">
+            <div class="mt-8 flex flex-col items-center justify-between gap-4">
 
                 <h4 class="basis-1/4 text-center text-md text-slate-600">Мы хотим, чтобы <span class="font-bold">Quatros</span> всегда оставался <span class="font-bold">бесплатным</span>. Ваша поддержка помогает делать сервис ещё лучше, стабильнее и удобнее. Каждое пожертвование мотивирует на новые функции и улучшения. Ваша поддержка — это прямой вклад в развитие инструмента, которым вы пользуетесь. Еще раз, спасибо, что вы с нами!</h4>
                 <br>
-                <a href="/" class="font-medium text-sky-700 underline">На главную</a>
+                <a href="/" class="font-medium text-sky-700 underline mb-12">На главную</a>
 
             </div>
         </div>
