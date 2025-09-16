@@ -36,7 +36,7 @@
 
 <div class="text-black/80 dark:bg-black dark:text-white/50">
 
-    <section id="hero" class="2xl:h-screen">
+    <section id="hero" class="2xl:h-screen mb-4">
 
         <header>
             <nav x-data="{ open: false }">
@@ -76,7 +76,7 @@
             <!-- +++ -->
             <div class="mt-8 flex flex-col items-center justify-between gap-8">
 
-                <h4 class="basis-1/4 text-center text-md text-slate-600">Мы хотим, чтобы <span class="font-bold">Quatros</span> всегда оставался <span class="font-bold">бесплатным</span>. Ваша поддержка помогает делать сервис ещё лучше, стабильнее и удобнее. Каждое пожертвование мотивирует на новые функции и улучшения. Ваш вклад — это не просто donation, это прямой вклад в развитие инструмента, которым вы пользуетесь. Спасибо, что вы с нами!</h4>
+                <h4 class="basis-1/4 text-center text-md text-slate-600">Мы хотим, чтобы <span class="font-bold">Quatros</span> всегда оставался <span class="font-bold">бесплатным</span>. Ваша поддержка помогает делать сервис ещё лучше, стабильнее и удобнее. Каждое пожертвование мотивирует на новые функции и улучшения — это прямой вклад в развитие инструмента, которым вы пользуетесь. Спасибо, что вы с нами!</h4>
 
             </div>
         </div>

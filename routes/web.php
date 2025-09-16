@@ -14,15 +14,11 @@ Route::get('/', function () {
 
 Route::get('/blog', function () {
     $postClass = new Post;
-
     $posts = $postClass->getLatest(5);
-
     return view('blog', compact('posts'));
-
 });
 
 Route::get('blog/{slug}', [ArticleController::class, 'index'])->name('article');
-
 
 
 // Создание платежа
@@ -39,7 +35,6 @@ Route::get('/payment/success', [PaymentController::class, 'success'])
 
 Route::get('/payment/failure', [PaymentController::class, 'failure'])
     ->name('payment.failure');
-
 
 
 Route::middleware([
@@ -64,11 +59,6 @@ Route::middleware([
     })->name('support');
 
     Route::get('thanks', [ThanksController::class, 'index'])->name('thanks');
-
-//    Route::get('/thanks', function () {
-//        return view('thanks');
-//    })->name('thanks');
-
 
     Route::get('/html-report', function () {
         $data = session('reportData');

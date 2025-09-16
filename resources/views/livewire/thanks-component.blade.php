@@ -8,7 +8,7 @@
 
             </div>
 
-            <div class="space-y-8 md:grid md:grid-cols-4 sm:gap-6 xl:gap-10 lg:space-y-0">
+            <div class="space-y-8 grid 2xl:grid-cols-4 sm:gap-6 xl:gap-10 lg:space-y-0">
                 <!-- Pricing Card -->
                 <div
                     class="flex flex-col p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border-4 border-sky-500 shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white">
@@ -89,12 +89,12 @@
         </div>
     </section>
 
-    <section class="py-8 px-4 mx-auto max-w-screen-xl lg:py-12 lg:px-6">
+    <section class="py-2 px-4 mx-auto max-w-screen-xl 2xl:py-8 lg:px-6">
         @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
             <div class="mt-2">
                 <x-label for="terms">
                     <div class="flex flex-col justify-between">
-                        <div class="">
+                        <div>
                             {!! __(
                                 'Нажимая на кнопку «Поддержать» вы соглашаетесь с :Пользовательским соглашением и :Политикой конфиденциальности',
                                 [
@@ -109,9 +109,9 @@
                                 ],
                             ) !!}
                         </div>
-                        <p class="mt-4">Электронный чек будет отправлен вам на указанный при регистрации адрес
+                        <p class="mt-2">Электронный чек будет отправлен вам на указанный при регистрации адрес
                             электронной почты.</p>
-                        <p class="mt-4">Платежный шлюз предоставлен <a class="underline text-sky-600"
+                        <p class="my-2">Платежный шлюз предоставлен <a class="underline text-sky-600"
                                                                        href="https://yookassa.ru/" target="_blank">Сервисом
                                 для работы с платежами в интернете — ЮKassa.</a></p>
                     </div>

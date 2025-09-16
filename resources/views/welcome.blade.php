@@ -82,7 +82,7 @@
             <div class="mt-8 flex flex-col items-center justify-between gap-8">
 
                 <h4 class="basis-1/4 text-center text-xl text-slate-600">Упростите создание
-                    информационно-удостоверяющих листов с помощью удобного сервиса, в соответствии с
+                    информационно-удостоверяющих листов с помощью бесплатного удобного сервиса, в соответствии с
                     требованиями <span class="font-bold">ГОСТа Р 21.101-2020.</span></h4>
 
                 <a href="{{ route('register') }}"
@@ -272,7 +272,7 @@
                 </x-mainpage.h4>
                 <x-mainpage.p>
                     Все сформированные информационно-удостоверяющие листы сохраняются
-                    в истории. Вы всегда можете вернуться к любому из них
+                    в истории. Вы всегда можете вернуться к любому из них,
                     отредактировать или использовать в качестве шаблона.
                 </x-mainpage.p>
             </div>
@@ -303,7 +303,7 @@
             <div class="mb-0">
                 <button @click="openIndex === 1 ? openIndex = null : openIndex = 1"
                         class="flex w-full items-center justify-between gap-3 rounded-t-xl border border-b-0 border-gray-200 p-5 font-medium text-gray-500 hover:bg-gray-100 focus:ring-1 focus:ring-gray-200 rtl:text-right dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
-                        <span class="font-semibold">Какие возможности и преимущества при использовании
+                        <span class="font-semibold">Какие возможности и преимущества дает использование
                             сервиса?</span>
                     <svg class="h-5 w-5 transform" :class="openIndex === 1 ? 'rotate-180' : 'rotate-0'"
                          xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -314,10 +314,31 @@
                 </button>
                 <div x-show="openIndex === 1"
                      class="border border-b-0 border-gray-200 p-5 dark:border-gray-700 dark:bg-gray-900">
-                    <p>
-                        Сокращение времени на подготовку и составление ИУЛ, исключение ошибок при оформлении
-                        документов, обновление, корректировка данных, сохранение истории и многое другое!
+                    <p class="mb-2">
+                        Использование нашего сервиса открывает для вас ряд ключевых возможностей и преимуществ:
                     </p>
+
+                    <ul class="flex flex-col gap-1">
+                        <li>
+                            <span class="font-semibold">Экономия времени:</span> Значительное сокращение времени на подготовку и
+                            составление ИУЛ за счёт автоматизации.
+                        </li>
+                        <li>
+                            <span class="font-semibold">Безупречная точность:</span> Исключение человеческих ошибок и опечаток при оформлении
+                            документов.
+                        </li>
+                        <li>
+                            <strong>Гибкость работы:</strong> Лёгкое обновление и корректировка данных в любое время.
+                        </li>
+                        <li>
+                            <strong>Централизованное хранение:</strong> Все сформированные документы сохраняются в
+                            истории, что обеспечивает порядок и быстрый доступ.
+                        </li>
+                        <li>
+                            <strong>Удобство и доступность:</strong> Работайте из любого места через веб-браузер без
+                            необходимости установки программного обеспечения.
+                        </li>
+                    </ul>
                 </div>
             </div>
 
@@ -335,11 +356,9 @@
                 <div x-show="openIndex === 2"
                      class="border border-b-0 border-gray-200 p-5 dark:border-gray-700 dark:bg-gray-900">
                     <p>
-                        Чтобы начать пользоваться конструктором ИУЛ, вам необходимо
-                        зарегистрироваться. После регистрации на указанный вами email
-                        придёт письмо с подтверждением вашего электронного почтового
-                        ящика. Подтвердив свою учетную запись, вам будет доступен весь
-                        функционал сервиса.
+                        Чтобы начать работу с конструктором ИУЛ, просто зарегистрируйтесь. На указанную почту мы вышлем
+                        письмо для подтверждения email-адреса. Как только вы подтвердите учётную запись, вам откроется
+                        весь функционал сервиса.
                     </p>
                 </div>
             </div>
@@ -358,10 +377,9 @@
                 <div x-show="openIndex === 3"
                      class="border border-b-0 border-gray-200 p-5 dark:border-gray-700 dark:bg-gray-900">
                     <p>
-                        Конструктор ИУЛ работает через веб-браузер, как любое
-                        SaaS-приложение. Это очень удобно, ведь вам не нужно
-                        беспокоиться о скачивании и установке программ. Просто зайдите в
-                        браузер, и вы готовы к работе из любой места, где есть интернет!
+                        Конструктор ИУЛ работает прямо в веб-браузере, как любое SaaS-приложение. Это очень удобно: вам
+                        не нужно скачивать и устанавливать программы. Просто откройте браузер — и вы готовы к работе из
+                        любого места, где есть интернет!
                     </p>
                 </div>
             </div>
@@ -392,6 +410,28 @@
 
             <div class="mb-0">
                 <button @click="openIndex === 5 ? openIndex = null : openIndex = 5"
+                        class="flex w-full items-center justify-between gap-3 border border-b-0 border-gray-200 p-5 font-medium text-gray-500 hover:bg-gray-100 focus:ring-1 focus:ring-gray-200 rtl:text-right dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
+                    <span class="font-semibold text-sky-600">Так как сервис бесплатен, могу ли я поддержать его развитие?</span>
+                    <svg class="h-5 w-5 transform" :class="openIndex === 4 ? 'rotate-180' : 'rotate-0'"
+                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                         stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </button>
+                <div x-show="openIndex === 5"
+                     class="border border-b-0 border-gray-200 p-5 dark:border-gray-700 dark:bg-gray-900">
+                    <p>
+                        Регистрация в Quatros бесплатна и открывает доступ ко всем возможностям сервиса. Нам будет очень
+                        приятно, если вы решите поддержать его развитие — это поможет сделать инструмент ещё лучше.
+                        Сделать это можно в одно касание в разделе <a href="{{route('thanks')}}">«Поддержать проект»</a>
+                        вашего личного кабинета. Заранее большое спасибо!
+                    </p>
+                </div>
+            </div>
+
+            <div class="mb-0">
+                <button @click="openIndex === 6 ? openIndex = null : openIndex = 6"
                         class="border-b-1 flex w-full items-center justify-between gap-3 border border-gray-200 p-5 font-medium text-gray-500 hover:bg-gray-100 focus:ring-1 focus:ring-gray-200 rtl:text-right dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:focus:ring-gray-800">
                     <span class="font-semibold">Если у меня остались вопросы?</span>
                     <svg class="h-5 w-5 transform" :class="openIndex === 5 ? 'rotate-180' : 'rotate-0'"
@@ -401,17 +441,15 @@
                               d="M19 9l-7 7-7-7"/>
                     </svg>
                 </button>
-                <div x-show="openIndex === 5"
+                <div x-show="openIndex === 6"
                      class="border-b-1 border border-gray-200 p-5 dark:border-gray-700 dark:bg-gray-900">
                     <p>
-                        Конечно, если у вас остались вопросы, вы всегда можете
-                        обратиться за помощью! После регистрации вам будет доступен
-                        раздел «Техподдержка», где вы сможете задать вопрос, указать на
-                        ошибку или написать отзыв о работе конструктора. Мы всегда рады
-                        помочь!
+                        После регистрации заходите в раздел «Техподдержка» — задавайте вопросы, сообщайте об ошибках или
+                        делитесь отзывами. Мы всегда рады помочь!
                     </p>
                 </div>
             </div>
+
         </div>
     </x-mainpage.section>
 
@@ -431,7 +469,8 @@
     <footer
         class=" bg-slate-800 items-center py-16 text-center text-sm text-white dark:text-white/70">
 
-        <div class="flex flex-col my-[2rem] px-4 sm:px-6 lg:px-8 justify-center items-center gap-2 md:flex-row md:gap-8">
+        <div
+            class="flex flex-col my-[2rem] px-4 sm:px-6 lg:px-8 justify-center items-center gap-2 md:flex-row md:gap-8">
 
             <a href="{{ route('home') }}" class="mb-2 flex flex-row items-center gap-1 text-2xl font-bold"
                title="На главную">
@@ -454,7 +493,8 @@
             <p>© 2025 Quatros</p>
 
         </div>
-        <div class="flex flex-col my-[2rem] px-4 sm:px-6 lg:px-8 justify-center items-center gap-2 md:flex-row md:gap-2 text-slate-500">
+        <div
+            class="flex flex-col my-[2rem] px-4 sm:px-6 lg:px-8 justify-center items-center gap-2 md:flex-row md:gap-2 text-slate-500">
 
             <p>ИНН 583601302278 | ОГРНИП 325580000040783</p>
 
