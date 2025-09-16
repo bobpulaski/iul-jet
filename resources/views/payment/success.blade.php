@@ -75,9 +75,17 @@
             <!-- +++ -->
             <div class="mt-8 flex flex-col items-center justify-between gap-4">
 
-                <h4 class="basis-1/4 text-center text-md text-slate-600">Мы хотим, чтобы <span class="font-bold">Quatros</span> всегда оставался <span class="font-bold">бесплатным</span>. Ваша поддержка помогает делать сервис ещё лучше, стабильнее и удобнее. Каждое пожертвование мотивирует на новые функции и улучшения. Ваша поддержка — это прямой вклад в развитие инструмента, которым вы пользуетесь. Еще раз, спасибо, что вы с нами!</h4>
+                <h4 class="basis-1/4 text-center text-md text-slate-600">Мы хотим, чтобы <span
+                        class="font-bold">Quatros</span> всегда оставался <span class="font-bold">бесплатным</span>.
+                    Ваша поддержка помогает делать сервис ещё лучше, стабильнее и удобнее. Каждое пожертвование
+                    мотивирует на новые функции и улучшения. Ваша поддержка — это прямой вклад в развитие инструмента,
+                    которым вы пользуетесь. Еще раз, спасибо, что вы с нами!</h4>
                 <br>
-                <a href="/" class="font-medium text-sky-700 underline mb-12">На главную</a>
+                <div class="flex flex-row gap-6">
+                    <a href="/" class="font-medium text-sky-700 underline mb-12">На главную</a>
+                    <a href="{{route('dashboard')}}" class="font-medium text-sky-700 underline mb-12">Личный кабинет</a>
+
+                </div>
 
             </div>
         </div>
@@ -86,12 +94,11 @@
     </section>
 
 
-
-
     <footer
         class=" bg-slate-800 items-center py-16 text-center text-sm text-white dark:text-white/70">
 
-        <div class="flex flex-col my-[2rem] px-4 sm:px-6 lg:px-8 justify-center items-center gap-2 md:flex-row md:gap-8">
+        <div
+            class="flex flex-col my-[2rem] px-4 sm:px-6 lg:px-8 justify-center items-center gap-2 md:flex-row md:gap-8">
 
             <a href="{{ route('home') }}" class="mb-2 flex flex-row items-center gap-1 text-2xl font-bold"
                title="На главную">
@@ -114,7 +121,8 @@
             <p>© 2025 Quatros</p>
 
         </div>
-        <div class="flex flex-col my-[2rem] px-4 sm:px-6 lg:px-8 justify-center items-center gap-2 md:flex-row md:gap-2 text-slate-500">
+        <div
+            class="flex flex-col my-[2rem] px-4 sm:px-6 lg:px-8 justify-center items-center gap-2 md:flex-row md:gap-2 text-slate-500">
 
             <p>ИНН 583601302278 | ОГРНИП 325580000040783</p>
 

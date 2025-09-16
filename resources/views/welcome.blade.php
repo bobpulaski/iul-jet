@@ -320,11 +320,13 @@
 
                     <ul class="flex flex-col gap-1">
                         <li>
-                            <span class="font-semibold">Экономия времени:</span> Значительное сокращение времени на подготовку и
+                            <span class="font-semibold">Экономия времени:</span> Значительное сокращение времени на
+                            подготовку и
                             составление ИУЛ за счёт автоматизации.
                         </li>
                         <li>
-                            <span class="font-semibold">Безупречная точность:</span> Исключение человеческих ошибок и опечаток при оформлении
+                            <span class="font-semibold">Безупречная точность:</span> Исключение человеческих ошибок и
+                            опечаток при оформлении
                             документов.
                         </li>
                         <li>
@@ -424,7 +426,8 @@
                     <p>
                         Регистрация в Quatros бесплатна и открывает доступ ко всем возможностям сервиса. Нам будет очень
                         приятно, если вы решите поддержать его развитие — это поможет сделать инструмент ещё лучше.
-                        Сделать это можно в одно касание в разделе <a href="{{route('thanks')}}">«Поддержать проект»</a>
+                        Сделать это можно в одно касание в разделе <a href="{{route('thanks')}}" class="text-sky-600">«Поддержать
+                            проект»</a>
                         вашего личного кабинета. Заранее большое спасибо!
                     </p>
                 </div>
@@ -459,18 +462,18 @@
             Начните прямо сейчас!
         </x-mainpage.h2>
         <x-mainpage.p-center>
-            <a href="/login" class="font-medium text-sky-700 underline">Войдите</a>
+            <a href="/login" class="font-medium text-sky-600">Войдите</a>
             или
-            <a href="/register" class="font-medium text-sky-700 underline">зарегистрируйтесь</a>.
+            <a href="/register" class="font-medium text-sky-600">зарегистрируйтесь</a>.
         </x-mainpage.p-center>
     </x-mainpage.section>
 
 
     <footer
-        class=" bg-slate-800 items-center py-16 text-center text-sm text-white dark:text-white/70">
+        class=" bg-slate-800 items-center py-8 text-center text-sm text-white dark:text-white/70">
 
         <div
-            class="flex flex-col my-[2rem] px-4 sm:px-6 lg:px-8 justify-center items-center gap-2 md:flex-row md:gap-8">
+            class="flex flex-col my-8 px-4 sm:px-6 lg:px-8 justify-center items-center gap-2 md:flex-row md:gap-8">
 
             <a href="{{ route('home') }}" class="mb-2 flex flex-row items-center gap-1 text-2xl font-bold"
                title="На главную">
@@ -494,11 +497,12 @@
 
         </div>
         <div
-            class="flex flex-col my-[2rem] px-4 sm:px-6 lg:px-8 justify-center items-center gap-2 md:flex-row md:gap-2 text-slate-500">
-
-            <p>ИНН 583601302278 | ОГРНИП 325580000040783</p>
-
+            class="flex flex-col px-4 sm:px-6 lg:px-8 justify-center items-center gap-6 text-slate-500">
+{{--            <a href="{{route('thanks')}}">Поддержать проект</a>--}}
+            <x-kso.donate-btn />
+            <p class="py-12">ИНН 583601302278 | ОГРНИП 325580000040783</p>
         </div>
+
     </footer>
 </div>
 

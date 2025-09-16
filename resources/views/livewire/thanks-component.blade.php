@@ -8,7 +8,7 @@
 
             </div>
 
-            <div class="space-y-8 grid 2xl:grid-cols-4 sm:gap-6 xl:gap-10 lg:space-y-0">
+            <div class="space-y-8 grid xl:grid-cols-4 sm:gap-6 xl:gap-10 lg:space-y-0">
                 <!-- Pricing Card -->
                 <div
                     class="flex flex-col p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border-4 border-sky-500 shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white">
@@ -96,7 +96,7 @@
                     <div class="flex flex-col justify-between">
                         <div>
                             {!! __(
-                                'Нажимая на кнопку «Поддержать» вы соглашаетесь с :Пользовательским соглашением и :Политикой конфиденциальности',
+                                'Нажимая на кнопку «Поддержать» вы соглашаетесь с :Пользовательским соглашением и :Политикой конфиденциальности.',
                                 [
                                     'Пользовательским соглашением' =>
                                         '<a href="/terms.pdf" target="_blank" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">' .
