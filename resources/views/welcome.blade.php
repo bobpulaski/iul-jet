@@ -481,6 +481,7 @@
                 <span class="text-sm text-sky-600">4</span>
             </a>
             <a href="/docs/intro/">Документация</a>
+            <a href="{{route('blog')}}">Блог</a>
             <a href="/terms.pdf" target="_blank">Пользовательское соглашение</a>
             <a href="/policy.pdf" target="_blank">Политика конфиденциальности</a>
             <a class="flex flex-row items-center gap-2" href="mailto:support@quatros.ru">

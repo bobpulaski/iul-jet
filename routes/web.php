@@ -16,7 +16,7 @@ Route::get('/blog', function () {
     $postClass = new Post;
     $posts = $postClass->getLatest(5);
     return view('blog', compact('posts'));
-});
+})->name('blog');
 
 Route::get('blog/{slug}', [ArticleController::class, 'index'])->name('article');
 

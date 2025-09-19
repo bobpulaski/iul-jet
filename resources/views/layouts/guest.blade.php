@@ -7,6 +7,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
+    <link rel="canonical" href="{{ url()->current() }}">
+    <meta name="robots" content="all"/>
+    <meta name="yandex" content="all" />
 
 
     @if (request()->routeIs('login'))
