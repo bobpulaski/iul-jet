@@ -16,11 +16,11 @@
 
     <title>Блог Quatros</title>
 
-    <meta name="description" content="Блог Quatros" />
-    <meta name="keywords" content="Блог Quatros" />
+    <meta name="description" content="Блог Quatros"/>
+    <meta name="keywords" content="Блог Quatros"/>
     <link rel="canonical" href="{{ url()->current() }}">
     <meta name="robots" content="all"/>
-    <meta name="yandex" content="all" />
+    <meta name="yandex" content="all"/>
 
 </head>
 

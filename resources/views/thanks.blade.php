@@ -6,7 +6,7 @@
     <meta name="description"
           content="На этой странице вы можете поддержать онлайн конструктор ИУЛ для оформления информационно-удостоверяющего листа для государственной и негосударственной экспертизы Quartos.">
 
-    <meta name="Keywords"
+    <meta name="keywords"
           content="конструктор иул, поддержать проект, информационно-удостоверяющий лист, создать иул, сервис иул, quatros">
     <meta name="robots" content="all"/>
 
@@ -16,7 +16,7 @@
     <link rel="canonical" href="https://quatros.ru/thanks">
 
 
-    <title>{{ config('app.name', 'Поддержать проект конструктора ИУЛ проектной документации для экспертизы Quatros') }}</title>
+    <title>Поддержать проект конструктора ИУЛ Quatros</title>
 
 
     <!-- Fonts -->
