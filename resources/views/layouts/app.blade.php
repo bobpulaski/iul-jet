@@ -15,7 +15,8 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-    {{-- <link rel="preconnect" href="https://fonts.googleapis.com">
+    {{--
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
@@ -26,6 +27,11 @@
     <!-- load all algortihms into the global `hashwasm` variable -->
     <script src="https://cdn.jsdelivr.net/npm/hash-wasm@4"></script>
     <script src="https://cdn.jsdelivr.net/npm/hash-wasm@4/dist/md5.umd.min.js"></script>
+
+    <!-- Yandex.RTB -->
+    <script>window.yaContextCb = window.yaContextCb || []</script>
+    <script src="https://yandex.ru/ads/system/context.js" async></script>
+
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     @else
@@ -61,29 +67,7 @@
 
 
 
-{{--    --}}{{-- <script>--}}
-{{--        document.addEventListener('DOMContentLoaded', () => {--}}
-{{--            const themeToggleButton = document.getElementById('theme-toggle');--}}
 
-{{--            // Установка темы при загрузке страницы--}}
-{{--            const currentTheme = localStorage.getItem('theme') || 'light';--}}
-{{--            if (currentTheme === 'dark') {--}}
-{{--                document.documentElement.classList.add('dark');--}}
-{{--            }--}}
-
-{{--            // Обработчик события для переключателя--}}
-{{--            themeToggleButton.addEventListener('click', () => {--}}
-{{--                document.documentElement.classList.toggle('dark');--}}
-
-{{--                // Сохранение текущей темы в localStorage--}}
-{{--                if (document.documentElement.classList.contains('dark')) {--}}
-{{--                    localStorage.setItem('theme', 'dark');--}}
-{{--                } else {--}}
-{{--                    localStorage.setItem('theme', 'light');--}}
-{{--                }--}}
-{{--            });--}}
-{{--        });--}}
-{{--    </script> --}}
 
 </body>
 
