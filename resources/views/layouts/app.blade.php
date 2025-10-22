@@ -58,6 +58,7 @@
         <!-- Page Content -->
         <main>
             {{ $slot }}
+            <x-yr />
         </main>
     </div>
 
